@@ -10,3 +10,4 @@ D:\Development\Work\ProjectSync\ProjectSync\obj\Debug\ProjectSync.vbproj.Generat
 D:\Development\Work\ProjectSync\ProjectSync\obj\Debug\ProjectSync.exe
 D:\Development\Work\ProjectSync\ProjectSync\obj\Debug\ProjectSync.xml
 D:\Development\Work\ProjectSync\ProjectSync\obj\Debug\ProjectSync.pdb
+D:\Development\Work\ProjectSync\ProjectSync\obj\Debug\ProjectSync.FiltersForm.resources
