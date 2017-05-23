@@ -1,9 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
-  <Filters>
-    <Filter>*.txt</Filter>
-    <Filter>*.jpg</Filter>
-  </Filters>
   <Files>
     <File fname="Test 1.txt">
       <Location>D:\Development\Work\ProjectSync\TestFiles\path 1</Location>
@@ -12,4 +8,8 @@
       <Location>D:\Development\Work\ProjectSync\TestFiles\path 1</Location>
     </File>
   </Files>
+  	<Filters>
+		<Filter>*.txt</Filter>
+		<Filter>*.jpg</Filter>
+	</Filters>
 </Root>

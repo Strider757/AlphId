@@ -29,9 +29,16 @@ Partial Class FiltersForm
         '
         'DataGridView1
         '
-        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
+        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+        Me.DataGridView1.Cursor = System.Windows.Forms.Cursors.Default
         Me.DataGridView1.Location = New System.Drawing.Point(1, 2)
+        Me.DataGridView1.MultiSelect = False
         Me.DataGridView1.Name = "DataGridView1"
+        Me.DataGridView1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
+        Me.DataGridView1.RowHeadersVisible = False
+        Me.DataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
+        Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
         Me.DataGridView1.Size = New System.Drawing.Size(206, 274)
         Me.DataGridView1.TabIndex = 0
         '
@@ -51,6 +58,7 @@ Partial Class FiltersForm
         Me.ClientSize = New System.Drawing.Size(210, 315)
         Me.Controls.Add(Me.But_save)
         Me.Controls.Add(Me.DataGridView1)
+        Me.ForeColor = System.Drawing.Color.Black
         Me.Name = "FiltersForm"
         Me.Text = "Form1"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
