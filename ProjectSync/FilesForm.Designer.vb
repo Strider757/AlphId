@@ -40,7 +40,7 @@ Partial Class FilesForm
         Me.But_add.Name = "But_add"
         Me.But_add.Size = New System.Drawing.Size(111, 28)
         Me.But_add.TabIndex = 2
-        Me.But_add.Text = "Добавить"
+        Me.But_add.Text = "Добавить..."
         Me.But_add.UseVisualStyleBackColor = True
         '
         'But_save
@@ -72,7 +72,7 @@ Partial Class FilesForm
         'DataGridView1
         '
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Location = New System.Drawing.Point(12, 12)
+        Me.DataGridView1.Location = New System.Drawing.Point(11, 12)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.Size = New System.Drawing.Size(677, 291)
         Me.DataGridView1.TabIndex = 7
@@ -83,7 +83,7 @@ Partial Class FilesForm
         Me.GroupBox1.Controls.Add(Me.ComboBox1)
         Me.GroupBox1.Location = New System.Drawing.Point(246, 309)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(208, 49)
+        Me.GroupBox1.Size = New System.Drawing.Size(227, 49)
         Me.GroupBox1.TabIndex = 8
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Фильтр"
@@ -92,9 +92,9 @@ Partial Class FilesForm
         '
         Me.but_addFilter.Location = New System.Drawing.Point(130, 17)
         Me.but_addFilter.Name = "but_addFilter"
-        Me.but_addFilter.Size = New System.Drawing.Size(68, 23)
+        Me.but_addFilter.Size = New System.Drawing.Size(91, 23)
         Me.but_addFilter.TabIndex = 6
-        Me.but_addFilter.Text = "Ред. спис."
+        Me.but_addFilter.Text = "Ред. спис..."
         Me.but_addFilter.UseVisualStyleBackColor = True
         '
         'FilesForm

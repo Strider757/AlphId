@@ -7,6 +7,7 @@ Public Class MainForm
     Public xdoc As XDocument
     Public SyncFileName As String = CurDir() & "\Config.xml"
     Public bool_configFileExist As Boolean
+    Dim bool_connection As Boolean = False
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         FilesForm.Visible = True
     End Sub
@@ -26,7 +27,7 @@ Public Class MainForm
             ComboBox1.Items.Add("Туда - Сюда")
             ComboBox1.SelectedIndex = 0
         End With
-        TextBox1.Text = "172.16.17.48"
+        TextBox1.Text = "172.16.17.197"
 
         If bool_configFileExist Then
             xdoc = XDocument.Load(SyncFileName)         'грузим в память хмл
@@ -50,13 +51,18 @@ Public Class MainForm
     Sub anal()
         On Error GoTo err1
         Dim i = 0
-        Dim bool_connection As Boolean = False
+
         DataGridView1.Rows.Clear()
         If My.Computer.Network.Ping(TextBox1.Text) Then
-            Label2.Text = "ЕСТЬ СВЯЗЬ"
-            Label2.ForeColor = System.Drawing.Color.Green
+            TextBox1.BackColor = System.Drawing.Color.Green
+
             bool_connection = True
+        Else
+            TextBox1.BackColor = System.Drawing.Color.Red
+            ToolStripStatusLabel1.Text = "Нет связи"
         End If
+
+
 
         For Each fObj In fileCollect
             DataGridView1.Rows.Add()
@@ -77,21 +83,31 @@ Public Class MainForm
             End If
             i = i + 1
         Next
-
-
         Exit Sub
 err1:
-        If Err.Number = 57 Then MsgBox("Кажись удаленный узел не доступен. Err.Number: " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
-        If Err.Number = 57 And bool_connection = True Then MsgBox("Связь есть, но надо залогинится. Для этого зайди на удаленную машину Err.Number: " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
-        If Err.Number = 5 Then MsgBox("Кажись кривой айпишник. Err.Number: " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
+        If Err.Number = 5 Then
+            MsgBox("Err.Number: " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
+            bool_connection = False
+        ElseIf Err.Number = 57 And bool_connection = False Then
+            MsgBox("Кажись удаленный узел не доступен. Err.Number: " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
+        ElseIf Err.Number = 57 And bool_connection = True Then
+            MsgBox("Связь есть, но надо залогинится. Для этого зайди на удаленную машину Err.Number: " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
+            bool_connection = False
+            ToolStripStatusLabel1.Text = "Не выполенен вход"
+            Resume Next
+        Else
+            MsgBox("Err.Number: " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
+        End If
     End Sub
 
     Private Sub but_Anal_Click(sender As Object, e As EventArgs) Handles but_Anal.Click
         anal()
+        If bool_connection = True Then but_sync.Enabled = True
     End Sub
 
 
     Private Sub but_sync_Click(sender As Object, e As EventArgs) Handles but_sync.Click
+        If MsgBox("Выполнить синхронизацию?", vbOKCancel Or vbQuestion, "Вопрос") = MsgBoxResult.Cancel Then Exit Sub
         For Each dataElem As DataGridViewRow In DataGridView1.Rows 'dataElem.Cells(0).Value
             If ComboBox1.SelectedIndex = 0 Then ' туда
                 If dataElem.Cells(2).Value > dataElem.Cells(3).Value Then
@@ -117,4 +133,8 @@ err1:
 
 
 
+    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
+        Dim bool_connection As Boolean = False
+        but_sync.Enabled = False
+    End Sub
 End Class
