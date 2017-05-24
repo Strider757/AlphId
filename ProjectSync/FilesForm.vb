@@ -1,4 +1,7 @@
-﻿Public Class FilesForm
+﻿Imports System.IO
+Imports System.Text
+
+Public Class FilesForm
 
 
     Private Sub FilesForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -13,6 +16,7 @@
         With OpenFileDialog1
             .Multiselect = True
             .Title = "Окно выбора файлов"
+
             '.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*"
         End With
 
@@ -35,8 +39,13 @@ err1:
     Public Function xmlLoad() As Boolean 'загружаем хмл со списком файлов. И сохраняем его  При удачной загрузке возвращает true
         On Error GoTo err1
         Dim i As Integer = 0
-
         MainForm.fileCollect.Clear()
+
+        If MainForm.xdoc.Element("Root").Element("Files") Is Nothing Then
+            xmlLoad = False
+            Exit Function
+        End If
+
         For Each xe As XElement In MainForm.xdoc.Element("Root").Element("Files").Elements("File")
             MainForm.fileCollect.Add(New FileObj)
             MainForm.fileCollect.Item(i).Name = xe.Attribute("fname").Value
@@ -109,7 +118,14 @@ err1:
     End Sub
 
     Private Sub But_save_Click(sender As Object, e As EventArgs) Handles But_save.Click ' сохраняем и еще раз загружаем в коллекцию список файлов
-        MainForm.xdoc.Element("Root").Element("Files").Remove()
+        If Not MainForm.bool_configFileExist Then
+            Dim fs As FileStream = File.Create(MainForm.SyncFileName)
+            Dim info As Byte() = New UTF8Encoding(True).GetBytes("<?xml version=""1.0"" encoding=""utf-8""?>" & Chr(13) & "<Root>" & Chr(13) & "</Root>")
+            fs.Write(info, 0, info.Length)
+            fs.Close()
+            MainForm.xdoc = XDocument.Load(MainForm.SyncFileName)
+        End If
+        If Not MainForm.xdoc.Element("Root").Element("Files") Is Nothing Then MainForm.xdoc.Element("Root").Element("Files").Remove()
         Dim xmlTree1 As XElement = _
             <Files>
             </Files>

@@ -36,4 +36,6 @@ err1:
         Call FilesForm.addToCoBox()
         'Dim xe As XElement = xdoc.Element("Root").Element("Filters")
     End Sub
+
+
 End Class

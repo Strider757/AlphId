@@ -52,10 +52,6 @@ Partial Class FilesForm
         Me.But_save.Text = "Сохранить"
         Me.But_save.UseVisualStyleBackColor = True
         '
-        'OpenFileDialog1
-        '
-        Me.OpenFileDialog1.FileName = "OpenFileDialog1"
-        '
         'ComboBox1
         '
         Me.ComboBox1.FormattingEnabled = True
