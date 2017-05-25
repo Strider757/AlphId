@@ -14,20 +14,21 @@ Public Class MainForm
 
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         bool_configFileExist = File.Exists(SyncFileName)
+        ToolStripStatusLabel1.Text = " "
         With DataGridView1
-            .Columns.Add("name", "name")
-            .Columns.Add("directory", "directory")
-            .Columns.Add("local", "local")
-            .Columns.Add("remote", "remote")
+            .Columns.Add("name", "Имя")
+            .Columns.Add("local", "Местный")
+            .Columns.Add("remote", "Удалённый")
+            .Columns.Add("directory", "Расположение")
+            .Columns(0).Width = 153
+            .Columns(1).Width = 110
+            .Columns(2).Width = 110
+            .Columns(3).Width = 318
         End With
 
-        With ComboBox1
-            ComboBox1.Items.Add("Туда")
-            ComboBox1.Items.Add("Сюда")
-            ComboBox1.Items.Add("Туда - Сюда")
-            ComboBox1.SelectedIndex = 0
-        End With
-        TextBox1.Text = "172.16.17.197"
+        RadioButton1.Checked = True
+
+
 
         If bool_configFileExist Then
             xdoc = XDocument.Load(SyncFileName)         'грузим в память хмл
@@ -36,7 +37,7 @@ Public Class MainForm
             ToolStripStatusLabel1.Text = "Внимание! Конфигурационный файл не найден!"
             ToolStripStatusLabel1.ForeColor = System.Drawing.Color.Red
         End If
-
+        TextBox1.Text = xdoc.Element("Root").Element("IP").Value
     End Sub
     Public Function FullFileName(ByVal path As String, ByVal name As String) As String
         FullFileName = path & "\" & name
@@ -67,22 +68,24 @@ Public Class MainForm
         For Each fObj In fileCollect
             DataGridView1.Rows.Add()
             DataGridView1.Rows.Item(i).Cells(0).Value = fObj.Name
-            DataGridView1.Rows.Item(i).Cells(1).Value = fObj.Location
-            DataGridView1.Rows.Item(i).Cells(2).Value = Replace(IO.File.GetLastWriteTime(FullFileName(fObj.location, fObj.name)), "01.01.1601 3:00:00", " ")
-            If bool_connection = True Then DataGridView1.Rows.Item(i).Cells(3).Value = Replace(IO.File.GetLastWriteTime(FullFileName(convertFilePathToRemote(fObj.location), fObj.name)), "01.01.1601 3:00:00", " ")
+            DataGridView1.Rows.Item(i).Cells(3).Value = fObj.Location
+            DataGridView1.Rows.Item(i).Cells(1).Value = Replace(IO.File.GetLastWriteTime(FullFileName(fObj.location, fObj.name)), "01.01.1601 3:00:00", " ")
+            If bool_connection = True Then DataGridView1.Rows.Item(i).Cells(2).Value = Replace(IO.File.GetLastWriteTime(FullFileName(convertFilePathToRemote(fObj.location), fObj.name)), "01.01.1601 3:00:00", " ")
 
-            If DataGridView1.Rows.Item(i).Cells(2).Value > DataGridView1.Rows.Item(i).Cells(3).Value Or bool_connection = False Then
-                DataGridView1.Rows.Item(i).Cells(2).Style.ForeColor = System.Drawing.Color.Green
-                DataGridView1.Rows.Item(i).Cells(3).Style.ForeColor = System.Drawing.Color.Red
-            ElseIf DataGridView1.Rows.Item(i).Cells(2).Value = DataGridView1.Rows.Item(i).Cells(3).Value Then
-                DataGridView1.Rows.Item(i).Cells(2).Style.ForeColor = System.Drawing.Color.Black
-                DataGridView1.Rows.Item(i).Cells(3).Style.ForeColor = System.Drawing.Color.Black
-            Else
-                DataGridView1.Rows.Item(i).Cells(3).Style.ForeColor = System.Drawing.Color.Green
+            If DataGridView1.Rows.Item(i).Cells(1).Value > DataGridView1.Rows.Item(i).Cells(2).Value Or bool_connection = False Then
+                DataGridView1.Rows.Item(i).Cells(1).Style.ForeColor = System.Drawing.Color.Green
                 DataGridView1.Rows.Item(i).Cells(2).Style.ForeColor = System.Drawing.Color.Red
+            ElseIf DataGridView1.Rows.Item(i).Cells(1).Value = DataGridView1.Rows.Item(i).Cells(2).Value Then
+                DataGridView1.Rows.Item(i).Cells(1).Style.ForeColor = System.Drawing.Color.Black
+                DataGridView1.Rows.Item(i).Cells(2).Style.ForeColor = System.Drawing.Color.Black
+            Else
+                DataGridView1.Rows.Item(i).Cells(2).Style.ForeColor = System.Drawing.Color.Green
+                DataGridView1.Rows.Item(i).Cells(1).Style.ForeColor = System.Drawing.Color.Red
             End If
             i = i + 1
         Next
+        'xdoc.Element("Root").Elements("IP").Value = TextBox1.Text
+        'xdoc.Save(SyncFileName)
         Exit Sub
 err1:
         If Err.Number = 5 Then
@@ -109,15 +112,16 @@ err1:
     Private Sub but_sync_Click(sender As Object, e As EventArgs) Handles but_sync.Click
         If MsgBox("Выполнить синхронизацию?", vbOKCancel Or vbQuestion, "Вопрос") = MsgBoxResult.Cancel Then Exit Sub
         For Each dataElem As DataGridViewRow In DataGridView1.Rows 'dataElem.Cells(0).Value
-            If ComboBox1.SelectedIndex = 0 Then ' туда
+
+            If RadioButton1.Checked Then ' туда
                 If dataElem.Cells(2).Value > dataElem.Cells(3).Value Then
                     IO.File.Copy(FullFileName(dataElem.Cells(1).Value, dataElem.Cells(0).Value), FullFileName(convertFilePathToRemote(dataElem.Cells(1).Value), dataElem.Cells(0).Value), True)
                 End If
-            ElseIf ComboBox1.SelectedIndex = 1 Then ' cюда
+            ElseIf RadioButton2.Checked Then ' cюда
                 If dataElem.Cells(3).Value > dataElem.Cells(2).Value Then
                     IO.File.Copy(FullFileName(convertFilePathToRemote(dataElem.Cells(1).Value), dataElem.Cells(0).Value), FullFileName(dataElem.Cells(1).Value, dataElem.Cells(0).Value), True)
                 End If
-            ElseIf ComboBox1.SelectedIndex = 2 Then ' туда - сюда
+            ElseIf RadioButton3.Checked Then ' туда - сюда
                 If dataElem.Cells(2).Value > dataElem.Cells(3).Value Then
                     IO.File.Copy(FullFileName(dataElem.Cells(1).Value, dataElem.Cells(0).Value), FullFileName(convertFilePathToRemote(dataElem.Cells(1).Value), dataElem.Cells(0).Value), True)
                 End If
@@ -127,14 +131,14 @@ err1:
             End If
         Next
         anal()
+
         MsgBox("Синхронизация выполнена!", vbOKOnly)
 
     End Sub
-
-
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
         Dim bool_connection As Boolean = False
         but_sync.Enabled = False
     End Sub
+
 End Class

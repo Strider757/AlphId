@@ -30,6 +30,7 @@ Partial Class FilesForm
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.but_addFilter = New System.Windows.Forms.Button()
+        Me.Button1 = New System.Windows.Forms.Button()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
@@ -71,6 +72,8 @@ Partial Class FilesForm
         '
         'DataGridView1
         '
+        Me.DataGridView1.AllowUserToAddRows = False
+        Me.DataGridView1.AllowUserToResizeRows = False
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.Location = New System.Drawing.Point(11, 12)
         Me.DataGridView1.Name = "DataGridView1"
@@ -97,16 +100,29 @@ Partial Class FilesForm
         Me.but_addFilter.Text = "Ред. спис..."
         Me.but_addFilter.UseVisualStyleBackColor = True
         '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(505, 323)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(67, 28)
+        Me.Button1.TabIndex = 9
+        Me.Button1.Text = "Button1"
+        Me.Button1.UseVisualStyleBackColor = True
+        Me.Button1.Visible = False
+        '
         'FilesForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(701, 370)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.DataGridView1)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.But_save)
         Me.Controls.Add(Me.But_add)
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "FilesForm"
         Me.Text = "FilesForm"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -123,4 +139,5 @@ Partial Class FilesForm
     Friend WithEvents DataGridView1 As System.Windows.Forms.DataGridView
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents but_addFilter As System.Windows.Forms.Button
+    Friend WithEvents Button1 As System.Windows.Forms.Button
 End Class

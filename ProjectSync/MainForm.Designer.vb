@@ -27,7 +27,6 @@ Partial Class MainForm
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.but_Anal = New System.Windows.Forms.Button()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.but_sync = New System.Windows.Forms.Button()
@@ -35,7 +34,6 @@ Partial Class MainForm
         Me.RadioButton2 = New System.Windows.Forms.RadioButton()
         Me.RadioButton3 = New System.Windows.Forms.RadioButton()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -61,16 +59,25 @@ Partial Class MainForm
         '
         'TextBox1
         '
-        Me.TextBox1.Location = New System.Drawing.Point(263, 22)
+        Me.TextBox1.Location = New System.Drawing.Point(266, 22)
         Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(131, 20)
+        Me.TextBox1.Size = New System.Drawing.Size(90, 20)
         Me.TextBox1.TabIndex = 3
+        Me.TextBox1.Text = "192.168.209.17"
         '
         'DataGridView1
         '
-        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DataGridView1.AllowUserToAddRows = False
+        Me.DataGridView1.AllowUserToDeleteRows = False
+        Me.DataGridView1.AllowUserToResizeRows = False
+        Me.DataGridView1.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.DataGridView1.Location = New System.Drawing.Point(12, 101)
+        Me.DataGridView1.MultiSelect = False
         Me.DataGridView1.Name = "DataGridView1"
+        Me.DataGridView1.ReadOnly = True
+        Me.DataGridView1.RowHeadersVisible = False
+        Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.DataGridView1.ShowEditingIcon = False
         Me.DataGridView1.Size = New System.Drawing.Size(711, 312)
         Me.DataGridView1.TabIndex = 4
         '
@@ -82,15 +89,6 @@ Partial Class MainForm
         Me.but_Anal.TabIndex = 5
         Me.but_Anal.Text = "Анализ"
         Me.but_Anal.UseVisualStyleBackColor = True
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(263, 45)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(38, 13)
-        Me.Label2.TabIndex = 6
-        Me.Label2.Text = "Связь"
         '
         'StatusStrip1
         '
@@ -162,29 +160,21 @@ Partial Class MainForm
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Способ:"
         '
-        'ComboBox1
-        '
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Location = New System.Drawing.Point(415, 21)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(112, 21)
-        Me.ComboBox1.TabIndex = 15
-        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(735, 442)
-        Me.Controls.Add(Me.ComboBox1)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.but_sync)
         Me.Controls.Add(Me.StatusStrip1)
-        Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.but_Anal)
         Me.Controls.Add(Me.DataGridView1)
         Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.Label1)
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "MainForm"
         Me.Text = "MainForm"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -202,7 +192,6 @@ Partial Class MainForm
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents DataGridView1 As System.Windows.Forms.DataGridView
     Friend WithEvents but_Anal As System.Windows.Forms.Button
-    Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
     Friend WithEvents ToolStripStatusLabel1 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents but_sync As System.Windows.Forms.Button
@@ -210,5 +199,4 @@ Partial Class MainForm
     Friend WithEvents RadioButton2 As System.Windows.Forms.RadioButton
     Friend WithEvents RadioButton3 As System.Windows.Forms.RadioButton
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
-    Friend WithEvents ComboBox1 As System.Windows.Forms.ComboBox
 End Class

@@ -1,7 +1,8 @@
 ﻿Public Class FiltersForm
     Private Sub FiltersForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         On Error GoTo err1
-        DataGridView1.Columns.Add("name", "name")
+        DataGridView1.Columns.Add("name", "Наименование фильтра")
+        DataGridView1.Columns(0).Width = 203
         Dim i As Integer = 0
         DataGridView1.Rows.Clear()
         For Each xe As XElement In MainForm.xdoc.Element("Root").Element("Filters").Elements("Filter")
@@ -35,7 +36,15 @@ err1:
         MainForm.xdoc.Save(MainForm.SyncFileName)
         Call FilesForm.addToCoBox()
         'Dim xe As XElement = xdoc.Element("Root").Element("Filters")
+        MsgBox("Список фильтров сохранён!", vbOKOnly, "Фильтры")
     End Sub
 
 
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        DataGridView1.Rows.RemoveAt(DataGridView1.CurrentCell.RowIndex)
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        DataGridView1.Rows.Clear()
+    End Sub
 End Class
