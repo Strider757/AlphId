@@ -3,10 +3,10 @@ D:\Development\Work\ProjectSync\ProjectSync\bin\Debug\ProjectSync.exe
 D:\Development\Work\ProjectSync\ProjectSync\bin\Debug\ProjectSync.pdb
 D:\Development\Work\ProjectSync\ProjectSync\bin\Debug\ProjectSync.xml
 D:\Development\Work\ProjectSync\ProjectSync\obj\Debug\ProjectSync.MainForm.resources
-D:\Development\Work\ProjectSync\ProjectSync\obj\Debug\ProjectSync.FilesForm.resources
 D:\Development\Work\ProjectSync\ProjectSync\obj\Debug\ProjectSync.Resources.resources
 D:\Development\Work\ProjectSync\ProjectSync\obj\Debug\ProjectSync.vbproj.GenerateResource.Cache
 D:\Development\Work\ProjectSync\ProjectSync\obj\Debug\ProjectSync.exe
 D:\Development\Work\ProjectSync\ProjectSync\obj\Debug\ProjectSync.xml
 D:\Development\Work\ProjectSync\ProjectSync\obj\Debug\ProjectSync.pdb
 D:\Development\Work\ProjectSync\ProjectSync\obj\Debug\ProjectSync.FiltersForm.resources
+D:\Development\Work\ProjectSync\ProjectSync\obj\Debug\ProjectSync.SyncSetForm.resources

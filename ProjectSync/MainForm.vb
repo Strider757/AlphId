@@ -8,31 +8,45 @@ Public Class MainForm
     Public SyncFileName As String = CurDir() & "\Config.xml"
     Public bool_configFileExist As Boolean
     Dim bool_connection As Boolean = False
+
+    Dim cn_chk As Integer = 0
+    Dim cn_nm As Integer = 1
+    Dim cn_loc As Integer = 2
+    Dim cn_rem As Integer = 3
+    Dim cn_der As Integer = 4
+
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        FilesForm.Visible = True
+        SyncSetForm.Visible = True
     End Sub
 
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         bool_configFileExist = File.Exists(SyncFileName)
         ToolStripStatusLabel1.Text = " "
+        Dim chk As New DataGridViewCheckBoxColumn()
+
         With DataGridView1
+            .Columns.Add(chk)
             .Columns.Add("name", "Имя")
             .Columns.Add("local", "Местный")
             .Columns.Add("remote", "Удалённый")
             .Columns.Add("directory", "Расположение")
-            .Columns(0).Width = 153
-            .Columns(1).Width = 110
+            .Columns(0).Width = 21
+            .Columns(0).ReadOnly = False
+            .Columns(1).Width = 150
+            .Columns(1).ReadOnly = True
             .Columns(2).Width = 110
-            .Columns(3).Width = 318
+            .Columns(2).ReadOnly = True
+            .Columns(3).Width = 110
+            .Columns(3).ReadOnly = True
+            .Columns(4).Width = 300
+            .Columns(4).ReadOnly = True
         End With
 
         RadioButton1.Checked = True
-
-
-
+        ToolStripProgressBar1.Visible = False
         If bool_configFileExist Then
             xdoc = XDocument.Load(SyncFileName)         'грузим в память хмл
-            Call FilesForm.xmlLoad()         'запихиваем список файлов из хмл в колекцию
+            Call SyncSetForm.xmlLoad()         'запихиваем список файлов из хмл в колекцию
         Else
             ToolStripStatusLabel1.Text = "Внимание! Конфигурационный файл не найден!"
             ToolStripStatusLabel1.ForeColor = System.Drawing.Color.Red
@@ -67,30 +81,38 @@ Public Class MainForm
 
         For Each fObj In fileCollect
             DataGridView1.Rows.Add()
-            DataGridView1.Rows.Item(i).Cells(0).Value = fObj.Name
-            DataGridView1.Rows.Item(i).Cells(3).Value = fObj.Location
-            DataGridView1.Rows.Item(i).Cells(1).Value = Replace(IO.File.GetLastWriteTime(FullFileName(fObj.location, fObj.name)), "01.01.1601 3:00:00", " ")
-            If bool_connection = True Then DataGridView1.Rows.Item(i).Cells(2).Value = Replace(IO.File.GetLastWriteTime(FullFileName(convertFilePathToRemote(fObj.location), fObj.name)), "01.01.1601 3:00:00", " ")
+            DataGridView1.Rows.Item(i).Cells(cn_nm).Value = fObj.Name
+            DataGridView1.Rows.Item(i).Cells(cn_der).Value = fObj.Location
+            DataGridView1.Rows.Item(i).Cells(cn_loc).Value = Replace(IO.File.GetLastWriteTime(FullFileName(fObj.location, fObj.name)), "01.01.1601 3:00:00", " ")
+            If bool_connection = True Then DataGridView1.Rows.Item(i).Cells(cn_rem).Value = Replace(IO.File.GetLastWriteTime(FullFileName(convertFilePathToRemote(fObj.location), fObj.name)), "01.01.1601 3:00:00", " ")
 
-            If DataGridView1.Rows.Item(i).Cells(1).Value > DataGridView1.Rows.Item(i).Cells(2).Value Or bool_connection = False Then
-                DataGridView1.Rows.Item(i).Cells(1).Style.ForeColor = System.Drawing.Color.Green
-                DataGridView1.Rows.Item(i).Cells(2).Style.ForeColor = System.Drawing.Color.Red
-            ElseIf DataGridView1.Rows.Item(i).Cells(1).Value = DataGridView1.Rows.Item(i).Cells(2).Value Then
-                DataGridView1.Rows.Item(i).Cells(1).Style.ForeColor = System.Drawing.Color.Black
-                DataGridView1.Rows.Item(i).Cells(2).Style.ForeColor = System.Drawing.Color.Black
-            Else
-                DataGridView1.Rows.Item(i).Cells(2).Style.ForeColor = System.Drawing.Color.Green
-                DataGridView1.Rows.Item(i).Cells(1).Style.ForeColor = System.Drawing.Color.Red
+            If DataGridView1.Rows.Item(i).Cells(cn_loc).Value > DataGridView1.Rows.Item(i).Cells(cn_rem).Value Or bool_connection = False Then 'если новый файл на локальном компе
+                DataGridView1.Rows.Item(i).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Green
+                DataGridView1.Rows.Item(i).Cells(cn_rem).Style.ForeColor = System.Drawing.Color.Red
+            ElseIf DataGridView1.Rows.Item(i).Cells(cn_loc).Value = DataGridView1.Rows.Item(i).Cells(cn_rem).Value Then 'если новый файлы одинаковые
+                DataGridView1.Rows.Item(i).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
+                DataGridView1.Rows.Item(i).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
+            Else 'если новый файл на удаленном компе
+                DataGridView1.Rows.Item(i).Cells(cn_rem).Style.ForeColor = System.Drawing.Color.Green
+                DataGridView1.Rows.Item(i).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Red
             End If
+            DataGridView1.Rows.Item(i).Cells(cn_chk).Value = True
             i = i + 1
         Next
-        'xdoc.Element("Root").Elements("IP").Value = TextBox1.Text
-        'xdoc.Save(SyncFileName)
+
+        If TextBox1.Text <> xdoc.Element("Root").Elements("IP").Value Then ' перезаписываем ip
+            Console.WriteLine(xdoc.Element("Root").Elements("IP").Value)
+            xdoc.Element("Root").Elements("IP").Value = TextBox1.Text
+            xdoc.Save(SyncFileName)
+        End If
+
         Exit Sub
 err1:
         If Err.Number = 5 Then
             MsgBox("Err.Number: " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
             bool_connection = False
+            ToolStripStatusLabel1.Text = "Нет доступа"
+            Resume Next
         ElseIf Err.Number = 57 And bool_connection = False Then
             MsgBox("Кажись удаленный узел не доступен. Err.Number: " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
         ElseIf Err.Number = 57 And bool_connection = True Then
@@ -110,29 +132,44 @@ err1:
 
 
     Private Sub but_sync_Click(sender As Object, e As EventArgs) Handles but_sync.Click
+        Dim err_check As Boolean = False
+        On Error GoTo err1
         If MsgBox("Выполнить синхронизацию?", vbOKCancel Or vbQuestion, "Вопрос") = MsgBoxResult.Cancel Then Exit Sub
+        ToolStripProgressBar1.Maximum = DataGridView1.Rows.Count
+        ToolStripProgressBar1.Visible = True
         For Each dataElem As DataGridViewRow In DataGridView1.Rows 'dataElem.Cells(0).Value
 
-            If RadioButton1.Checked Then ' туда
-                If dataElem.Cells(2).Value > dataElem.Cells(3).Value Then
-                    IO.File.Copy(FullFileName(dataElem.Cells(1).Value, dataElem.Cells(0).Value), FullFileName(convertFilePathToRemote(dataElem.Cells(1).Value), dataElem.Cells(0).Value), True)
+            If RadioButton1.Checked And dataElem.Cells(cn_chk).Value = True Then ' туда
+                If dataElem.Cells(cn_loc).Value > dataElem.Cells(cn_rem).Value Then
+                    IO.File.Copy(FullFileName(dataElem.Cells(cn_der).Value, dataElem.Cells(cn_nm).Value), FullFileName(convertFilePathToRemote(dataElem.Cells(cn_der).Value), dataElem.Cells(cn_nm).Value), True)
                 End If
-            ElseIf RadioButton2.Checked Then ' cюда
-                If dataElem.Cells(3).Value > dataElem.Cells(2).Value Then
-                    IO.File.Copy(FullFileName(convertFilePathToRemote(dataElem.Cells(1).Value), dataElem.Cells(0).Value), FullFileName(dataElem.Cells(1).Value, dataElem.Cells(0).Value), True)
+            ElseIf RadioButton2.Checked And dataElem.Cells(cn_chk).Value = True Then ' cюда
+                If dataElem.Cells(cn_rem).Value > dataElem.Cells(cn_loc).Value Then
+                    IO.File.Copy(FullFileName(convertFilePathToRemote(dataElem.Cells(cn_der).Value), dataElem.Cells(cn_nm).Value), FullFileName(dataElem.Cells(cn_der).Value, dataElem.Cells(cn_nm).Value), True)
                 End If
-            ElseIf RadioButton3.Checked Then ' туда - сюда
-                If dataElem.Cells(2).Value > dataElem.Cells(3).Value Then
-                    IO.File.Copy(FullFileName(dataElem.Cells(1).Value, dataElem.Cells(0).Value), FullFileName(convertFilePathToRemote(dataElem.Cells(1).Value), dataElem.Cells(0).Value), True)
+            ElseIf RadioButton3.Checked And dataElem.Cells(cn_chk).Value = True Then ' туда - сюдаss
+                If dataElem.Cells(cn_loc).Value > dataElem.Cells(cn_rem).Value Then
+                    IO.File.Copy(FullFileName(dataElem.Cells(cn_der).Value, dataElem.Cells(cn_nm).Value), FullFileName(convertFilePathToRemote(dataElem.Cells(cn_der).Value), dataElem.Cells(cn_nm).Value), True)
                 End If
-                If dataElem.Cells(3).Value > dataElem.Cells(2).Value Then
-                    IO.File.Copy(FullFileName(convertFilePathToRemote(dataElem.Cells(1).Value), dataElem.Cells(0).Value), FullFileName(dataElem.Cells(1).Value, dataElem.Cells(0).Value), True)
+                If dataElem.Cells(cn_rem).Value > dataElem.Cells(cn_loc).Value Then
+                    IO.File.Copy(FullFileName(convertFilePathToRemote(dataElem.Cells(cn_der).Value), dataElem.Cells(cn_nm).Value), FullFileName(dataElem.Cells(cn_der).Value, dataElem.Cells(cn_nm).Value), True)
                 End If
             End If
+            ToolStripProgressBar1.Value = ToolStripProgressBar1.Value + 1
         Next
         anal()
 
         MsgBox("Синхронизация выполнена!", vbOKOnly)
+        ToolStripProgressBar1.Visible = False
+        ToolStripProgressBar1.Value = 0
+        ToolStripProgressBar1.Maximum = 0
+err1:
+        If Err.Number = 76 And err_check = False Then
+            MsgBox("Err.Number: " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
+            err_check = True
+            ToolStripStatusLabel1.Text = "Не удалось найти часть пути"
+        End If
+        Resume Next
 
     End Sub
 
@@ -141,4 +178,15 @@ err1:
         but_sync.Enabled = False
     End Sub
 
+    Private Sub But_selAll_Click(sender As Object, e As EventArgs) Handles But_selAll.Click
+        For Each dataElem As DataGridViewRow In DataGridView1.Rows
+            dataElem.Cells(cn_chk).Value = True
+        Next
+    End Sub
+
+    Private Sub But_UnSel_Click(sender As Object, e As EventArgs) Handles But_UnSel.Click
+        For Each dataElem As DataGridViewRow In DataGridView1.Rows
+            dataElem.Cells(cn_chk).Value = False
+        Next
+    End Sub
 End Class

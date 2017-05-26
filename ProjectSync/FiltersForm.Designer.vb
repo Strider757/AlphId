@@ -26,6 +26,8 @@ Partial Class FiltersForm
         Me.But_save = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
+        Me.Button3 = New System.Windows.Forms.Button()
+        Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -49,11 +51,11 @@ Partial Class FiltersForm
         '
         'But_save
         '
-        Me.But_save.Location = New System.Drawing.Point(1, 282)
+        Me.But_save.Location = New System.Drawing.Point(1, 314)
         Me.But_save.Name = "But_save"
-        Me.But_save.Size = New System.Drawing.Size(65, 30)
+        Me.But_save.Size = New System.Drawing.Size(206, 30)
         Me.But_save.TabIndex = 1
-        Me.But_save.Text = "Сохр."
+        Me.But_save.Text = "Сохранить"
         Me.But_save.UseVisualStyleBackColor = True
         '
         'Button1
@@ -74,11 +76,25 @@ Partial Class FiltersForm
         Me.Button2.Text = "Очист."
         Me.Button2.UseVisualStyleBackColor = True
         '
+        'Button3
+        '
+        Me.Button3.Location = New System.Drawing.Point(1, 282)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(65, 30)
+        Me.Button3.TabIndex = 4
+        Me.Button3.Text = "Добав."
+        Me.Button3.UseVisualStyleBackColor = True
+        '
+        'OpenFileDialog1
+        '
+        Me.OpenFileDialog1.FileName = "OpenFileDialog1"
+        '
         'FiltersForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(210, 315)
+        Me.ClientSize = New System.Drawing.Size(210, 347)
+        Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.But_save)
@@ -98,4 +114,6 @@ Partial Class FiltersForm
     Friend WithEvents DataGridView1 As System.Windows.Forms.DataGridView
     Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents Button2 As System.Windows.Forms.Button
+    Friend WithEvents Button3 As System.Windows.Forms.Button
+    Friend WithEvents OpenFileDialog1 As System.Windows.Forms.OpenFileDialog
 End Class

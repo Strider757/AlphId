@@ -34,6 +34,9 @@ Partial Class MainForm
         Me.RadioButton2 = New System.Windows.Forms.RadioButton()
         Me.RadioButton3 = New System.Windows.Forms.RadioButton()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.But_selAll = New System.Windows.Forms.Button()
+        Me.But_UnSel = New System.Windows.Forms.Button()
+        Me.ToolStripProgressBar1 = New System.Windows.Forms.ToolStripProgressBar()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -42,7 +45,7 @@ Partial Class MainForm
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(263, 6)
+        Me.Label1.Location = New System.Drawing.Point(260, 6)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(109, 13)
         Me.Label1.TabIndex = 0
@@ -50,16 +53,16 @@ Partial Class MainForm
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(263, 69)
+        Me.Button1.Location = New System.Drawing.Point(263, 46)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(131, 26)
+        Me.Button1.Size = New System.Drawing.Size(168, 26)
         Me.Button1.TabIndex = 2
-        Me.Button1.Text = "Список файлов..."
+        Me.Button1.Text = "Настройка синхронизации..."
         Me.Button1.UseVisualStyleBackColor = True
         '
         'TextBox1
         '
-        Me.TextBox1.Location = New System.Drawing.Point(266, 22)
+        Me.TextBox1.Location = New System.Drawing.Point(263, 20)
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(90, 20)
         Me.TextBox1.TabIndex = 3
@@ -71,19 +74,18 @@ Partial Class MainForm
         Me.DataGridView1.AllowUserToDeleteRows = False
         Me.DataGridView1.AllowUserToResizeRows = False
         Me.DataGridView1.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.DataGridView1.Location = New System.Drawing.Point(12, 101)
+        Me.DataGridView1.Location = New System.Drawing.Point(12, 105)
         Me.DataGridView1.MultiSelect = False
         Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.ReadOnly = True
         Me.DataGridView1.RowHeadersVisible = False
         Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DataGridView1.ShowEditingIcon = False
-        Me.DataGridView1.Size = New System.Drawing.Size(711, 312)
+        Me.DataGridView1.Size = New System.Drawing.Size(711, 308)
         Me.DataGridView1.TabIndex = 4
         '
         'but_Anal
         '
-        Me.but_Anal.Location = New System.Drawing.Point(12, 12)
+        Me.but_Anal.Location = New System.Drawing.Point(12, 10)
         Me.but_Anal.Name = "but_Anal"
         Me.but_Anal.Size = New System.Drawing.Size(141, 38)
         Me.but_Anal.TabIndex = 5
@@ -92,7 +94,7 @@ Partial Class MainForm
         '
         'StatusStrip1
         '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1})
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripProgressBar1, Me.ToolStripStatusLabel1})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 420)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Size = New System.Drawing.Size(735, 22)
@@ -108,7 +110,7 @@ Partial Class MainForm
         'but_sync
         '
         Me.but_sync.Enabled = False
-        Me.but_sync.Location = New System.Drawing.Point(12, 57)
+        Me.but_sync.Location = New System.Drawing.Point(12, 61)
         Me.but_sync.Name = "but_sync"
         Me.but_sync.Size = New System.Drawing.Size(141, 38)
         Me.but_sync.TabIndex = 10
@@ -158,13 +160,38 @@ Partial Class MainForm
         Me.GroupBox1.Size = New System.Drawing.Size(98, 88)
         Me.GroupBox1.TabIndex = 14
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Способ:"
+        Me.GroupBox1.Text = "Куда?"
+        '
+        'But_selAll
+        '
+        Me.But_selAll.Location = New System.Drawing.Point(263, 75)
+        Me.But_selAll.Name = "But_selAll"
+        Me.But_selAll.Size = New System.Drawing.Size(81, 24)
+        Me.But_selAll.TabIndex = 15
+        Me.But_selAll.Text = "Выбрать всё"
+        Me.But_selAll.UseVisualStyleBackColor = True
+        '
+        'But_UnSel
+        '
+        Me.But_UnSel.Location = New System.Drawing.Point(350, 75)
+        Me.But_UnSel.Name = "But_UnSel"
+        Me.But_UnSel.Size = New System.Drawing.Size(81, 24)
+        Me.But_UnSel.TabIndex = 16
+        Me.But_UnSel.Text = "Снять выбор"
+        Me.But_UnSel.UseVisualStyleBackColor = True
+        '
+        'ToolStripProgressBar1
+        '
+        Me.ToolStripProgressBar1.Name = "ToolStripProgressBar1"
+        Me.ToolStripProgressBar1.Size = New System.Drawing.Size(100, 16)
         '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(735, 442)
+        Me.Controls.Add(Me.But_UnSel)
+        Me.Controls.Add(Me.But_selAll)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.but_sync)
         Me.Controls.Add(Me.StatusStrip1)
@@ -199,4 +226,7 @@ Partial Class MainForm
     Friend WithEvents RadioButton2 As System.Windows.Forms.RadioButton
     Friend WithEvents RadioButton3 As System.Windows.Forms.RadioButton
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
+    Friend WithEvents But_selAll As System.Windows.Forms.Button
+    Friend WithEvents But_UnSel As System.Windows.Forms.Button
+    Friend WithEvents ToolStripProgressBar1 As System.Windows.Forms.ToolStripProgressBar
 End Class

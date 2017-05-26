@@ -86,10 +86,10 @@
       <DependentUpon>MainForm.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FilesForm.Designer.vb">
-      <DependentUpon>FilesForm.vb</DependentUpon>
+    <Compile Include="SyncSetForm.Designer.vb">
+      <DependentUpon>SyncSetForm.vb</DependentUpon>
     </Compile>
-    <Compile Include="FilesForm.vb">
+    <Compile Include="SyncSetForm.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -115,8 +115,8 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FilesForm.resx">
-      <DependentUpon>FilesForm.vb</DependentUpon>
+    <EmbeddedResource Include="SyncSetForm.resx">
+      <DependentUpon>SyncSetForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

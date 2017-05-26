@@ -34,7 +34,7 @@ err1:
 
         MainForm.xdoc.Element("Root").Add(New XElement(xmlTree1))
         MainForm.xdoc.Save(MainForm.SyncFileName)
-        Call FilesForm.addToCoBox()
+        Call SyncSetForm.addToCoBox()
         'Dim xe As XElement = xdoc.Element("Root").Element("Filters")
         MsgBox("Список фильтров сохранён!", vbOKOnly, "Фильтры")
     End Sub
@@ -47,4 +47,10 @@ err1:
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         DataGridView1.Rows.Clear()
     End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        'OpenFileDialog1.ShowDialog()
+        'OpenFileDialog1.FileName
+    End Sub
+
 End Class
