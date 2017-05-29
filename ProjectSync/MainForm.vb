@@ -8,6 +8,7 @@ Public Class MainForm
     Public SyncFileName As String = CurDir() & "\Config.xml"
     Public bool_configFileExist As Boolean
     Dim bool_connection As Boolean = False
+    Public xElem_IP As XElement
 
     Dim cn_chk As Integer = 0
     Dim cn_nm As Integer = 1
@@ -47,11 +48,12 @@ Public Class MainForm
         If bool_configFileExist Then
             xdoc = XDocument.Load(SyncFileName)         'грузим в память хмл
             Call SyncSetForm.xmlLoad()         'запихиваем список файлов из хмл в колекцию
+            xElem_IP = xdoc.Element("Root").Element("Settings").Element("IP")
         Else
             ToolStripStatusLabel1.Text = "Внимание! Конфигурационный файл не найден!"
             ToolStripStatusLabel1.ForeColor = System.Drawing.Color.Red
         End If
-        TextBox1.Text = xdoc.Element("Root").Element("IP").Value
+        TextBox1.Text = xElem_IP.Value
     End Sub
     Public Function FullFileName(ByVal path As String, ByVal name As String) As String
         FullFileName = path & "\" & name
@@ -100,9 +102,9 @@ Public Class MainForm
             i = i + 1
         Next
 
-        If TextBox1.Text <> xdoc.Element("Root").Elements("IP").Value Then ' перезаписываем ip
-            Console.WriteLine(xdoc.Element("Root").Elements("IP").Value)
-            xdoc.Element("Root").Elements("IP").Value = TextBox1.Text
+        If TextBox1.Text <> xElem_IP.Value Then ' перезаписываем ip
+            Console.WriteLine(xElem_IP.Value)
+            xElem_IP.Value = TextBox1.Text
             xdoc.Save(SyncFileName)
         End If
 
