@@ -17,7 +17,7 @@ Public Class SyncSetForm
             .Multiselect = True
             .Title = "Окно выбора файлов"
         End With
-
+        If MainForm.xElem_SynType.Value = "Files" Then RadioButton1.Checked = True
         addToCoBox()
         addToGrid()
 

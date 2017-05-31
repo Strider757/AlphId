@@ -15,6 +15,10 @@ err1:
         MsgBox("Ошибка номер " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
     End Sub
 
+    Public Sub workWithExcelSearch()
+
+    End Sub
+
     Private Sub But_save_Click(sender As Object, e As EventArgs) Handles But_save.Click
         MainForm.xdoc.Element("Root").Element("Filters").Remove()
 

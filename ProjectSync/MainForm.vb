@@ -9,6 +9,9 @@ Public Class MainForm
     Public bool_configFileExist As Boolean
     Dim bool_connection As Boolean = False
     Public xElem_IP As XElement
+    Public xElem_SynType As XElement
+    Dim prjName As String = "OSA"
+    Dim prjDir As String = "C:\Dynamics\"
 
     Dim cn_chk As Integer = 0
     Dim cn_nm As Integer = 1
@@ -49,6 +52,7 @@ Public Class MainForm
             xdoc = XDocument.Load(SyncFileName)         'грузим в память хмл
             Call SyncSetForm.xmlLoad()         'запихиваем список файлов из хмл в колекцию
             xElem_IP = xdoc.Element("Root").Element("Settings").Element("IP")
+            xElem_SynType = xdoc.Element("Root").Element("Settings").Element("TypeSync")
         Else
             ToolStripStatusLabel1.Text = "Внимание! Конфигурационный файл не найден!"
             ToolStripStatusLabel1.ForeColor = System.Drawing.Color.Red

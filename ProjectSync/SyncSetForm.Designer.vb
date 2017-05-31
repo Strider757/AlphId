@@ -35,8 +35,8 @@ Partial Class SyncSetForm
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.RadioButton1 = New System.Windows.Forms.RadioButton()
         Me.RadioButton2 = New System.Windows.Forms.RadioButton()
+        Me.RadioButton1 = New System.Windows.Forms.RadioButton()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
@@ -161,6 +161,18 @@ Partial Class SyncSetForm
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Способ"
         '
+        'RadioButton2
+        '
+        Me.RadioButton2.AutoSize = True
+        Me.RadioButton2.Enabled = False
+        Me.RadioButton2.Location = New System.Drawing.Point(6, 42)
+        Me.RadioButton2.Name = "RadioButton2"
+        Me.RadioButton2.Size = New System.Drawing.Size(96, 17)
+        Me.RadioButton2.TabIndex = 1
+        Me.RadioButton2.TabStop = True
+        Me.RadioButton2.Text = "По каталогам"
+        Me.RadioButton2.UseVisualStyleBackColor = True
+        '
         'RadioButton1
         '
         Me.RadioButton1.AutoSize = True
@@ -171,17 +183,6 @@ Partial Class SyncSetForm
         Me.RadioButton1.TabStop = True
         Me.RadioButton1.Text = "По файлам"
         Me.RadioButton1.UseVisualStyleBackColor = True
-        '
-        'RadioButton2
-        '
-        Me.RadioButton2.AutoSize = True
-        Me.RadioButton2.Location = New System.Drawing.Point(6, 42)
-        Me.RadioButton2.Name = "RadioButton2"
-        Me.RadioButton2.Size = New System.Drawing.Size(96, 17)
-        Me.RadioButton2.TabIndex = 1
-        Me.RadioButton2.TabStop = True
-        Me.RadioButton2.Text = "По каталогам"
-        Me.RadioButton2.UseVisualStyleBackColor = True
         '
         'SyncSetForm
         '
