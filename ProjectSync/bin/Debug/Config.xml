@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
   <Settings>
-   <IP>172.16.17.197</IP>
-   <TypeSync>Files</TypeSync>
+    <IP>172.16.17.198</IP>
+    <TypeSync>Files</TypeSync>
   </Settings>
   <Filters>
     <Filter>*.grf</Filter>
@@ -601,6 +601,6 @@
     </File>
   </Files>
   <Catalogs>
-   <Catalog>C:\Dynamics\SSN\PIC\</Catalog>
+    <Catalog>C:\Dynamics\SSN\PIC\</Catalog>
   </Catalogs>
-  </Root>
+</Root>

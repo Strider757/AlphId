@@ -43,9 +43,8 @@ Partial Class MainForm
         Me.Button2 = New System.Windows.Forms.Button()
         Me.Button3 = New System.Windows.Forms.Button()
         Me.Button4 = New System.Windows.Forms.Button()
-        Me.Button5 = New System.Windows.Forms.Button()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
+        Me.lb_excelDate = New System.Windows.Forms.Label()
+        Me.lb_excelName = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.Button6 = New System.Windows.Forms.Button()
         Me.Button7 = New System.Windows.Forms.Button()
@@ -60,7 +59,7 @@ Partial Class MainForm
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(745, 272)
+        Me.Label1.Location = New System.Drawing.Point(739, 113)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(109, 13)
         Me.Label1.TabIndex = 0
@@ -77,7 +76,7 @@ Partial Class MainForm
         '
         'TextBox1
         '
-        Me.TextBox1.Location = New System.Drawing.Point(750, 288)
+        Me.TextBox1.Location = New System.Drawing.Point(744, 129)
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(104, 20)
         Me.TextBox1.TabIndex = 3
@@ -214,6 +213,7 @@ Partial Class MainForm
         '
         Me.TabPage1.Controls.Add(Me.GroupBox1)
         Me.TabPage1.Controls.Add(Me.But_UnSel)
+        Me.TabPage1.Controls.Add(Me.GroupBox2)
         Me.TabPage1.Controls.Add(Me.But_selAll)
         Me.TabPage1.Controls.Add(Me.Button1)
         Me.TabPage1.Controls.Add(Me.but_sync)
@@ -239,7 +239,7 @@ Partial Class MainForm
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(9, 48)
+        Me.Button2.Location = New System.Drawing.Point(9, 60)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(94, 28)
         Me.Button2.TabIndex = 18
@@ -248,7 +248,7 @@ Partial Class MainForm
         '
         'Button3
         '
-        Me.Button3.Location = New System.Drawing.Point(750, 139)
+        Me.Button3.Location = New System.Drawing.Point(743, 46)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(100, 28)
         Me.Button3.TabIndex = 19
@@ -257,55 +257,48 @@ Partial Class MainForm
         '
         'Button4
         '
-        Me.Button4.Location = New System.Drawing.Point(750, 173)
+        Me.Button4.Location = New System.Drawing.Point(743, 80)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(100, 28)
         Me.Button4.TabIndex = 20
         Me.Button4.Text = "Opergen"
         Me.Button4.UseVisualStyleBackColor = True
         '
-        'Button5
+        'lb_excelDate
         '
-        Me.Button5.Location = New System.Drawing.Point(750, 207)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(100, 28)
-        Me.Button5.TabIndex = 21
-        Me.Button5.Text = "CreateKey"
-        Me.Button5.UseVisualStyleBackColor = True
+        Me.lb_excelDate.AutoSize = True
+        Me.lb_excelDate.Location = New System.Drawing.Point(6, 38)
+        Me.lb_excelDate.Name = "lb_excelDate"
+        Me.lb_excelDate.Size = New System.Drawing.Size(75, 13)
+        Me.lb_excelDate.TabIndex = 22
+        Me.lb_excelDate.Text = "от 01.01.1999"
+        Me.lb_excelDate.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'Label2
+        'lb_excelName
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(18, 32)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(75, 13)
-        Me.Label2.TabIndex = 22
-        Me.Label2.Text = "от 01.01.1999"
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(8, 16)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(94, 13)
-        Me.Label3.TabIndex = 23
-        Me.Label3.Text = "Переменные v23"
+        Me.lb_excelName.AutoSize = True
+        Me.lb_excelName.Location = New System.Drawing.Point(6, 18)
+        Me.lb_excelName.Name = "lb_excelName"
+        Me.lb_excelName.Size = New System.Drawing.Size(94, 13)
+        Me.lb_excelName.TabIndex = 23
+        Me.lb_excelName.Text = "Переменные v23"
+        Me.lb_excelName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'GroupBox2
         '
-        Me.GroupBox2.Controls.Add(Me.Label3)
-        Me.GroupBox2.Controls.Add(Me.Label2)
+        Me.GroupBox2.Controls.Add(Me.lb_excelDate)
         Me.GroupBox2.Controls.Add(Me.Button2)
-        Me.GroupBox2.Location = New System.Drawing.Point(744, 12)
+        Me.GroupBox2.Controls.Add(Me.lb_excelName)
+        Me.GroupBox2.Location = New System.Drawing.Point(370, 5)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(109, 82)
+        Me.GroupBox2.Size = New System.Drawing.Size(342, 94)
         Me.GroupBox2.TabIndex = 24
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Excel"
         '
         'Button6
         '
-        Me.Button6.Location = New System.Drawing.Point(750, 100)
+        Me.Button6.Location = New System.Drawing.Point(743, 12)
         Me.Button6.Name = "Button6"
         Me.Button6.Size = New System.Drawing.Size(100, 28)
         Me.Button6.TabIndex = 25
@@ -328,8 +321,6 @@ Partial Class MainForm
         Me.ClientSize = New System.Drawing.Size(860, 480)
         Me.Controls.Add(Me.Button7)
         Me.Controls.Add(Me.Button6)
-        Me.Controls.Add(Me.GroupBox2)
-        Me.Controls.Add(Me.Button5)
         Me.Controls.Add(Me.Button4)
         Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.TabControl1)
@@ -375,9 +366,8 @@ Partial Class MainForm
     Friend WithEvents Button2 As System.Windows.Forms.Button
     Friend WithEvents Button3 As System.Windows.Forms.Button
     Friend WithEvents Button4 As System.Windows.Forms.Button
-    Friend WithEvents Button5 As System.Windows.Forms.Button
-    Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents lb_excelDate As System.Windows.Forms.Label
+    Friend WithEvents lb_excelName As System.Windows.Forms.Label
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents Button6 As System.Windows.Forms.Button
     Friend WithEvents Button7 As System.Windows.Forms.Button

@@ -1,6 +1,7 @@
 ﻿Imports System.Net
 Imports System.Net.NetworkInformation
 Imports System.IO
+Imports System.Text
 
 Public Class MainForm
     Public fileCollect As New ArrayList
@@ -12,6 +13,11 @@ Public Class MainForm
     Public xElem_SynType As XElement
     Dim prjName As String = "OSA"
     Dim prjDir As String = "C:\Dynamics\"
+    Dim wweDir As String
+    Dim opergenDir As String
+    Dim excelName As String
+
+    Dim sr As StreamReader
 
     Dim cn_chk As Integer = 0
     Dim cn_nm As Integer = 1
@@ -58,6 +64,9 @@ Public Class MainForm
             ToolStripStatusLabel1.ForeColor = System.Drawing.Color.Red
         End If
         TextBox1.Text = xElem_IP.Value
+        findePO()
+        excelSearch()
+
     End Sub
     Public Function FullFileName(ByVal path As String, ByVal name As String) As String
         FullFileName = path & "\" & name
@@ -68,7 +77,41 @@ Public Class MainForm
         'd:\Development\Work\ProjectSync\TestFiles\path 1
         convertFilePathToRemote = "\\" & TextBox1.Text & "\" & Replace(path, ":", "$")
     End Function
-
+    Sub findePO()
+        Dim q() As String
+        Dim wweDate As String = "01.01.1601 3:00:00"
+        Dim opergenDate As String = "01.01.1601 3:00:00"
+        For Each d In Directory.EnumerateDirectories(prjDir & prjName & "\APL", "*.*", SearchOption.TopDirectoryOnly)
+            q = Split(d, "\")
+            If q(q.Length - 1) Like "work with excel*" Then
+                If IO.Directory.GetLastWriteTime(d) > wweDate Then
+                    wweDate = IO.Directory.GetLastWriteTime(d)
+                    wweDir = d
+                End If
+            End If
+            If q(q.Length - 1) Like "Opergen*" Then
+                If IO.Directory.GetLastWriteTime(d) > wweDate Then
+                    opergenDate = IO.Directory.GetLastWriteTime(d)
+                    opergenDir = d
+                End If
+            End If
+        Next
+    End Sub
+    Sub excelSearch()
+        Dim s As String
+        Dim q() As String
+        Dim h() As String
+        s = IO.File.ReadAllText(wweDir & "\param.ini", System.Text.Encoding.GetEncoding(1251))
+        q = Split(s, vbCrLf)
+        For k = 0 To q.Length - 1
+            If q(k) = "[XLSName]" Then
+                h = Split(q(k + 1), Chr(34))
+                excelName = h(1)
+            End If
+        Next
+        lb_excelName.Text = excelName
+        lb_excelDate.Text = IO.File.GetLastWriteTime(prjDir & prjName & "\" & excelName)
+    End Sub
     Sub anal()
         On Error GoTo err1
         Dim i = 0
@@ -76,7 +119,6 @@ Public Class MainForm
         DataGridView1.Rows.Clear()
         If My.Computer.Network.Ping(TextBox1.Text) Then
             TextBox1.BackColor = System.Drawing.Color.Green
-
             bool_connection = True
         Else
             TextBox1.BackColor = System.Drawing.Color.Red
@@ -107,7 +149,6 @@ Public Class MainForm
         Next
 
         If TextBox1.Text <> xElem_IP.Value Then ' перезаписываем ip
-            Console.WriteLine(xElem_IP.Value)
             xElem_IP.Value = TextBox1.Text
             xdoc.Save(SyncFileName)
         End If
@@ -153,7 +194,7 @@ err1:
                 If dataElem.Cells(cn_rem).Value > dataElem.Cells(cn_loc).Value Then
                     IO.File.Copy(FullFileName(convertFilePathToRemote(dataElem.Cells(cn_der).Value), dataElem.Cells(cn_nm).Value), FullFileName(dataElem.Cells(cn_der).Value, dataElem.Cells(cn_nm).Value), True)
                 End If
-            ElseIf RadioButton3.Checked And dataElem.Cells(cn_chk).Value = True Then ' туда - сюдаss
+            ElseIf RadioButton3.Checked And dataElem.Cells(cn_chk).Value = True Then ' туда - сюда
                 If dataElem.Cells(cn_loc).Value > dataElem.Cells(cn_rem).Value Then
                     IO.File.Copy(FullFileName(dataElem.Cells(cn_der).Value, dataElem.Cells(cn_nm).Value), FullFileName(convertFilePathToRemote(dataElem.Cells(cn_der).Value), dataElem.Cells(cn_nm).Value), True)
                 End If
@@ -194,5 +235,18 @@ err1:
         For Each dataElem As DataGridViewRow In DataGridView1.Rows
             dataElem.Cells(cn_chk).Value = False
         Next
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        Shell(wweDir & "\Excel_Export.exe", AppWinStyle.NormalFocus)
+    End Sub
+
+    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+        Shell(opergenDir & "\opergen.exe", AppWinStyle.NormalFocus)
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        MsgBox(prjDir & prjName & "\" & excelName)
+        Shell(prjDir & prjName & "\" & excelName)
     End Sub
 End Class
