@@ -5,6 +5,7 @@ Imports System.Text
 
 Public Class MainForm
     Public fileCollect As New ArrayList
+    Public catCollect As New Collection
     Public xdoc As XDocument
     Public SyncFileName As String = CurDir() & "\Config.xml"
     Public bool_configFileExist As Boolean
@@ -16,8 +17,6 @@ Public Class MainForm
     Dim wweDir As String
     Dim opergenDir As String
     Dim excelName As String
-
-    Dim sr As StreamReader
 
     Dim cn_chk As Integer = 0
     Dim cn_nm As Integer = 1
@@ -112,10 +111,16 @@ Public Class MainForm
         lb_excelName.Text = excelName
         lb_excelDate.Text = IO.File.GetLastWriteTime(prjDir & prjName & "\" & excelName)
     End Sub
+
+
     Sub anal()
         On Error GoTo err1
         Dim i = 0
-
+        Dim k = 0
+        Dim ki = 0
+        Dim strstr As String
+        Dim Folder As Directory
+        Dim Files() As String
         DataGridView1.Rows.Clear()
         If My.Computer.Network.Ping(TextBox1.Text) Then
             TextBox1.BackColor = System.Drawing.Color.Green
@@ -126,28 +131,56 @@ Public Class MainForm
         End If
 
 
+        If xElem_SynType.Value = "Files" Then
+            For Each fObj In fileCollect
+                DataGridView1.Rows.Add()
+                DataGridView1.Rows.Item(i).Cells(cn_nm).Value = fObj.Name
+                DataGridView1.Rows.Item(i).Cells(cn_der).Value = fObj.Location
+                DataGridView1.Rows.Item(i).Cells(cn_loc).Value = Replace(IO.File.GetLastWriteTime(FullFileName(fObj.location, fObj.name)), "01.01.1601 3:00:00", " ")
 
-        For Each fObj In fileCollect
-            DataGridView1.Rows.Add()
-            DataGridView1.Rows.Item(i).Cells(cn_nm).Value = fObj.Name
-            DataGridView1.Rows.Item(i).Cells(cn_der).Value = fObj.Location
-            DataGridView1.Rows.Item(i).Cells(cn_loc).Value = Replace(IO.File.GetLastWriteTime(FullFileName(fObj.location, fObj.name)), "01.01.1601 3:00:00", " ")
-            If bool_connection = True Then DataGridView1.Rows.Item(i).Cells(cn_rem).Value = Replace(IO.File.GetLastWriteTime(FullFileName(convertFilePathToRemote(fObj.location), fObj.name)), "01.01.1601 3:00:00", " ")
+                If bool_connection = True Then DataGridView1.Rows.Item(i).Cells(cn_rem).Value = Replace(IO.File.GetLastWriteTime(FullFileName(convertFilePathToRemote(fObj.location), fObj.name)), "01.01.1601 3:00:00", " ")
 
-            If DataGridView1.Rows.Item(i).Cells(cn_loc).Value > DataGridView1.Rows.Item(i).Cells(cn_rem).Value Or bool_connection = False Then 'если новый файл на локальном компе
-                DataGridView1.Rows.Item(i).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Green
-                DataGridView1.Rows.Item(i).Cells(cn_rem).Style.ForeColor = System.Drawing.Color.Red
-            ElseIf DataGridView1.Rows.Item(i).Cells(cn_loc).Value = DataGridView1.Rows.Item(i).Cells(cn_rem).Value Then 'если новый файлы одинаковые
-                DataGridView1.Rows.Item(i).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
-                DataGridView1.Rows.Item(i).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
-            Else 'если новый файл на удаленном компе
-                DataGridView1.Rows.Item(i).Cells(cn_rem).Style.ForeColor = System.Drawing.Color.Green
-                DataGridView1.Rows.Item(i).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Red
-            End If
-            DataGridView1.Rows.Item(i).Cells(cn_chk).Value = True
-            i = i + 1
-        Next
+                If DataGridView1.Rows.Item(i).Cells(cn_loc).Value > DataGridView1.Rows.Item(i).Cells(cn_rem).Value Or bool_connection = False Then 'если новый файл на локальном компе
+                    DataGridView1.Rows.Item(i).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Green
+                    DataGridView1.Rows.Item(i).Cells(cn_rem).Style.ForeColor = System.Drawing.Color.Red
+                ElseIf DataGridView1.Rows.Item(i).Cells(cn_loc).Value = DataGridView1.Rows.Item(i).Cells(cn_rem).Value Then 'если новый файлы одинаковые
+                    DataGridView1.Rows.Item(i).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
+                    DataGridView1.Rows.Item(i).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
+                Else 'если новый файл на удаленном компе
+                    DataGridView1.Rows.Item(i).Cells(cn_rem).Style.ForeColor = System.Drawing.Color.Green
+                    DataGridView1.Rows.Item(i).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Red
+                End If
 
+                DataGridView1.Rows.Item(i).Cells(cn_chk).Value = True
+                i = i + 1
+            Next
+        Else
+            For Each xer As XElement In xdoc.Element("Root").Element("Catalogs").Elements("Catalog")
+                'xer.Value
+                'xer.Attribute("allFiles").Value
+                Files = IO.Directory.GetFiles(xer.Value)
+                For ki = 0 To Files.Length - 1
+                    If xer.Attribute("allFiles").Value = True Then
+                        DataGridView1.Rows.Add()
+                        DataGridView1.Rows.Item(k).Cells(cn_nm).Value = SyncSetForm.getfName(Files(ki), 0)
+                        DataGridView1.Rows.Item(k).Cells(cn_der).Value = xer.Value
+                        DataGridView1.Rows.Item(k).Cells(cn_loc).Value = Replace(IO.File.GetLastWriteTime(Files(ki)), "01.01.1601 3:00:00", " ")
+                        If bool_connection = True Then DataGridView1.Rows.Item(k).Cells(cn_rem).Value = Replace(IO.File.GetLastWriteTime(convertFilePathToRemote(Files(ki))), "01.01.1601 3:00:00", " ")
+                        DataGridView1.Rows.Item(k).Cells(cn_chk).Value = True
+                        k = k + 1
+                    ElseIf xer.Attribute("allFiles").Value = False And checkFileRash(getfName(Files(ki), 0)) = True Then
+                        DataGridView1.Rows.Add()
+                        DataGridView1.Rows.Item(k).Cells(cn_nm).Value = SyncSetForm.getfName(Files(ki), 0)
+                        DataGridView1.Rows.Item(k).Cells(cn_der).Value = xer.Value
+                        DataGridView1.Rows.Item(k).Cells(cn_loc).Value = Replace(IO.File.GetLastWriteTime(Files(ki)), "01.01.1601 3:00:00", " ")
+                        If bool_connection = True Then DataGridView1.Rows.Item(k).Cells(cn_rem).Value = Replace(IO.File.GetLastWriteTime(convertFilePathToRemote(Files(ki))), "01.01.1601 3:00:00", " ")
+                        DataGridView1.Rows.Item(k).Cells(cn_chk).Value = True
+                        k = k + 1
+                    End If
+
+                Next
+            Next
+        End If
         If TextBox1.Text <> xElem_IP.Value Then ' перезаписываем ip
             xElem_IP.Value = TextBox1.Text
             xdoc.Save(SyncFileName)
@@ -156,7 +189,7 @@ Public Class MainForm
         Exit Sub
 err1:
         If Err.Number = 5 Then
-            MsgBox("Err.Number: " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
+            MsgBox(k & " Err.Number: " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
             bool_connection = False
             ToolStripStatusLabel1.Text = "Нет доступа"
             Resume Next
@@ -167,11 +200,46 @@ err1:
             bool_connection = False
             ToolStripStatusLabel1.Text = "Не выполенен вход"
             Resume Next
+        ElseIf Err.Number = 13 Then
+            MsgBox("Err.Number: " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
+            MsgBox(strstr)
+            Resume Next
+        ElseIf Err.Number = 57 And bool_connection = False Then
         Else
             MsgBox("Err.Number: " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
         End If
     End Sub
 
+
+    Public Function getfName(ByVal s As String, Optional b As Integer = 0) As String
+        Dim q()
+        q = Split(s, "\")
+
+        If b = 0 Then
+            getfName = q(q.Length - 1)
+        Else
+            For i = 0 To q.Length - 2
+                getfName = getfName & q(i) & "\"
+            Next
+        End If
+
+        getfName = Trim(getfName)
+
+    End Function
+    Function checkFileRash(ByVal s As String) As Boolean
+        Dim q() As String
+        Dim fr As String
+        q = Split(s, ".")
+        fr = q(1)
+        For Each xe As XElement In xdoc.Element("Root").Element("Filters").Elements("Filter")
+            If "*." & fr = xe.Value Then checkFileRash = True
+        Next
+    End Function
+    Function getFileRash(ByVal s As String) As String
+        Dim q() As String
+        q = Split(s, ".")
+        getFileRash = q(1)
+    End Function
     Private Sub but_Anal_Click(sender As Object, e As EventArgs) Handles but_Anal.Click
         anal()
         If bool_connection = True Then but_sync.Enabled = True

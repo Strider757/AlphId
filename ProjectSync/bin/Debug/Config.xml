@@ -2,10 +2,12 @@
 <Root>
   <Settings>
     <IP>172.16.17.198</IP>
-    <TypeSync>Files</TypeSync>
+    <TypeSync>Catalogs</TypeSync>
   </Settings>
   <Filters>
     <Filter>*.grf</Filter>
+    <Filter>*.mdb</Filter>
+    <Filter>*.mbe</Filter>
   </Filters>
   <Files>
     <File fname="AnalogControl.grf">
@@ -601,6 +603,8 @@
     </File>
   </Files>
   <Catalogs>
-    <Catalog>C:\Dynamics\SSN\PIC\</Catalog>
+    <Catalog allFiles="False">C:\Dynamics\OSA\PIC</Catalog>
+    <Catalog allFiles="False">C:\Dynamics\OSA\DB</Catalog>
+    <Catalog allFiles="False">C:\Dynamics\OSA\MBE</Catalog>
   </Catalogs>
 </Root>

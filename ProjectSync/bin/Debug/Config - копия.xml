@@ -1,0 +1,606 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <Settings>
+    <IP>172.16.17.198</IP>
+    <TypeSync>Files</TypeSync>
+  </Settings>
+  <Filters>
+    <Filter>*.grf</Filter>
+  </Filters>
+  <Catalogs>
+    <Catalog allFiles="False">C:\Dynamics\SSN\PIC\</Catalog>
+  </Catalogs>
+  <Files>
+    <File fname="AnalogControl.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="AnalogControl_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="AnalogSettingsControl.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="AnalogSettingsControl_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="AuxSystemControl.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="AuxSystemControl_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="AuxSystemMode.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="AuxSystemMode_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="CHRPControl.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="CHRPControl_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="CHRPRejim.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="CHRPRejim_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="CHRPRejimbkp.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="Diag_search.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="Diag_search_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="DIAG_SYS_LINK.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="DIAG_SYS_LINK_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="DiscretControl.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="DiscretControl_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="DiscretControlSAR.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="footer1.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="footer2.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="Form_Stop_MNS1.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="histtrend_2.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="histtrend_old.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="List1_AP.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="List1_AP_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="List2_AP.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="List2_AP_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="List3_AP.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="List3_AP_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="LIST3b_AP.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="LIST3b_AP_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="List4_AP.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="LIST4_AP_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="LIST6_AP.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="LIST6_AP_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="LIST6_TPR.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="LIST6_TPR_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="LIST20_AP.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="LIST20_AP_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="MNAControl.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="MNAControl_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="MNAControlCHRP.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="MNAControlCHRP_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="MNAControlMode.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="MNAControlMode_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="MOD_AMI.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="Mod_AMI_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="MOD_AMO.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="MOD_AMO_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="MOD_DDI.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="MOD_DDI_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="MOD_DDO.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="MOD_DDO_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="mod_drc.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="MOD_ERT.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="Mod_ERT_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="MOD_NOE.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="Mod_NOE_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="MOD_NOM.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="MOD_NOM_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="MOD_ort.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="MOD_ort_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="NAControl.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="NAControl_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="NAControlCHRP.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="NAControlCHRP_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="NAControlMode.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="NAControlMode_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="NarabotkaVS.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="NarabotkaVS_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="OperWindow.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="PNAControlMode.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="popup_MODE_RD1.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="popup_MODE_RD1_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="popup_MODE_RD2.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="popup_MODE_RD2_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="popup_pch.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="popup_pch_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="popup_PLCBMX_AMI.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="popup_PLCBMX_AMI_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="popup_PLCBMX_AMO.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="popup_PLCBMX_AMO_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="popup_PLCBMX_DDI16.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="popup_PLCBMX_DDI16_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="popup_PLCBMX_DDI32.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="popup_PLCBMX_DDO16.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="popup_PLCBMX_DDO16_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="popup_PLCBMX_DDO32.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="popup_PLCBMX_ERT.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="popup_PLCBMX_ERT_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="popup_PLCERROR.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="popup_PLCERROR_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="popup_RD1.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="popup_RD1_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="popup_RD2.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="popup_RD2_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="popup_SARD_UST.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="popup_SARD_UST_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="QuickTrend.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="realtrend_2.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SARD_popup_pch.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_DIAG.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_DIAG_BRU.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_DIAG_BRU_POPUP.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_DIAG_BRU_POPUP_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_DIAG_BRU_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_DIAG_CK.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_DIAG_CK_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_DIAG_IBP_POPUP.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_DIAG_IBP_POPUP_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_DIAG_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_DIAG_SAR.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_DIAG_SAR_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_DIAG_SERV.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_DIAG_SERV_POPUP.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_DIAG_SERV_POPUP_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_DIAG_SERV_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_DIAG_USO2_1.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_DIAG_USO2_1_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_DIAG_USO2_2.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_DIAG_USO2_2_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_DIAG_USO2_3.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_DIAG_USO2_3_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_DIAG_USO2_4.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_DIAG_USO2_4_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_DIAG_USO2_5.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_DIAG_USO2_5_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_DIAG_USO2_6.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_DIAG_USO2_6_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_DIAG_USO2_7.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_DIAG_USO2_7_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_DIAG_USO2_8.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_DIAG_USO2_8_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_DIAG_USO2_9.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_DIAG_USO2_9_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_DIAG_USO2_10.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_DIAG_USO2_10_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_DIAG_USO3_1.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_DIAG_USO3_1_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_ENERGO.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_ENERGO_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_ERIO.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_ERIO_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_Menu.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_Menu_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_MenuRight.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_MenuRight_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_MNS1_perehod.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_NA_1.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_NA_1_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_NA_2.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_NA_2_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_NA_3.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_NA_3_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_NA_4.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_NA_4_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_NA_5.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_NA_5_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_NA_6.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_NA_6_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_NA_7.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_NA_7_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_NA_8.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_NA_8_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_NA_9.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_NA_9_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_NA_10.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_NA_10_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_NA_11.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_NA_11_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_NA_12.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_NA_12_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_NARAB.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_NARAB_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_PNS.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_PNS_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_TOP.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_TOP_2str.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_TOP_LOAD.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_TOP_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_TOP_r2str.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_UTECH.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_UTECH_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_VENT.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSN_VENT_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSNModGeneral.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="SSNModGeneral_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="TABLOCONTROL.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="TABLOCONTROL_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="Templ.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="ValvesControl.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="ValvesControl_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="ZDpick.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="ZDpick_r.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+    <File fname="ZZ_tameplate.grf">
+      <Location>C:\Dynamics\SSN\PIC\</Location>
+    </File>
+  </Files>
+</Root>

@@ -5,7 +5,7 @@ Public Class SyncSetForm
 
     Private Sub FilesForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         On Error GoTo err1
-
+        Dim chk As New DataGridViewCheckBoxColumn()
         With DataGridView1
             .Columns.Add("name", "name")
             .Columns.Add("location", "location")
@@ -13,11 +13,29 @@ Public Class SyncSetForm
             .Columns(1).Width = 488
         End With
 
+        With DataGridView2
+            .Columns.Add("dir", "dir")
+            .Columns.Add(chk)
+            .Columns.Item(1).Name = "All Files"
+            .Columns(0).Width = 570
+            .Columns(1).Width = 50
+        End With
+
         With OpenFileDialog1
             .Multiselect = True
             .Title = "Окно выбора файлов"
         End With
-        If MainForm.xElem_SynType.Value = "Files" Then RadioButton1.Checked = True
+
+
+
+        If MainForm.xElem_SynType.Value = "Files" Then
+            RadioButton1.Checked = True
+            TabControl1.SelectedIndex = 0
+        Else
+            RadioButton2.Checked = True
+            TabControl1.SelectedIndex = 1
+        End If
+
         addToCoBox()
         addToGrid()
 
@@ -27,7 +45,6 @@ err1:
     End Sub
 
     Public Sub addToCoBox()
-
         ComboBox1.Items.Clear()
         ComboBox1.Items.Add("") 'добавляем пустой фильтр
 
@@ -42,6 +59,7 @@ err1:
         On Error GoTo err1
         Dim i As Integer = 0
         MainForm.fileCollect.Clear()
+        MainForm.catCollect.Clear()
 
         If MainForm.xdoc.Element("Root").Element("Files") Is Nothing Then
             xmlLoad = False
@@ -55,6 +73,12 @@ err1:
             i = i + 1
         Next
 
+        For Each xer As XElement In MainForm.xdoc.Element("Root").Element("Catalogs").Elements("Catalog")
+            MainForm.catCollect.Add(xer.Value)
+            'MainForm.catCollect.Item(i).Location = xer.Value
+            'i = i + 1
+        Next
+
         xmlLoad = True
 
         Exit Function
@@ -65,13 +89,21 @@ err1:
 
     Sub addToGrid() 'добавляем в табличку
         Dim i As Integer = 0
+        Dim k As Integer = 0
         DataGridView1.Rows.Clear()
-
+        DataGridView2.Rows.Clear()
         For Each fObj As FileObj In MainForm.fileCollect
             DataGridView1.Rows.Add()
             DataGridView1.Rows.Item(i).Cells(0).Value = fObj.Name
             DataGridView1.Rows.Item(i).Cells(1).Value = fObj.Location
             i = i + 1
+        Next
+
+        For Each xer As XElement In MainForm.xdoc.Element("Root").Element("Catalogs").Elements("Catalog")
+            DataGridView2.Rows.Add()
+            DataGridView2.Rows.Item(k).Cells(0).Value = xer.Value
+            DataGridView2.Rows.Item(k).Cells(1).Value = xer.Attribute("allFiles").Value
+            k = k + 1
         Next
 
     End Sub
@@ -97,21 +129,30 @@ err1:
     End Sub
 
     Private Sub But_add_Click(sender As Object, e As EventArgs) Handles But_add.Click
-        OpenFileDialog1.ShowDialog()
-        Dim rowsCount = DataGridView1.Rows.Count - 1
 
-        For i = 0 To OpenFileDialog1.FileNames().Length - 1
-            DataGridView1.Rows.Add()
-            DataGridView1.Rows.Item(rowsCount).Cells(0).Value = getfName(OpenFileDialog1.FileNames(i))
-            DataGridView1.Rows.Item(rowsCount).Cells(1).Value = getfName(OpenFileDialog1.FileNames(i), 1)
-            rowsCount = rowsCount + 1
-        Next
+        If TabControl1.SelectedIndex = 0 Then
+            OpenFileDialog1.ShowDialog()
+            Dim rowsCount = DataGridView1.Rows.Count - 1
 
+            For i = 0 To OpenFileDialog1.FileNames().Length - 1
+                DataGridView1.Rows.Add()
+                DataGridView1.Rows.Item(rowsCount).Cells(0).Value = getfName(OpenFileDialog1.FileNames(i))
+                DataGridView1.Rows.Item(rowsCount).Cells(1).Value = getfName(OpenFileDialog1.FileNames(i), 1)
+                rowsCount = rowsCount + 1
+            Next
+        Else
+            FolderBrowserDialog1.ShowDialog()
+            If FolderBrowserDialog1.SelectedPath <> "" Then DataGridView2.Rows.Add(FolderBrowserDialog1.SelectedPath)
+        End If
     End Sub
 
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        DataGridView1.Rows.Clear()
+        If TabControl1.SelectedIndex = 0 Then
+            DataGridView1.Rows.Clear()
+        Else
+            DataGridView2.Rows.Clear()
+        End If
     End Sub
 
 
@@ -137,6 +178,7 @@ err1:
             MainForm.xdoc = XDocument.Load(MainForm.SyncFileName)
         End If
 
+        '______________________________________________________________сохраняем список файлов
         If Not MainForm.xdoc.Element("Root").Element("Files") Is Nothing Then MainForm.xdoc.Element("Root").Element("Files").Remove()
 
         Dim xmlTree1 As XElement = _
@@ -152,6 +194,34 @@ err1:
         Next
 
         MainForm.xdoc.Element("Root").Add(New XElement(xmlTree1))
+        '__________________________________________________________________
+
+
+
+        '______________________________________________________________сохраняем список каталогов
+        If Not MainForm.xdoc.Element("Root").Element("Catalogs") Is Nothing Then MainForm.xdoc.Element("Root").Element("Catalogs").Remove()
+        Dim xmlTree2 As XElement = _
+            <Catalogs>
+            </Catalogs>
+
+        For Each dataElem As DataGridViewRow In DataGridView2.Rows
+            If dataElem.Cells(1).Value = "False" Then dataElem.Cells(1).Value = "False"
+            If dataElem.Cells(0).Value <> "" Then
+                xmlTree2.Add(New XElement(<Catalog allFiles=<%= dataElem.Cells(1).Value %>><%= dataElem.Cells(0).Value %></Catalog>))
+            End If
+        Next
+
+        '__________________________________________________________________
+
+        MainForm.xdoc.Element("Root").Add(New XElement(xmlTree2))
+
+        If RadioButton1.Checked = True Then
+            MainForm.xElem_SynType.Value = "Files"
+        Else
+            MainForm.xElem_SynType.Value = "Catalogs"
+        End If
+
+
         MainForm.xdoc.Save(MainForm.SyncFileName)
         xmlLoad()
 

@@ -37,11 +37,15 @@ Partial Class SyncSetForm
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.RadioButton2 = New System.Windows.Forms.RadioButton()
         Me.RadioButton1 = New System.Windows.Forms.RadioButton()
+        Me.DataGridView2 = New System.Windows.Forms.DataGridView()
+        Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
+        Me.TabPage2.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
+        CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'But_add
@@ -142,6 +146,7 @@ Partial Class SyncSetForm
         '
         'TabPage2
         '
+        Me.TabPage2.Controls.Add(Me.DataGridView2)
         Me.TabPage2.Location = New System.Drawing.Point(4, 22)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
@@ -164,7 +169,6 @@ Partial Class SyncSetForm
         'RadioButton2
         '
         Me.RadioButton2.AutoSize = True
-        Me.RadioButton2.Enabled = False
         Me.RadioButton2.Location = New System.Drawing.Point(6, 42)
         Me.RadioButton2.Name = "RadioButton2"
         Me.RadioButton2.Size = New System.Drawing.Size(96, 17)
@@ -183,6 +187,16 @@ Partial Class SyncSetForm
         Me.RadioButton1.TabStop = True
         Me.RadioButton1.Text = "По файлам"
         Me.RadioButton1.UseVisualStyleBackColor = True
+        '
+        'DataGridView2
+        '
+        Me.DataGridView2.AllowUserToAddRows = False
+        Me.DataGridView2.AllowUserToResizeRows = False
+        Me.DataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DataGridView2.Location = New System.Drawing.Point(0, 0)
+        Me.DataGridView2.Name = "DataGridView2"
+        Me.DataGridView2.Size = New System.Drawing.Size(688, 280)
+        Me.DataGridView2.TabIndex = 8
         '
         'SyncSetForm
         '
@@ -204,8 +218,10 @@ Partial Class SyncSetForm
         Me.GroupBox1.ResumeLayout(False)
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
+        Me.TabPage2.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
+        CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -225,4 +241,6 @@ Partial Class SyncSetForm
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents RadioButton2 As System.Windows.Forms.RadioButton
     Friend WithEvents RadioButton1 As System.Windows.Forms.RadioButton
+    Friend WithEvents DataGridView2 As System.Windows.Forms.DataGridView
+    Friend WithEvents FolderBrowserDialog1 As System.Windows.Forms.FolderBrowserDialog
 End Class
