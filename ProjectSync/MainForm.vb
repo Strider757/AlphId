@@ -63,8 +63,8 @@ Public Class MainForm
             ToolStripStatusLabel1.ForeColor = System.Drawing.Color.Red
         End If
         TextBox1.Text = xElem_IP.Value
-        findePO()
-        excelSearch()
+        If findePO() = True Then excelSearch()
+
 
     End Sub
     Public Function FullFileName(ByVal path As String, ByVal name As String) As String
@@ -76,7 +76,9 @@ Public Class MainForm
         'd:\Development\Work\ProjectSync\TestFiles\path 1
         convertFilePathToRemote = "\\" & TextBox1.Text & "\" & Replace(path, ":", "$")
     End Function
-    Sub findePO()
+    Function findePO() As Boolean
+        On Error GoTo err1
+        findePO = False
         Dim q() As String
         Dim wweDate As String = "01.01.1601 3:00:00"
         Dim opergenDate As String = "01.01.1601 3:00:00"
@@ -95,7 +97,10 @@ Public Class MainForm
                 End If
             End If
         Next
-    End Sub
+        findePO = True
+err1:
+        ToolStripStatusLabel1.Text = "Внимание! Вспомогательное ПО не найдено"
+    End Function
     Sub excelSearch()
         Dim s As String
         Dim q() As String
@@ -112,6 +117,26 @@ Public Class MainForm
         lb_excelDate.Text = IO.File.GetLastWriteTime(prjDir & prjName & "\" & excelName)
     End Sub
 
+    'сранение дат изменения файлов
+    '1 - если первый файл старше
+    '2 - если второй файл старше
+    '0 - если два файла одинаковые
+
+    Function compareIzmDate(ByVal strFile1 As String, ByVal strFile2 As String) As Integer
+        Dim f1_d As New DateTime
+        Dim f2_d As New DateTime
+        f1_d = CDate(strFile1)
+        f2_d = CDate(strFile2)
+
+        If f1_d > f2_d Then
+            compareIzmDate = 1
+        ElseIf f2_d > f1_d Then
+            compareIzmDate = 2
+        Else
+            compareIzmDate = 0
+        End If
+
+    End Function
 
     Sub anal()
         On Error GoTo err1
@@ -140,10 +165,10 @@ Public Class MainForm
 
                 If bool_connection = True Then DataGridView1.Rows.Item(i).Cells(cn_rem).Value = Replace(IO.File.GetLastWriteTime(FullFileName(convertFilePathToRemote(fObj.location), fObj.name)), "01.01.1601 3:00:00", " ")
 
-                If DataGridView1.Rows.Item(i).Cells(cn_loc).Value > DataGridView1.Rows.Item(i).Cells(cn_rem).Value Or bool_connection = False Then 'если новый файл на локальном компе
+                If compareIzmDate(DataGridView1.Rows.Item(i).Cells(cn_loc).Value, DataGridView1.Rows.Item(i).Cells(cn_rem).Value) = 1 Or bool_connection = False Then 'если новый файл на локальном компе
                     DataGridView1.Rows.Item(i).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Green
                     DataGridView1.Rows.Item(i).Cells(cn_rem).Style.ForeColor = System.Drawing.Color.Red
-                ElseIf DataGridView1.Rows.Item(i).Cells(cn_loc).Value = DataGridView1.Rows.Item(i).Cells(cn_rem).Value Then 'если новый файлы одинаковые
+                ElseIf compareIzmDate(DataGridView1.Rows.Item(i).Cells(cn_loc).Value, DataGridView1.Rows.Item(i).Cells(cn_rem).Value) = 0 Then 'если файлы одинаковые
                     DataGridView1.Rows.Item(i).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
                     DataGridView1.Rows.Item(i).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
                 Else 'если новый файл на удаленном компе
@@ -166,6 +191,18 @@ Public Class MainForm
                         DataGridView1.Rows.Item(k).Cells(cn_der).Value = xer.Value
                         DataGridView1.Rows.Item(k).Cells(cn_loc).Value = Replace(IO.File.GetLastWriteTime(Files(ki)), "01.01.1601 3:00:00", " ")
                         If bool_connection = True Then DataGridView1.Rows.Item(k).Cells(cn_rem).Value = Replace(IO.File.GetLastWriteTime(convertFilePathToRemote(Files(ki))), "01.01.1601 3:00:00", " ")
+
+                        If compareIzmDate(DataGridView1.Rows.Item(i).Cells(cn_loc).Value, DataGridView1.Rows.Item(i).Cells(cn_rem).Value) = 1 Or bool_connection = False Then 'если новый файл на локальном компе
+                            DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Green
+                            DataGridView1.Rows.Item(k).Cells(cn_rem).Style.ForeColor = System.Drawing.Color.Red
+                        ElseIf compareIzmDate(DataGridView1.Rows.Item(i).Cells(cn_loc).Value, DataGridView1.Rows.Item(i).Cells(cn_rem).Value) = 0 Then 'если файлы одинаковые
+                            DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
+                            DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
+                        Else 'если новый файл на удаленном компе
+                            DataGridView1.Rows.Item(k).Cells(cn_rem).Style.ForeColor = System.Drawing.Color.Green
+                            DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Red
+                        End If
+
                         DataGridView1.Rows.Item(k).Cells(cn_chk).Value = True
                         k = k + 1
                     ElseIf xer.Attribute("allFiles").Value = False And checkFileRash(getfName(Files(ki), 0)) = True Then
@@ -174,6 +211,18 @@ Public Class MainForm
                         DataGridView1.Rows.Item(k).Cells(cn_der).Value = xer.Value
                         DataGridView1.Rows.Item(k).Cells(cn_loc).Value = Replace(IO.File.GetLastWriteTime(Files(ki)), "01.01.1601 3:00:00", " ")
                         If bool_connection = True Then DataGridView1.Rows.Item(k).Cells(cn_rem).Value = Replace(IO.File.GetLastWriteTime(convertFilePathToRemote(Files(ki))), "01.01.1601 3:00:00", " ")
+
+                        If compareIzmDate(DataGridView1.Rows.Item(i).Cells(cn_loc).Value, DataGridView1.Rows.Item(i).Cells(cn_rem).Value) = 1 Or bool_connection = False Then 'если новый файл на локальном компе
+                            DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Green
+                            DataGridView1.Rows.Item(k).Cells(cn_rem).Style.ForeColor = System.Drawing.Color.Red
+                        ElseIf compareIzmDate(DataGridView1.Rows.Item(i).Cells(cn_loc).Value, DataGridView1.Rows.Item(i).Cells(cn_rem).Value) = 0 Then 'если файлы одинаковые
+                            DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
+                            DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
+                        Else 'если новый файл на удаленном компе
+                            DataGridView1.Rows.Item(k).Cells(cn_rem).Style.ForeColor = System.Drawing.Color.Green
+                            DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Red
+                        End If
+
                         DataGridView1.Rows.Item(k).Cells(cn_chk).Value = True
                         k = k + 1
                     End If
@@ -193,6 +242,7 @@ err1:
             bool_connection = False
             ToolStripStatusLabel1.Text = "Нет доступа"
             Resume Next
+
         ElseIf Err.Number = 57 And bool_connection = False Then
             MsgBox("Кажись удаленный узел не доступен. Err.Number: " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
         ElseIf Err.Number = 57 And bool_connection = True Then
@@ -205,6 +255,8 @@ err1:
             MsgBox(strstr)
             Resume Next
         ElseIf Err.Number = 57 And bool_connection = False Then
+        ElseIf Err.Number = 91 Then 'непонятная ошибка надо разобраться
+            Resume Next
         Else
             MsgBox("Err.Number: " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
         End If
@@ -254,19 +306,19 @@ err1:
         ToolStripProgressBar1.Visible = True
         For Each dataElem As DataGridViewRow In DataGridView1.Rows 'dataElem.Cells(0).Value
 
-            If RadioButton1.Checked And dataElem.Cells(cn_chk).Value = True Then ' туда
-                If dataElem.Cells(cn_loc).Value > dataElem.Cells(cn_rem).Value Then
+            If RadioButton1.Checked And dataElem.Cells(cn_chk).Value = True Then ' туда 
+                If compareIzmDate(dataElem.Cells(cn_loc).Value, dataElem.Cells(cn_rem).Value) = 1 Then
                     IO.File.Copy(FullFileName(dataElem.Cells(cn_der).Value, dataElem.Cells(cn_nm).Value), FullFileName(convertFilePathToRemote(dataElem.Cells(cn_der).Value), dataElem.Cells(cn_nm).Value), True)
                 End If
             ElseIf RadioButton2.Checked And dataElem.Cells(cn_chk).Value = True Then ' cюда
-                If dataElem.Cells(cn_rem).Value > dataElem.Cells(cn_loc).Value Then
+                If compareIzmDate(dataElem.Cells(cn_loc).Value, dataElem.Cells(cn_rem).Value) = 2 Then
                     IO.File.Copy(FullFileName(convertFilePathToRemote(dataElem.Cells(cn_der).Value), dataElem.Cells(cn_nm).Value), FullFileName(dataElem.Cells(cn_der).Value, dataElem.Cells(cn_nm).Value), True)
                 End If
             ElseIf RadioButton3.Checked And dataElem.Cells(cn_chk).Value = True Then ' туда - сюда
-                If dataElem.Cells(cn_loc).Value > dataElem.Cells(cn_rem).Value Then
+                If compareIzmDate(dataElem.Cells(cn_loc).Value, dataElem.Cells(cn_rem).Value) = 1 Then
                     IO.File.Copy(FullFileName(dataElem.Cells(cn_der).Value, dataElem.Cells(cn_nm).Value), FullFileName(convertFilePathToRemote(dataElem.Cells(cn_der).Value), dataElem.Cells(cn_nm).Value), True)
                 End If
-                If dataElem.Cells(cn_rem).Value > dataElem.Cells(cn_loc).Value Then
+                If compareIzmDate(dataElem.Cells(cn_loc).Value, dataElem.Cells(cn_rem).Value) = 2 Then
                     IO.File.Copy(FullFileName(convertFilePathToRemote(dataElem.Cells(cn_der).Value), dataElem.Cells(cn_nm).Value), FullFileName(dataElem.Cells(cn_der).Value, dataElem.Cells(cn_nm).Value), True)
                 End If
             End If
@@ -316,5 +368,9 @@ err1:
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         MsgBox(prjDir & prjName & "\" & excelName)
         Shell(prjDir & prjName & "\" & excelName)
+    End Sub
+
+    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+        Form1.Show()
     End Sub
 End Class

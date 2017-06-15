@@ -11,3 +11,4 @@ D:\Development\Work\ProjectSync\ProjectSync\obj\Debug\ProjectSync.pdb
 D:\Development\Work\ProjectSync\ProjectSync\obj\Debug\ProjectSync.FiltersForm.resources
 D:\Development\Work\ProjectSync\ProjectSync\obj\Debug\ProjectSync.SyncSetForm.resources
 D:\Development\Work\ProjectSync\ProjectSync\obj\Debug\ProjectSync.vbprojResolveAssemblyReference.cache
+D:\Development\Work\ProjectSync\ProjectSync\obj\Debug\ProjectSync.Form1.resources

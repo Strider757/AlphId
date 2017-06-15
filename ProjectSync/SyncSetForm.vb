@@ -129,20 +129,14 @@ err1:
     End Sub
 
     Private Sub But_add_Click(sender As Object, e As EventArgs) Handles But_add.Click
-
+        Dim dr As DialogResult
         If TabControl1.SelectedIndex = 0 Then
             OpenFileDialog1.ShowDialog()
-            Dim rowsCount = DataGridView1.Rows.Count - 1
-
-            For i = 0 To OpenFileDialog1.FileNames().Length - 1
-                DataGridView1.Rows.Add()
-                DataGridView1.Rows.Item(rowsCount).Cells(0).Value = getfName(OpenFileDialog1.FileNames(i))
-                DataGridView1.Rows.Item(rowsCount).Cells(1).Value = getfName(OpenFileDialog1.FileNames(i), 1)
-                rowsCount = rowsCount + 1
-            Next
         Else
-            FolderBrowserDialog1.ShowDialog()
-            If FolderBrowserDialog1.SelectedPath <> "" Then DataGridView2.Rows.Add(FolderBrowserDialog1.SelectedPath)
+            dr = FolderBrowserDialog1.ShowDialog()
+            '
+            'MsgBox(dr)
+            If FolderBrowserDialog1.SelectedPath <> "" And dr <> DialogResult.Cancel Then DataGridView2.Rows.Add(FolderBrowserDialog1.SelectedPath)
         End If
     End Sub
 
@@ -150,8 +144,10 @@ err1:
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         If TabControl1.SelectedIndex = 0 Then
             DataGridView1.Rows.Clear()
+            DataGridView1.Rows.Add()
         Else
             DataGridView2.Rows.Clear()
+            DataGridView1.Rows.Add()
         End If
     End Sub
 
@@ -228,6 +224,23 @@ err1:
         MsgBox("Успешно сохранено!", vbOKOnly)
 
     End Sub
+
+    Private Sub OpenFileDialog1_FileOk(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles OpenFileDialog1.FileOk
+        Dim rowsCount = DataGridView1.Rows.Count - 1
+        If rowsCount = -1 Then
+            DataGridView1.Rows.Add()
+            rowsCount = 0
+        End If
+        For i = 0 To OpenFileDialog1.FileNames().Length - 1
+            DataGridView1.Rows.Add()
+            DataGridView1.Rows.Item(rowsCount).Cells(0).Value = getfName(OpenFileDialog1.FileNames(i))
+            DataGridView1.Rows.Item(rowsCount).Cells(1).Value = getfName(OpenFileDialog1.FileNames(i), 1)
+            rowsCount = rowsCount + 1
+        Next
+
+
+    End Sub
+
 
     'Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
     '    For i = 0 To DataGridView1.SelectedRows.Count - 1

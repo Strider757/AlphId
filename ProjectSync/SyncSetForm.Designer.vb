@@ -34,18 +34,18 @@ Partial Class SyncSetForm
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.DataGridView2 = New System.Windows.Forms.DataGridView()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.RadioButton2 = New System.Windows.Forms.RadioButton()
         Me.RadioButton1 = New System.Windows.Forms.RadioButton()
-        Me.DataGridView2 = New System.Windows.Forms.DataGridView()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
         'But_add
@@ -65,6 +65,9 @@ Partial Class SyncSetForm
         Me.But_save.TabIndex = 3
         Me.But_save.Text = "Сохранить"
         Me.But_save.UseVisualStyleBackColor = True
+        '
+        'OpenFileDialog1
+        '
         '
         'ComboBox1
         '
@@ -155,6 +158,16 @@ Partial Class SyncSetForm
         Me.TabPage2.Text = "Список каталогов"
         Me.TabPage2.UseVisualStyleBackColor = True
         '
+        'DataGridView2
+        '
+        Me.DataGridView2.AllowUserToAddRows = False
+        Me.DataGridView2.AllowUserToResizeRows = False
+        Me.DataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DataGridView2.Location = New System.Drawing.Point(0, 0)
+        Me.DataGridView2.Name = "DataGridView2"
+        Me.DataGridView2.Size = New System.Drawing.Size(688, 280)
+        Me.DataGridView2.TabIndex = 8
+        '
         'GroupBox2
         '
         Me.GroupBox2.Controls.Add(Me.RadioButton2)
@@ -188,15 +201,8 @@ Partial Class SyncSetForm
         Me.RadioButton1.Text = "По файлам"
         Me.RadioButton1.UseVisualStyleBackColor = True
         '
-        'DataGridView2
+        'FolderBrowserDialog1
         '
-        Me.DataGridView2.AllowUserToAddRows = False
-        Me.DataGridView2.AllowUserToResizeRows = False
-        Me.DataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView2.Location = New System.Drawing.Point(0, 0)
-        Me.DataGridView2.Name = "DataGridView2"
-        Me.DataGridView2.Size = New System.Drawing.Size(688, 280)
-        Me.DataGridView2.TabIndex = 8
         '
         'SyncSetForm
         '
@@ -219,9 +225,9 @@ Partial Class SyncSetForm
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage2.ResumeLayout(False)
+        CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
-        CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
