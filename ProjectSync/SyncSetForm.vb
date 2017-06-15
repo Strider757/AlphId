@@ -201,7 +201,7 @@ err1:
             </Catalogs>
 
         For Each dataElem As DataGridViewRow In DataGridView2.Rows
-            If dataElem.Cells(1).Value = "False" Then dataElem.Cells(1).Value = "False"
+            If dataElem.Cells(1).Value <> "True" Then dataElem.Cells(1).Value = "False"
             If dataElem.Cells(0).Value <> "" Then
                 xmlTree2.Add(New XElement(<Catalog allFiles=<%= dataElem.Cells(1).Value %>><%= dataElem.Cells(0).Value %></Catalog>))
             End If

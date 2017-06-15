@@ -2,7 +2,7 @@
 <Root>
   <Settings>
     <IP>172.16.17.198</IP>
-    <TypeSync>Files</TypeSync>
+    <TypeSync>Catalogs</TypeSync>
   </Settings>
   <Filters>
     <Filter>*.grf</Filter>
@@ -42,7 +42,6 @@
     </File>
   </Files>
   <Catalogs>
-    <Catalog>C:\Users\user\Desktop\277 sch</Catalog>
-    <Catalog>C:\Users\user\Desktop\ArtMoney Pro 7.44.1 Portable by KloneB@DGuY</Catalog>
+    <Catalog allFiles="False">C:\Users\user\Desktop\277 sch</Catalog>
   </Catalogs>
 </Root>
