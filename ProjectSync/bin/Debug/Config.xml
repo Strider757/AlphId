@@ -2,7 +2,7 @@
 <Root>
   <Settings>
     <IP>172.16.17.198</IP>
-    <TypeSync>Catalogs</TypeSync>
+    <TypeSync>Files</TypeSync>
   </Settings>
   <Filters>
     <Filter>*.grf</Filter>

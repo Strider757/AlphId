@@ -6,6 +6,9 @@ Public Class SyncSetForm
     Private Sub FilesForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         On Error GoTo err1
         Dim chk As New DataGridViewCheckBoxColumn()
+        Dim sh As Integer = 0
+        Dim dstr(3) As String
+        Dim filterStr As String
         With DataGridView1
             .Columns.Add("name", "name")
             .Columns.Add("location", "location")
@@ -26,6 +29,8 @@ Public Class SyncSetForm
             .Title = "Окно выбора файлов"
         End With
 
+        'filterStr = ComboBox1.Items.Item(0)
+
 
 
         If MainForm.xElem_SynType.Value = "Files" Then
@@ -38,7 +43,16 @@ Public Class SyncSetForm
 
         addToCoBox()
         addToGrid()
+        For Each item As Object In ComboBox1.Items
+            'MsgBox(item)
+            sh = sh + 1
+            If item <> "" Then filterStr = Trim(filterStr) & "Filter (*.hhh)|" & item
+            If sh = ComboBox1.Items.Count Then Exit For
+            filterStr = filterStr & "|"
 
+        Next
+        MsgBox(filterStr)
+        OpenFileDialog1.Filter = Trim(filterStr)
         Exit Sub
 err1:
         MsgBox("Ошибка номер " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")

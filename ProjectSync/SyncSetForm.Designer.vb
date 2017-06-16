@@ -201,9 +201,6 @@ Partial Class SyncSetForm
         Me.RadioButton1.Text = "По файлам"
         Me.RadioButton1.UseVisualStyleBackColor = True
         '
-        'FolderBrowserDialog1
-        '
-        '
         'SyncSetForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
