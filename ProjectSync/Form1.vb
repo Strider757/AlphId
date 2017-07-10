@@ -2,12 +2,10 @@
     Public xconfig As XDocument
     Dim parentNode As TreeNode
     Dim key As Integer = 1
-    Public confFullName As String = "C:\Users\user\Desktop\AlphaTestTrendNalarm\mainTestConfig.xmlcfg"
+    Public confFullName As String = "C:\Users\user\Desktop\test38_id.xmlcfg"
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         xconfig = XDocument.Load(confFullName)
         addToTree(xconfig.Element("Configuration").Element("Signals"))
-
-
     End Sub
     Sub addToTree(xe As XElement, Optional parent As TreeNode = Nothing)
 

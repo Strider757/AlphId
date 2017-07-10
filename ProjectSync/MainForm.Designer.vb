@@ -22,7 +22,6 @@ Partial Class MainForm
     'Не изменяйте ее в редакторе исходного кода.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
@@ -49,22 +48,21 @@ Partial Class MainForm
         Me.Button6 = New System.Windows.Forms.Button()
         Me.Button7 = New System.Windows.Forms.Button()
         Me.Button5 = New System.Windows.Forms.Button()
+        Me.Button8 = New System.Windows.Forms.Button()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.rbManualDir = New System.Windows.Forms.RadioButton()
+        Me.rbAutoDir = New System.Windows.Forms.RadioButton()
+        Me.tbManualDir = New System.Windows.Forms.TextBox()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
+        Me.GroupBox3.SuspendLayout()
+        Me.GroupBox4.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(739, 113)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(109, 13)
-        Me.Label1.TabIndex = 0
-        Me.Label1.Text = "Удаленная машина:"
         '
         'Button1
         '
@@ -77,9 +75,9 @@ Partial Class MainForm
         '
         'TextBox1
         '
-        Me.TextBox1.Location = New System.Drawing.Point(744, 129)
+        Me.TextBox1.Location = New System.Drawing.Point(19, 19)
         Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(104, 20)
+        Me.TextBox1.Size = New System.Drawing.Size(95, 20)
         Me.TextBox1.TabIndex = 3
         Me.TextBox1.Text = "192.168.209.17"
         '
@@ -112,7 +110,7 @@ Partial Class MainForm
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripProgressBar1, Me.ToolStripStatusLabel1})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 458)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(860, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(872, 22)
         Me.StatusStrip1.TabIndex = 7
         Me.StatusStrip1.Text = "StatusStrip1"
         '
@@ -283,7 +281,7 @@ Partial Class MainForm
         '
         Me.Button3.Location = New System.Drawing.Point(743, 46)
         Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(100, 28)
+        Me.Button3.Size = New System.Drawing.Size(129, 28)
         Me.Button3.TabIndex = 19
         Me.Button3.Text = "WorkWithExcel"
         Me.Button3.UseVisualStyleBackColor = True
@@ -292,7 +290,7 @@ Partial Class MainForm
         '
         Me.Button4.Location = New System.Drawing.Point(743, 80)
         Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(100, 28)
+        Me.Button4.Size = New System.Drawing.Size(129, 28)
         Me.Button4.TabIndex = 20
         Me.Button4.Text = "Opergen"
         Me.Button4.UseVisualStyleBackColor = True
@@ -301,7 +299,7 @@ Partial Class MainForm
         '
         Me.Button6.Location = New System.Drawing.Point(743, 12)
         Me.Button6.Name = "Button6"
-        Me.Button6.Size = New System.Drawing.Size(100, 28)
+        Me.Button6.Size = New System.Drawing.Size(129, 28)
         Me.Button6.TabIndex = 25
         Me.Button6.Text = "Object.mdb"
         Me.Button6.UseVisualStyleBackColor = True
@@ -317,18 +315,81 @@ Partial Class MainForm
         '
         'Button5
         '
-        Me.Button5.Location = New System.Drawing.Point(740, 155)
+        Me.Button5.Location = New System.Drawing.Point(740, 342)
         Me.Button5.Name = "Button5"
         Me.Button5.Size = New System.Drawing.Size(120, 34)
         Me.Button5.TabIndex = 27
         Me.Button5.Text = "Button5"
         Me.Button5.UseVisualStyleBackColor = True
         '
+        'Button8
+        '
+        Me.Button8.Location = New System.Drawing.Point(6, 87)
+        Me.Button8.Name = "Button8"
+        Me.Button8.Size = New System.Drawing.Size(118, 25)
+        Me.Button8.TabIndex = 29
+        Me.Button8.Text = "Открыть"
+        Me.Button8.UseVisualStyleBackColor = True
+        '
+        'GroupBox3
+        '
+        Me.GroupBox3.Controls.Add(Me.TextBox1)
+        Me.GroupBox3.Location = New System.Drawing.Point(742, 114)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(130, 49)
+        Me.GroupBox3.TabIndex = 30
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "Удаленная машина"
+        '
+        'GroupBox4
+        '
+        Me.GroupBox4.Controls.Add(Me.rbManualDir)
+        Me.GroupBox4.Controls.Add(Me.rbAutoDir)
+        Me.GroupBox4.Controls.Add(Me.tbManualDir)
+        Me.GroupBox4.Controls.Add(Me.Button8)
+        Me.GroupBox4.Location = New System.Drawing.Point(742, 169)
+        Me.GroupBox4.Name = "GroupBox4"
+        Me.GroupBox4.Size = New System.Drawing.Size(130, 118)
+        Me.GroupBox4.TabIndex = 31
+        Me.GroupBox4.TabStop = False
+        Me.GroupBox4.Text = "Папка проекта"
+        '
+        'rbManualDir
+        '
+        Me.rbManualDir.AutoSize = True
+        Me.rbManualDir.Location = New System.Drawing.Point(11, 42)
+        Me.rbManualDir.Name = "rbManualDir"
+        Me.rbManualDir.Size = New System.Drawing.Size(52, 17)
+        Me.rbManualDir.TabIndex = 32
+        Me.rbManualDir.TabStop = True
+        Me.rbManualDir.Text = "Путь:"
+        Me.rbManualDir.UseVisualStyleBackColor = True
+        '
+        'rbAutoDir
+        '
+        Me.rbAutoDir.AutoSize = True
+        Me.rbAutoDir.Location = New System.Drawing.Point(11, 19)
+        Me.rbAutoDir.Name = "rbAutoDir"
+        Me.rbAutoDir.Size = New System.Drawing.Size(103, 17)
+        Me.rbAutoDir.TabIndex = 31
+        Me.rbAutoDir.TabStop = True
+        Me.rbAutoDir.Text = "Автоматически"
+        Me.rbAutoDir.UseVisualStyleBackColor = True
+        '
+        'tbManualDir
+        '
+        Me.tbManualDir.Location = New System.Drawing.Point(6, 61)
+        Me.tbManualDir.Name = "tbManualDir"
+        Me.tbManualDir.Size = New System.Drawing.Size(118, 20)
+        Me.tbManualDir.TabIndex = 30
+        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(860, 480)
+        Me.ClientSize = New System.Drawing.Size(872, 480)
+        Me.Controls.Add(Me.GroupBox4)
+        Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.Button5)
         Me.Controls.Add(Me.Button7)
         Me.Controls.Add(Me.Button6)
@@ -336,8 +397,6 @@ Partial Class MainForm
         Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.StatusStrip1)
-        Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.TextBox1)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "MainForm"
@@ -351,12 +410,14 @@ Partial Class MainForm
         Me.TabPage1.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
+        Me.GroupBox3.ResumeLayout(False)
+        Me.GroupBox3.PerformLayout()
+        Me.GroupBox4.ResumeLayout(False)
+        Me.GroupBox4.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-
-    Friend WithEvents Label1 As Label
     Friend WithEvents Button1 As Button
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents DataGridView1 As System.Windows.Forms.DataGridView
@@ -383,4 +444,10 @@ Partial Class MainForm
     Friend WithEvents Button6 As System.Windows.Forms.Button
     Friend WithEvents Button7 As System.Windows.Forms.Button
     Friend WithEvents Button5 As Button
+    Friend WithEvents Button8 As Button
+    Friend WithEvents GroupBox3 As GroupBox
+    Friend WithEvents GroupBox4 As GroupBox
+    Friend WithEvents rbManualDir As RadioButton
+    Friend WithEvents rbAutoDir As RadioButton
+    Friend WithEvents tbManualDir As TextBox
 End Class

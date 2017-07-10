@@ -1,8 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
   <Settings>
-    <IP>172.16.17.198</IP>
+    <IP>172.16.17.197</IP>
     <TypeSync>Files</TypeSync>
+    <prjDirSet>Manual</prjDirSet>
+    <prjDir>C:\Dynamics\SSN</prjDir>
   </Settings>
   <Filters>
     <Filter>*.grf</Filter>

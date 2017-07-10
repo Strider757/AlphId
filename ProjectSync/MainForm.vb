@@ -4,35 +4,42 @@ Imports System.IO
 Imports System.Text
 
 Public Class MainForm
-    Public fileCollect As New ArrayList
-    Public catCollect As New Collection
-    Public xdoc As XDocument
-    Public SyncFileName As String = CurDir() & "\Config.xml"
-    Public bool_configFileExist As Boolean
-    Dim bool_connection As Boolean = False
-    Public xElem_IP As XElement
-    Public xElem_SynType As XElement
-    Dim prjName As String = "OSA"
-    Dim prjDir As String = "C:\Dynamics\"
-    Dim wweDir As String
-    Dim opergenDir As String
-    Dim excelName As String
+    Public fileCollect As New ArrayList ' коллекция в которую запихиваются объекты с информацией о синхронизируемом файле при чтении конфигурации (не знаю зачем так сделал, можно обойтись без этого)
+    Public catCollect As New Collection ' список синхронизируемых каталогов
+    Public xdoc As XDocument ' переменная для хранения конфигурационного файла
+    Public SyncFileName As String = CurDir() & "\Config.xml" ' расположение и имя конфигурационного файла
+    Public bool_configFileExist As Boolean ' наличие конфигурационного файла
+    Dim bool_connection As Boolean = False ' наличие связи и доступа к удалённым файлам
 
-    Dim cn_chk As Integer = 0
-    Dim cn_nm As Integer = 1
-    Dim cn_loc As Integer = 2
-    Dim cn_rem As Integer = 3
-    Dim cn_der As Integer = 4
+    Public xElem_IP As XElement 'IP адресс. обращатся xElem_IP.Value
+    Public xElem_SynType As XElement 'Тип синхронизации По файлам или по Каталогам
+    Public xElem_prjDirSet As XElement 'как будт вычислятся папка проекта. Автоматически из распложения файла или вручную
+
+    Public prjDir As String 'строка с папкой проекта
+    Dim prjName As String ' имя проекта
+
+    Dim wweDir As String 'Путь workWithExcel 
+    Dim opergenDir As String 'Путь opergen
+    Dim excelName As String ' Имя и путь Excel
+
+    Dim cn_chk As Integer = 0 'Номер столбца с чекбоксом
+    Dim cn_nm As Integer = 1 'Номер столбца с именем файла
+    Dim cn_loc As Integer = 2 'Номер столбца с датой местного файла
+    Dim cn_rem As Integer = 3 'Номер столбца с датой удалённого файла
+    Dim cn_der As Integer = 4 'Номер столбца с папкой файла
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         SyncSetForm.Visible = True
     End Sub
 
+    'грузим форму
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'проверка на наличие конфигурационного файла config.xml 
         bool_configFileExist = File.Exists(SyncFileName)
         ToolStripStatusLabel1.Text = " "
         Dim chk As New DataGridViewCheckBoxColumn()
 
+        ' задаём свойства 
         With DataGridView1
             .Columns.Add(chk)
             .Columns.Add("name", "Имя")
@@ -53,36 +60,54 @@ Public Class MainForm
 
         RadioButton1.Checked = True
         ToolStripProgressBar1.Visible = False
+
+        ' проверяем наличие конфиг файла
         If bool_configFileExist Then
             xdoc = XDocument.Load(SyncFileName)         'грузим в память хмл
             Call SyncSetForm.xmlLoad()         'запихиваем список файлов из хмл в колекцию
             xElem_IP = xdoc.Element("Root").Element("Settings").Element("IP")
             xElem_SynType = xdoc.Element("Root").Element("Settings").Element("TypeSync")
+            xElem_prjDirSet = xdoc.Element("Root").Element("Settings").Element("prjDirSet")
+
         Else
             ToolStripStatusLabel1.Text = "Внимание! Конфигурационный файл не найден!"
             ToolStripStatusLabel1.ForeColor = System.Drawing.Color.Red
         End If
         TextBox1.Text = xElem_IP.Value
+        defineDir()
         If findePO() = True Then excelSearch()
-
-
     End Sub
+
+    'поиск папки проекта
+    Sub defineDir()
+        tbManualDir.Text = xdoc.Element("Root").Element("Settings").Element("prjDir").Value
+        'авто режим (из расположения самой программы) ПОКА НЕ ДОДЕЛАН
+        If xElem_prjDirSet.Value = "Auto" Then
+            tbManualDir.Enabled = False
+            rbAutoDir.Checked = True
+            'Ручной (ПОКА ЧТО ТОЛЬКО БЕРЕТ ИЗ КОНФИГА)
+        ElseIf xElem_prjDirSet.Value = "Manual" Then
+            rbManualDir.Checked = True
+            prjDir = xdoc.Element("Root").Element("Settings").Element("prjDir").Value
+        End If
+    End Sub
+
     Public Function FullFileName(ByVal path As String, ByVal name As String) As String
         FullFileName = path & "\" & name
     End Function
 
     Public Function convertFilePathToRemote(ByVal path As String) As String
-        '\\172.16.18.161\d$\Development\Work\ProjectSync\TestFiles\path 1
-        'd:\Development\Work\ProjectSync\TestFiles\path 1
         convertFilePathToRemote = "\\" & TextBox1.Text & "\" & Replace(path, ":", "$")
     End Function
+
+    'ищем вспогоательное ПО
     Function findePO() As Boolean
         On Error GoTo err1
         findePO = False
         Dim q() As String
         Dim wweDate As String = "01.01.1601 3:00:00"
         Dim opergenDate As String = "01.01.1601 3:00:00"
-        For Each d In Directory.EnumerateDirectories(prjDir & prjName & "\APL", "*.*", SearchOption.TopDirectoryOnly)
+        For Each d In Directory.EnumerateDirectories(prjDir & "\APL", "*.*", SearchOption.TopDirectoryOnly)
             q = Split(d, "\")
             If q(q.Length - 1) Like "work with excel*" Then
                 If IO.Directory.GetLastWriteTime(d) > wweDate Then
@@ -91,16 +116,21 @@ Public Class MainForm
                 End If
             End If
             If q(q.Length - 1) Like "Opergen*" Then
-                If IO.Directory.GetLastWriteTime(d) > wweDate Then
+                If IO.Directory.GetLastWriteTime(d) > opergenDate Then
                     opergenDate = IO.Directory.GetLastWriteTime(d)
                     opergenDir = d
                 End If
             End If
         Next
         findePO = True
+        Exit Function
 err1:
+        Button3.Enabled = False
+        Button4.Enabled = False
         ToolStripStatusLabel1.Text = "Внимание! Вспомогательное ПО не найдено"
     End Function
+
+    'ищем послденюю по дате эксельку
     Sub excelSearch()
         Dim s As String
         Dim q() As String
@@ -114,23 +144,24 @@ err1:
             End If
         Next
         lb_excelName.Text = excelName
-        lb_excelDate.Text = IO.File.GetLastWriteTime(prjDir & prjName & "\" & excelName)
+        lb_excelDate.Text = IO.File.GetLastWriteTime(prjDir & "\" & excelName)
     End Sub
 
-    'сранение дат изменения файлов
+    'сравнение дат изменения файлов
     '1 - если первый файл старше
     '2 - если второй файл старше
-    '0 - если два файла одинаковые
+    '0 - если два файла одинаковые или нет доступа
 
     Function compareIzmDate(ByVal strFile1 As String, ByVal strFile2 As String) As Integer
         Dim f1_d As New DateTime
         Dim f2_d As New DateTime
-        f1_d = CDate(strFile1)
-        f2_d = CDate(strFile2)
 
-        If f1_d > f2_d Then
+        If strFile1 <> "" Then f1_d = CDate(strFile1)
+        If strFile2 <> "" Then f2_d = CDate(strFile2)
+
+        If f1_d > f2_d And (strFile1 <> "" And strFile2 <> "") Then
             compareIzmDate = 1
-        ElseIf f2_d > f1_d Then
+        ElseIf f2_d > f1_d And (strFile1 <> "" And strFile2 <> "") Then
             compareIzmDate = 2
         Else
             compareIzmDate = 0
@@ -165,10 +196,10 @@ err1:
 
                 If bool_connection = True Then DataGridView1.Rows.Item(i).Cells(cn_rem).Value = Replace(IO.File.GetLastWriteTime(FullFileName(convertFilePathToRemote(fObj.location), fObj.name)), "01.01.1601 3:00:00", " ")
 
-                If compareIzmDate(DataGridView1.Rows.Item(i).Cells(cn_loc).Value, DataGridView1.Rows.Item(i).Cells(cn_rem).Value) = 1 Or bool_connection = False Then 'если новый файл на локальном компе
+                If compareIzmDate(DataGridView1.Rows.Item(i).Cells(cn_loc).Value, DataGridView1.Rows.Item(i).Cells(cn_rem).Value) = 1 Then 'если новый файл на локальном компе
                     DataGridView1.Rows.Item(i).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Green
                     DataGridView1.Rows.Item(i).Cells(cn_rem).Style.ForeColor = System.Drawing.Color.Red
-                ElseIf compareIzmDate(DataGridView1.Rows.Item(i).Cells(cn_loc).Value, DataGridView1.Rows.Item(i).Cells(cn_rem).Value) = 0 Then 'если файлы одинаковые
+                ElseIf compareIzmDate(DataGridView1.Rows.Item(i).Cells(cn_loc).Value, DataGridView1.Rows.Item(i).Cells(cn_rem).Value) = 0 Or bool_connection = False Then 'если файлы одинаковые
                     DataGridView1.Rows.Item(i).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
                     DataGridView1.Rows.Item(i).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
                 Else 'если новый файл на удаленном компе
@@ -252,7 +283,6 @@ err1:
             Resume Next
         ElseIf Err.Number = 13 Then
             MsgBox("Err.Number: " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
-            MsgBox(strstr)
             Resume Next
         ElseIf Err.Number = 57 And bool_connection = False Then
         ElseIf Err.Number = 91 Then 'непонятная ошибка надо разобраться
@@ -278,6 +308,7 @@ err1:
         getfName = Trim(getfName)
 
     End Function
+
     Function checkFileRash(ByVal s As String) As Boolean
         Dim q() As String
         Dim fr As String
@@ -287,11 +318,13 @@ err1:
             If "*." & fr = xe.Value Then checkFileRash = True
         Next
     End Function
+
     Function getFileRash(ByVal s As String) As String
         Dim q() As String
         q = Split(s, ".")
         getFileRash = q(1)
     End Function
+
     Private Sub but_Anal_Click(sender As Object, e As EventArgs) Handles but_Anal.Click
         anal()
         If bool_connection = True Then but_sync.Enabled = True
@@ -366,11 +399,14 @@ err1:
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        MsgBox(prjDir & prjName & "\" & excelName)
-        Shell(prjDir & prjName & "\" & excelName)
+        Shell(prjDir & "\" & excelName, AppWinStyle.NormalFocus)
     End Sub
 
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
         Form1.Show()
+    End Sub
+
+    Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
+        Shell(prjDir & "\DB\Object.mdb", AppWinStyle.NormalFocus) ' че то не работает
     End Sub
 End Class

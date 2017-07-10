@@ -29,10 +29,6 @@ Public Class SyncSetForm
             .Title = "Окно выбора файлов"
         End With
 
-        'filterStr = ComboBox1.Items.Item(0)
-
-
-
         If MainForm.xElem_SynType.Value = "Files" Then
             RadioButton1.Checked = True
             TabControl1.SelectedIndex = 0
@@ -44,14 +40,13 @@ Public Class SyncSetForm
         addToCoBox()
         addToGrid()
         For Each item As Object In ComboBox1.Items
-            'MsgBox(item)
             sh = sh + 1
-            If item <> "" Then filterStr = Trim(filterStr) & "Filter (*.hhh)|" & item
+            If item = "" Then filterStr = Trim(filterStr) & "AllFiles (*.*)|*.*"
+            If item <> "" Then filterStr = Trim(filterStr) & "Filter (" & item & ")|" & item
             If sh = ComboBox1.Items.Count Then Exit For
             filterStr = filterStr & "|"
-
         Next
-        MsgBox(filterStr)
+        
         OpenFileDialog1.Filter = Trim(filterStr)
         Exit Sub
 err1:
@@ -89,8 +84,6 @@ err1:
 
         For Each xer As XElement In MainForm.xdoc.Element("Root").Element("Catalogs").Elements("Catalog")
             MainForm.catCollect.Add(xer.Value)
-            'MainForm.catCollect.Item(i).Location = xer.Value
-            'i = i + 1
         Next
 
         xmlLoad = True
@@ -148,8 +141,6 @@ err1:
             OpenFileDialog1.ShowDialog()
         Else
             dr = FolderBrowserDialog1.ShowDialog()
-            '
-            'MsgBox(dr)
             If FolderBrowserDialog1.SelectedPath <> "" And dr <> DialogResult.Cancel Then DataGridView2.Rows.Add(FolderBrowserDialog1.SelectedPath)
         End If
     End Sub
@@ -167,11 +158,7 @@ err1:
 
 
     Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox1.SelectedIndexChanged
-        If ComboBox1.Text <> "" Then
-            OpenFileDialog1.Filter = "Filter| " & ComboBox1.Text
-        Else
-            OpenFileDialog1.Filter = ComboBox1.Text
-        End If
+        OpenFileDialog1.FilterIndex = ComboBox1.SelectedIndex + 1
     End Sub
 
     Private Sub but_addFilter_Click(sender As Object, e As EventArgs) Handles but_addFilter.Click
