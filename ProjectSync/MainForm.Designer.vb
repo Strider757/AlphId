@@ -43,6 +43,7 @@ Partial Class MainForm
         Me.Button2 = New System.Windows.Forms.Button()
         Me.lb_excelName = New System.Windows.Forms.Label()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.DataGridView2 = New System.Windows.Forms.DataGridView()
         Me.Button3 = New System.Windows.Forms.Button()
         Me.Button4 = New System.Windows.Forms.Button()
         Me.Button6 = New System.Windows.Forms.Button()
@@ -60,6 +61,8 @@ Partial Class MainForm
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
+        Me.TabPage2.SuspendLayout()
+        CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.SuspendLayout()
@@ -250,6 +253,7 @@ Partial Class MainForm
         '
         'Button2
         '
+        Me.Button2.Enabled = False
         Me.Button2.Location = New System.Drawing.Point(9, 60)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(94, 28)
@@ -269,6 +273,7 @@ Partial Class MainForm
         '
         'TabPage2
         '
+        Me.TabPage2.Controls.Add(Me.DataGridView2)
         Me.TabPage2.Location = New System.Drawing.Point(4, 22)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
@@ -276,6 +281,21 @@ Partial Class MainForm
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Backup"
         Me.TabPage2.UseVisualStyleBackColor = True
+        '
+        'DataGridView2
+        '
+        Me.DataGridView2.AllowUserToAddRows = False
+        Me.DataGridView2.AllowUserToDeleteRows = False
+        Me.DataGridView2.AllowUserToResizeRows = False
+        Me.DataGridView2.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.DataGridView2.Location = New System.Drawing.Point(4, 105)
+        Me.DataGridView2.MultiSelect = False
+        Me.DataGridView2.Name = "DataGridView2"
+        Me.DataGridView2.RowHeadersVisible = False
+        Me.DataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.DataGridView2.ShowEditingIcon = False
+        Me.DataGridView2.Size = New System.Drawing.Size(711, 308)
+        Me.DataGridView2.TabIndex = 5
         '
         'Button3
         '
@@ -297,6 +317,7 @@ Partial Class MainForm
         '
         'Button6
         '
+        Me.Button6.Enabled = False
         Me.Button6.Location = New System.Drawing.Point(743, 12)
         Me.Button6.Name = "Button6"
         Me.Button6.Size = New System.Drawing.Size(129, 28)
@@ -306,6 +327,7 @@ Partial Class MainForm
         '
         'Button7
         '
+        Me.Button7.Enabled = False
         Me.Button7.Location = New System.Drawing.Point(743, 419)
         Me.Button7.Name = "Button7"
         Me.Button7.Size = New System.Drawing.Size(117, 35)
@@ -315,11 +337,11 @@ Partial Class MainForm
         '
         'Button5
         '
-        Me.Button5.Location = New System.Drawing.Point(740, 342)
+        Me.Button5.Location = New System.Drawing.Point(746, 293)
         Me.Button5.Name = "Button5"
         Me.Button5.Size = New System.Drawing.Size(120, 34)
         Me.Button5.TabIndex = 27
-        Me.Button5.Text = "Button5"
+        Me.Button5.Text = "Alpha Конфига"
         Me.Button5.UseVisualStyleBackColor = True
         '
         'Button8
@@ -368,6 +390,7 @@ Partial Class MainForm
         'rbAutoDir
         '
         Me.rbAutoDir.AutoSize = True
+        Me.rbAutoDir.Enabled = False
         Me.rbAutoDir.Location = New System.Drawing.Point(11, 19)
         Me.rbAutoDir.Name = "rbAutoDir"
         Me.rbAutoDir.Size = New System.Drawing.Size(103, 17)
@@ -400,7 +423,7 @@ Partial Class MainForm
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "MainForm"
-        Me.Text = "MainForm"
+        Me.Text = "Для ВУ"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
@@ -410,6 +433,8 @@ Partial Class MainForm
         Me.TabPage1.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
+        Me.TabPage2.ResumeLayout(False)
+        CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
@@ -450,4 +475,5 @@ Partial Class MainForm
     Friend WithEvents rbManualDir As RadioButton
     Friend WithEvents rbAutoDir As RadioButton
     Friend WithEvents tbManualDir As TextBox
+    Friend WithEvents DataGridView2 As DataGridView
 End Class

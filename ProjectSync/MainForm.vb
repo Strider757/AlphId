@@ -2,6 +2,7 @@
 Imports System.Net.NetworkInformation
 Imports System.IO
 Imports System.Text
+Imports System.Xml
 
 Public Class MainForm
     Public fileCollect As New ArrayList ' коллекция в которую запихиваются объекты с информацией о синхронизируемом файле при чтении конфигурации (не знаю зачем так сделал, можно обойтись без этого)
@@ -14,6 +15,7 @@ Public Class MainForm
     Public xElem_IP As XElement 'IP адресс. обращатся xElem_IP.Value
     Public xElem_SynType As XElement 'Тип синхронизации По файлам или по Каталогам
     Public xElem_prjDirSet As XElement 'как будт вычислятся папка проекта. Автоматически из распложения файла или вручную
+    Public xElem_prjDir As XElement 'Папка проекта в виде ХМЛ элемента
 
     Public prjDir As String 'строка с папкой проекта
     Dim prjName As String ' имя проекта
@@ -88,7 +90,8 @@ Public Class MainForm
             'Ручной (ПОКА ЧТО ТОЛЬКО БЕРЕТ ИЗ КОНФИГА)
         ElseIf xElem_prjDirSet.Value = "Manual" Then
             rbManualDir.Checked = True
-            prjDir = xdoc.Element("Root").Element("Settings").Element("prjDir").Value
+            prjDir = xdoc.Element("Root").Element("Settings").Element("prjDir").Value ' хранится пока в виде строки
+            xElem_prjDir = xdoc.Element("Root").Element("Settings").Element("prjDir") ' потом надо переделать везде что бы обращалось к ХМЛелементу
         End If
     End Sub
 
@@ -403,10 +406,24 @@ err1:
     End Sub
 
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
-        Form1.Show()
+        AlphaCfgForm.Show()
     End Sub
 
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
         Shell(prjDir & "\DB\Object.mdb", AppWinStyle.NormalFocus) ' че то не работает
+    End Sub
+
+    Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
+        If tbManualDir.Text <> xElem_prjDir.Value Then ' перезаписываем папку
+            xElem_prjDir.Value = tbManualDir.Text
+            xdoc.Save(SyncFileName)
+        End If
+        Process.Start(prjDir)
+    End Sub
+
+
+
+    Private Sub tbManualDir_KeyPress(sender As Object, e As KeyPressEventArgs) Handles tbManualDir.KeyPress
+        ' запилить возможность сохранения по нажатию ЭНТЭР
     End Sub
 End Class

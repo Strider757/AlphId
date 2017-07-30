@@ -216,7 +216,7 @@ Partial Class SyncSetForm
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "SyncSetForm"
-        Me.Text = "FilesForm"
+        Me.Text = "Настройка синхронизации"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.TabControl1.ResumeLayout(False)

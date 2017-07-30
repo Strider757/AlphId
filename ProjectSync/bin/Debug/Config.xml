@@ -5,12 +5,16 @@
     <TypeSync>Files</TypeSync>
     <prjDirSet>Manual</prjDirSet>
     <prjDir>C:\Dynamics\SSN</prjDir>
+    <bkpDir>C:\Users\user\Desktop\backupTest</bkpDir>
   </Settings>
   <Filters>
     <Filter>*.grf</Filter>
     <Filter>*.mdb</Filter>
     <Filter>*.mbe</Filter>
   </Filters>
+  <Backups>
+    <Backup Enable="True">C:\Dynamics\SSNTestBackup</Backup>
+  </Backups>
   <Files>
     <File fname="SSN_NA_1.grf">
       <Location>C:\Dynamics\SSN\PIC\</Location>
