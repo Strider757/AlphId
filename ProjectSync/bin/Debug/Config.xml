@@ -2,52 +2,30 @@
 <Root>
   <Settings>
     <IP>172.16.17.197</IP>
-    <TypeSync>Files</TypeSync>
+    <TypeSync>Catalogs</TypeSync>
     <prjDirSet>Manual</prjDirSet>
     <prjDir>C:\Dynamics\SSN</prjDir>
     <bkpDir>C:\Users\user\Desktop\backupTest</bkpDir>
   </Settings>
+  <Backups>
+    <Backup Enable="True">C:\Dynamics\SSNTestBackup</Backup>
+  </Backups>
   <Filters>
     <Filter>*.grf</Filter>
     <Filter>*.mdb</Filter>
     <Filter>*.mbe</Filter>
+    <Filter>*.xmlcfg</Filter>
+    <Filter>*.fxg</Filter>
+    <Filter>*.SCU</Filter>
+    <Filter>*.ini</Filter>
+    <Filter>*.udb</Filter>
   </Filters>
-  <Backups>
-    <Backup Enable="True">C:\Dynamics\SSNTestBackup</Backup>
-  </Backups>
-  <Files>
-    <File fname="SSN_NA_1.grf">
-      <Location>C:\Dynamics\SSN\PIC\</Location>
-    </File>
-    <File fname="SSN_NA_1_r.grf">
-      <Location>C:\Dynamics\SSN\PIC\</Location>
-    </File>
-    <File fname="SSN_NA_10.grf">
-      <Location>C:\Dynamics\SSN\PIC\</Location>
-    </File>
-    <File fname="SSN_NA_10_r.grf">
-      <Location>C:\Dynamics\SSN\PIC\</Location>
-    </File>
-    <File fname="SSN_NA_11.grf">
-      <Location>C:\Dynamics\SSN\PIC\</Location>
-    </File>
-    <File fname="SSN_NA_11_r.grf">
-      <Location>C:\Dynamics\SSN\PIC\</Location>
-    </File>
-    <File fname="SSN_NA_12.grf">
-      <Location>C:\Dynamics\SSN\PIC\</Location>
-    </File>
-    <File fname="SSN_NA_12_r.grf">
-      <Location>C:\Dynamics\SSN\PIC\</Location>
-    </File>
-    <File fname="SSN_NA_2.grf">
-      <Location>C:\Dynamics\SSN\PIC\</Location>
-    </File>
-    <File fname="SSN_NA_2_r.grf">
-      <Location>C:\Dynamics\SSN\PIC\</Location>
-    </File>
-  </Files>
+  <Files></Files>
   <Catalogs>
-    <Catalog allFiles="False">C:\Users\user\Desktop\277 sch</Catalog>
+    <Catalog allFiles="False">C:\Dynamics\SSN\PIC</Catalog>
+    <Catalog allFiles="False">C:\Dynamics\SSN\DB</Catalog>
+    <Catalog allFiles="False">C:\Dynamics\SSN</Catalog>
+    <Catalog allFiles="False">C:\Dynamics\SSN\XML</Catalog>
+    <Catalog allFiles="False">C:\Dynamics\SSN\LOCAL</Catalog>
   </Catalogs>
 </Root>

@@ -27,8 +27,6 @@ Public Class AlphaCfgForm
 
     Dim newIds As Integer
 
-
-
     Public confFullName As String '= "D:\Development\Work\AlphaConfigIDTest\mainTestConfig_id.xmlcfg"
     Public newGen As String '= "D:\Development\Work\AlphaConfigIDTest\AnalogsInCfg ID 1.xmlcfg"
     Public saveFilePath As String
@@ -49,6 +47,7 @@ err1:
 
 
     Sub addToTree(xe As XmlNode, Optional tree As TreeView = Nothing, Optional parent As TreeNode = Nothing)
+
         For Each x As XmlNode In xe.ChildNodes
             If x.Name = "Item" Then
                 If parent Is Nothing Then
@@ -74,6 +73,7 @@ err1:
             If x.HasChildNodes Then
                 addToTree(x, tree, parentNode)
             End If
+
         Next
 
     End Sub
@@ -169,16 +169,23 @@ err2:
 
 
     Private Sub bt_LoadCfg_Click(sender As Object, e As EventArgs) Handles bt_LoadCfg.Click
-        On Error GoTo err1
+
         b_selectCfg = True
         If OpenFileDialog1.ShowDialog() = DialogResult.Cancel Then Exit Sub
-        ToolStripStatusLabel1.Text = "Гружу конфигурацию"
+        loadCfg()
 
+    End Sub
+
+    Sub loadCfg()
+        On Error GoTo err1
+        ToolStripStatusLabel1.Text = "Гружу конфигурацию"
 
         docConfig.Load(confFullName) 'загружаем хмл файл
         rootConfig = docConfig.DocumentElement ' Выбираем главный узел
 
         SignalsNode = rootConfig.SelectSingleNode("//Configuration/Signals/Items")
+
+        TreeView1.Nodes.Clear()
 
         addToTree(SignalsNode, TreeView1) 'добавляем в дерево
         parentNode = Nothing 'обнуление родительского узла
@@ -196,15 +203,20 @@ err1:
     End Sub
 
     Private Sub bt_LoadNewGen_Click(sender As Object, e As EventArgs) Handles bt_LoadNewGen.Click
-        On Error GoTo err1
+
         b_selectCfg = False
         If OpenFileDialog1.ShowDialog() = DialogResult.Cancel Then Exit Sub
+        loadNewCfg()
+
+    End Sub
+    Sub loadNewCfg()
+        On Error GoTo err1
         ToolStripStatusLabel1.Text = "Гружу сгенеренный файл"
-
-
 
         docNewGen.Load(newGen) 'загружаем хмл файл
         rootNewGen = docNewGen.DocumentElement ' Выбираем главный узел
+
+        TreeView2.Nodes.Clear()
 
         addToTree(rootNewGen, TreeView2)
         parentNode = Nothing
@@ -244,7 +256,10 @@ err1:
         Else
             lb_cfgId.Text = "ОТСУТСТВУЕТ"
         End If
+
     End Sub
+
+
 
     Function getNodeByTreePath(ByVal s As String, mNode As XmlNode) As XmlNode '"FIX\MNS1\AN"
         Dim q()
@@ -276,11 +291,37 @@ err1:
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Dim n As TreeNode
-        n = TreeView1.Nodes.Find("2", True)(0)
+        n = TreeView1.Nodes.Find("3", True)(0)
         MsgBox(n.Text)
     End Sub
 
     Private Sub SaveFileDialog1_FileOk(sender As Object, e As ComponentModel.CancelEventArgs) Handles SaveFileDialog1.FileOk
         saveFilePath = SaveFileDialog1.FileName
+    End Sub
+
+    Private Sub TreeView1_DragEnter(sender As Object, e As DragEventArgs) Handles TreeView1.DragEnter
+        If e.Data.GetDataPresent(DataFormats.FileDrop) Then
+            e.Effect = DragDropEffects.All
+        Else
+            e.Effect = DragDropEffects.None
+        End If
+    End Sub
+
+    Private Sub TreeView1_DragDrop(sender As Object, e As DragEventArgs) Handles TreeView1.DragDrop
+        confFullName = e.Data.GetData(DataFormats.FileDrop)(0)
+        loadCfg()
+    End Sub
+
+    Private Sub TreeView2_DragEnter(sender As Object, e As DragEventArgs) Handles TreeView2.DragEnter
+        If e.Data.GetDataPresent(DataFormats.FileDrop) Then
+            e.Effect = DragDropEffects.All
+        Else
+            e.Effect = DragDropEffects.None
+        End If
+    End Sub
+
+    Private Sub TreeView2_DragDrop(sender As Object, e As DragEventArgs) Handles TreeView2.DragDrop
+        newGen = e.Data.GetData(DataFormats.FileDrop)(0)
+        loadNewCfg()
     End Sub
 End Class

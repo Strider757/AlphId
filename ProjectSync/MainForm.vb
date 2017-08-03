@@ -426,4 +426,5 @@ err1:
     Private Sub tbManualDir_KeyPress(sender As Object, e As KeyPressEventArgs) Handles tbManualDir.KeyPress
         ' запилить возможность сохранения по нажатию ЭНТЭР
     End Sub
+
 End Class

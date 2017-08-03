@@ -42,11 +42,19 @@ Partial Class AlphaCfgForm
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.StatusStrip1.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
         'TreeView1
         '
+        Me.TreeView1.AllowDrop = True
+        Me.TreeView1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TreeView1.Location = New System.Drawing.Point(12, 12)
         Me.TreeView1.Name = "TreeView1"
         Me.TreeView1.Size = New System.Drawing.Size(425, 290)
@@ -54,14 +62,18 @@ Partial Class AlphaCfgForm
         '
         'TreeView2
         '
+        Me.TreeView2.AllowDrop = True
+        Me.TreeView2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TreeView2.Location = New System.Drawing.Point(483, 11)
         Me.TreeView2.Name = "TreeView2"
-        Me.TreeView2.Size = New System.Drawing.Size(425, 290)
+        Me.TreeView2.Size = New System.Drawing.Size(425, 296)
         Me.TreeView2.TabIndex = 3
         '
         'bt_LoadCfg
         '
-        Me.bt_LoadCfg.Location = New System.Drawing.Point(12, 307)
+        Me.bt_LoadCfg.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.bt_LoadCfg.Location = New System.Drawing.Point(12, 313)
         Me.bt_LoadCfg.Name = "bt_LoadCfg"
         Me.bt_LoadCfg.Size = New System.Drawing.Size(118, 46)
         Me.bt_LoadCfg.TabIndex = 4
@@ -70,7 +82,8 @@ Partial Class AlphaCfgForm
         '
         'bt_LoadNewGen
         '
-        Me.bt_LoadNewGen.Location = New System.Drawing.Point(483, 307)
+        Me.bt_LoadNewGen.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.bt_LoadNewGen.Location = New System.Drawing.Point(483, 313)
         Me.bt_LoadNewGen.Name = "bt_LoadNewGen"
         Me.bt_LoadNewGen.Size = New System.Drawing.Size(118, 46)
         Me.bt_LoadNewGen.TabIndex = 5
@@ -83,10 +96,11 @@ Partial Class AlphaCfgForm
         '
         'bt_compare
         '
+        Me.bt_compare.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.bt_compare.Enabled = False
-        Me.bt_compare.Location = New System.Drawing.Point(312, 324)
+        Me.bt_compare.Location = New System.Drawing.Point(808, 330)
         Me.bt_compare.Name = "bt_compare"
-        Me.bt_compare.Size = New System.Drawing.Size(125, 29)
+        Me.bt_compare.Size = New System.Drawing.Size(100, 29)
         Me.bt_compare.TabIndex = 6
         Me.bt_compare.Text = "Раздать ID"
         Me.bt_compare.UseVisualStyleBackColor = True
@@ -94,7 +108,7 @@ Partial Class AlphaCfgForm
         'lb_cfgPath
         '
         Me.lb_cfgPath.AutoSize = True
-        Me.lb_cfgPath.Location = New System.Drawing.Point(179, 307)
+        Me.lb_cfgPath.Location = New System.Drawing.Point(53, 18)
         Me.lb_cfgPath.Name = "lb_cfgPath"
         Me.lb_cfgPath.Size = New System.Drawing.Size(19, 13)
         Me.lb_cfgPath.TabIndex = 7
@@ -103,7 +117,7 @@ Partial Class AlphaCfgForm
         'lb_cfgId
         '
         Me.lb_cfgId.AutoSize = True
-        Me.lb_cfgId.Location = New System.Drawing.Point(179, 324)
+        Me.lb_cfgId.Location = New System.Drawing.Point(53, 31)
         Me.lb_cfgId.Name = "lb_cfgId"
         Me.lb_cfgId.Size = New System.Drawing.Size(19, 13)
         Me.lb_cfgId.TabIndex = 8
@@ -112,7 +126,7 @@ Partial Class AlphaCfgForm
         'lb_maxId
         '
         Me.lb_maxId.AutoSize = True
-        Me.lb_maxId.Location = New System.Drawing.Point(179, 340)
+        Me.lb_maxId.Location = New System.Drawing.Point(53, 44)
         Me.lb_maxId.Name = "lb_maxId"
         Me.lb_maxId.Size = New System.Drawing.Size(19, 13)
         Me.lb_maxId.TabIndex = 9
@@ -121,7 +135,7 @@ Partial Class AlphaCfgForm
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(136, 340)
+        Me.Label4.Location = New System.Drawing.Point(6, 44)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(42, 13)
         Me.Label4.TabIndex = 12
@@ -130,7 +144,7 @@ Partial Class AlphaCfgForm
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(136, 324)
+        Me.Label5.Location = New System.Drawing.Point(6, 31)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(19, 13)
         Me.Label5.TabIndex = 11
@@ -139,7 +153,7 @@ Partial Class AlphaCfgForm
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(136, 307)
+        Me.Label6.Location = New System.Drawing.Point(6, 15)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(32, 13)
         Me.Label6.TabIndex = 10
@@ -148,7 +162,7 @@ Partial Class AlphaCfgForm
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(607, 324)
+        Me.Label2.Location = New System.Drawing.Point(6, 33)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(19, 13)
         Me.Label2.TabIndex = 17
@@ -157,7 +171,7 @@ Partial Class AlphaCfgForm
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(607, 307)
+        Me.Label3.Location = New System.Drawing.Point(6, 16)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(32, 13)
         Me.Label3.TabIndex = 16
@@ -166,7 +180,7 @@ Partial Class AlphaCfgForm
         'lb_NewGId
         '
         Me.lb_NewGId.AutoSize = True
-        Me.lb_NewGId.Location = New System.Drawing.Point(650, 324)
+        Me.lb_NewGId.Location = New System.Drawing.Point(49, 33)
         Me.lb_NewGId.Name = "lb_NewGId"
         Me.lb_NewGId.Size = New System.Drawing.Size(19, 13)
         Me.lb_NewGId.TabIndex = 14
@@ -175,7 +189,7 @@ Partial Class AlphaCfgForm
         'lb_NewGPath
         '
         Me.lb_NewGPath.AutoSize = True
-        Me.lb_NewGPath.Location = New System.Drawing.Point(650, 307)
+        Me.lb_NewGPath.Location = New System.Drawing.Point(49, 16)
         Me.lb_NewGPath.Name = "lb_NewGPath"
         Me.lb_NewGPath.Size = New System.Drawing.Size(19, 13)
         Me.lb_NewGPath.TabIndex = 13
@@ -183,7 +197,7 @@ Partial Class AlphaCfgForm
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(841, 309)
+        Me.Button1.Location = New System.Drawing.Point(410, 309)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(67, 42)
         Me.Button1.TabIndex = 18
@@ -194,7 +208,7 @@ Partial Class AlphaCfgForm
         'StatusStrip1
         '
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 372)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 378)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Size = New System.Drawing.Size(920, 22)
         Me.StatusStrip1.TabIndex = 19
@@ -209,23 +223,43 @@ Partial Class AlphaCfgForm
         'SaveFileDialog1
         '
         '
+        'GroupBox1
+        '
+        Me.GroupBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox1.Controls.Add(Me.Label6)
+        Me.GroupBox1.Controls.Add(Me.lb_cfgPath)
+        Me.GroupBox1.Controls.Add(Me.Label5)
+        Me.GroupBox1.Controls.Add(Me.lb_cfgId)
+        Me.GroupBox1.Controls.Add(Me.Label4)
+        Me.GroupBox1.Controls.Add(Me.lb_maxId)
+        Me.GroupBox1.Location = New System.Drawing.Point(136, 307)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(268, 68)
+        Me.GroupBox1.TabIndex = 20
+        Me.GroupBox1.TabStop = False
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox2.Controls.Add(Me.Label3)
+        Me.GroupBox2.Controls.Add(Me.lb_NewGPath)
+        Me.GroupBox2.Controls.Add(Me.lb_NewGId)
+        Me.GroupBox2.Controls.Add(Me.Label2)
+        Me.GroupBox2.Location = New System.Drawing.Point(607, 309)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(195, 68)
+        Me.GroupBox2.TabIndex = 21
+        Me.GroupBox2.TabStop = False
+        '
         'AlphaCfgForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(920, 394)
+        Me.ClientSize = New System.Drawing.Size(920, 400)
+        Me.Controls.Add(Me.GroupBox2)
+        Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.Button1)
-        Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.lb_NewGId)
-        Me.Controls.Add(Me.lb_NewGPath)
-        Me.Controls.Add(Me.Label4)
-        Me.Controls.Add(Me.Label5)
-        Me.Controls.Add(Me.Label6)
-        Me.Controls.Add(Me.lb_maxId)
-        Me.Controls.Add(Me.lb_cfgId)
-        Me.Controls.Add(Me.lb_cfgPath)
         Me.Controls.Add(Me.bt_compare)
         Me.Controls.Add(Me.bt_LoadNewGen)
         Me.Controls.Add(Me.bt_LoadCfg)
@@ -237,6 +271,10 @@ Partial Class AlphaCfgForm
         Me.Text = "Alpha Конфига"
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -262,4 +300,6 @@ Partial Class AlphaCfgForm
     Friend WithEvents StatusStrip1 As StatusStrip
     Friend WithEvents ToolStripStatusLabel1 As ToolStripStatusLabel
     Friend WithEvents SaveFileDialog1 As SaveFileDialog
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents GroupBox2 As GroupBox
 End Class

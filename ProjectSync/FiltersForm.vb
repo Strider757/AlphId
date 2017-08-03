@@ -1,10 +1,14 @@
 ﻿Public Class FiltersForm
+
+    Dim fltStr As String
+
     Private Sub FiltersForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         On Error GoTo err1
         DataGridView1.Columns.Add("name", "Наименование фильтра")
         DataGridView1.Columns(0).Width = 203
         Dim i As Integer = 0
         DataGridView1.Rows.Clear()
+        OpenFileDialog1.Multiselect = False
         For Each xe As XElement In MainForm.xdoc.Element("Root").Element("Filters").Elements("Filter")
             DataGridView1.Rows.Add()
             DataGridView1.Rows.Item(i).Cells(0).Value = xe.Value
@@ -15,14 +19,11 @@ err1:
         MsgBox("Ошибка номер " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
     End Sub
 
-    Public Sub workWithExcelSearch()
-
-    End Sub
 
     Private Sub But_save_Click(sender As Object, e As EventArgs) Handles But_save.Click
         MainForm.xdoc.Element("Root").Element("Filters").Remove()
 
-        Dim xmlTree1 As XElement = _
+        Dim xmlTree1 As XElement =
             <Filters>
             </Filters>
 
@@ -53,8 +54,16 @@ err1:
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
-        'OpenFileDialog1.ShowDialog()
+        Dim q()
+        If OpenFileDialog1.ShowDialog() = DialogResult.Cancel Then Exit Sub
+
+        q = Split(OpenFileDialog1.FileName, ".")
+        fltStr = "*." & q(q.Length - 1)
+        DataGridView1.Rows.Add(fltStr)
         'OpenFileDialog1.FileName
     End Sub
 
+    Private Sub OpenFileDialog1_FileOk(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles OpenFileDialog1.FileOk
+        fltStr = OpenFileDialog1.FileName
+    End Sub
 End Class
