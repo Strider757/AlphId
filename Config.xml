@@ -1,15 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Root>  <IP>172.16.18.196</IP>
-  <Filters>
-    <Filter>*.txt</Filter>
-    <Filter>*.jpg</Filter>
-  </Filters>
-  <Files>
-    <File fname="Test 1.txt">
-      <Location>D:\Development\Work\ProjectSync\TestFiles\path 1</Location>
-    </File>
-    <File fname="Test 2.txt">
-      <Location>D:\Development\Work\ProjectSync\TestFiles\path 1</Location>
-    </File>
-  </Files>
-</Root>

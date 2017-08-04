@@ -71,13 +71,14 @@ Public Class MainForm
             xElem_SynType = xdoc.Element("Root").Element("Settings").Element("TypeSync")
             xElem_prjDirSet = xdoc.Element("Root").Element("Settings").Element("prjDirSet")
 
+            TextBox1.Text = xElem_IP.Value
+            defineDir()
+            If findePO() = True Then excelSearch()
         Else
             ToolStripStatusLabel1.Text = "Внимание! Конфигурационный файл не найден!"
             ToolStripStatusLabel1.ForeColor = System.Drawing.Color.Red
         End If
-        TextBox1.Text = xElem_IP.Value
-        defineDir()
-        If findePO() = True Then excelSearch()
+
     End Sub
 
     'поиск папки проекта

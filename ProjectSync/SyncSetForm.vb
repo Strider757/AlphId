@@ -4,7 +4,7 @@ Imports System.Text
 Public Class SyncSetForm
 
     Private Sub FilesForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        On Error GoTo err1
+
         Dim chk As New DataGridViewCheckBoxColumn()
         Dim sh As Integer = 0
         Dim dstr(3) As String
@@ -29,6 +29,7 @@ Public Class SyncSetForm
             .Title = "Окно выбора файлов"
         End With
 
+        On Error GoTo err1
         If MainForm.xElem_SynType.Value = "Files" Then
             RadioButton1.Checked = True
             TabControl1.SelectedIndex = 0
@@ -50,6 +51,10 @@ Public Class SyncSetForm
         OpenFileDialog1.Filter = Trim(filterStr)
         Exit Sub
 err1:
+        If MainForm.bool_configFileExist = False Then
+            MsgBox("Конфигурационный файл не найден. Создать новый?", vbOKCancel, vbQuestion)
+
+        End If
         MsgBox("Ошибка номер " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
     End Sub
 
@@ -240,7 +245,6 @@ err1:
         Next
 
     End Sub
-
 
 
     'Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
