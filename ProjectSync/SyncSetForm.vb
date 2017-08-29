@@ -53,11 +53,36 @@ Public Class SyncSetForm
 err1:
         If MainForm.bool_configFileExist = False Then
             MsgBox("Конфигурационный файл не найден. Создать новый?", vbOKCancel, vbQuestion)
-
+            createConfigFile()
+            Resume
         End If
         MsgBox("Ошибка номер " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
     End Sub
-
+    Sub createConfigFile()
+        Dim xd As XDocument =
+             <?xml version="1.0" encoding="utf-8"?>
+             <Root>
+                 <Settings>
+                     <IP></IP>
+                     <TypeSync>Catalogs</TypeSync>
+                     <prjDirSet>Manual</prjDirSet>
+                     <prjDir></prjDir>
+                     <bkpDir></bkpDir>
+                 </Settings>
+                 <Backups>
+                     <Backup Enable="True"></Backup>
+                 </Backups>
+                 <Filters>
+                     <Filter></Filter>
+                 </Filters>
+                 <Files></Files>
+                 <Catalogs>
+                     <Catalog allFiles="False"></Catalog>
+                 </Catalogs>
+             </Root>
+        MainForm.xdoc = xd
+        MainForm.xdoc.Save(MainForm.SyncFileName)
+    End Sub
     Public Sub addToCoBox()
         ComboBox1.Items.Clear()
         ComboBox1.Items.Add("") 'добавляем пустой фильтр

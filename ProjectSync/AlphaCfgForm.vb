@@ -180,12 +180,17 @@ err2:
         On Error GoTo err1
         ToolStripStatusLabel1.Text = "Гружу конфигурацию"
 
+
+        lb_peret1.Visible = False
+
         docConfig.Load(confFullName) 'загружаем хмл файл
         rootConfig = docConfig.DocumentElement ' Выбираем главный узел
 
         SignalsNode = rootConfig.SelectSingleNode("//Configuration/Signals/Items")
 
         TreeView1.Nodes.Clear()
+
+
 
         addToTree(SignalsNode, TreeView1) 'добавляем в дерево
         parentNode = Nothing 'обнуление родительского узла
@@ -212,6 +217,8 @@ err1:
     Sub loadNewCfg()
         On Error GoTo err1
         ToolStripStatusLabel1.Text = "Гружу сгенеренный файл"
+
+        lb_peret2.Visible = False
 
         docNewGen.Load(newGen) 'загружаем хмл файл
         rootNewGen = docNewGen.DocumentElement ' Выбираем главный узел
