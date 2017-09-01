@@ -12,3 +12,4 @@ D:\Development\Work\ProjectSync\ProjectSync\obj\Debug\ProjectSync.FiltersForm.re
 D:\Development\Work\ProjectSync\ProjectSync\obj\Debug\ProjectSync.SyncSetForm.resources
 D:\Development\Work\ProjectSync\ProjectSync\obj\Debug\ProjectSync.vbprojResolveAssemblyReference.cache
 D:\Development\Work\ProjectSync\ProjectSync\obj\Debug\ProjectSync.AlphaCfgForm.resources
+D:\Development\Work\ProjectSync\ProjectSync\obj\Debug\ProjectSync.vbproj.CoreCompileInputs.cache

@@ -16,6 +16,9 @@
             Return fLocation
         End Get
         Set(value As String)
+            If Right(value, Len(value) - Len(value) + 1) = "\" Then
+                value = Left(value, Len(value) - 1)
+            End If
             fLocation = value
         End Set
     End Property

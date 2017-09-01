@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
   <Settings>
-    <IP>172.16.18.86</IP>
+    <IP>127.0.0.1</IP>
     <prjDirSet>Manual</prjDirSet>
     <prjDir>C:\Dynamics\</prjDir>
     <bkpDir>C:\Users\user\Desktop\backupTest</bkpDir>
@@ -9,10 +9,6 @@
   <Backups>
     <Backup Enable="True">C:\Dynamics\SSNTestBackup</Backup>
   </Backups>
-  <Filters>
-    <Filter>*.grf</Filter>
-  </Filters>
-  <Sync>
-    <Catalog allFiles="false" altFilter="grf,txt,jpg">C:\Users\user\Desktop\OSA</Catalog>
-  </Sync>
+  <Sync></Sync>
+  <Filters></Filters>
 </Root>

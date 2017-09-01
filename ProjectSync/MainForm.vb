@@ -36,8 +36,7 @@ Public Class MainForm
 
     'грузим форму
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'проверка на наличие конфигурационного файла config.xml 
-        bool_configFileExist = File.Exists(SyncFileName)
+
         ToolStripStatusLabel1.Text = " "
         Dim chk As New DataGridViewCheckBoxColumn()
 
@@ -64,6 +63,13 @@ Public Class MainForm
         ToolStripProgressBar1.Visible = False
 
         ' проверяем наличие конфиг файла
+        initConfig()
+
+    End Sub
+
+    Sub initConfig()
+        'проверка на наличие конфигурационного файла config.xml 
+        bool_configFileExist = File.Exists(SyncFileName)
         If bool_configFileExist Then
             xdoc = XDocument.Load(SyncFileName)         'грузим в память хмл
             Call SyncSetForm.xmlLoad()         'запихиваем список файлов из хмл в колекцию
@@ -73,12 +79,11 @@ Public Class MainForm
 
             TextBox1.Text = xElem_IP.Value
             defineDir()
-            If findePO() = True Then excelSearch()
+            'If findePO() = True Then excelSearch()
         Else
             ToolStripStatusLabel1.Text = "Внимание! Конфигурационный файл не найден!"
             ToolStripStatusLabel1.ForeColor = System.Drawing.Color.Red
         End If
-
     End Sub
 
     'поиск папки проекта
@@ -104,35 +109,36 @@ Public Class MainForm
         convertFilePathToRemote = "\\" & TextBox1.Text & "\" & Replace(path, ":", "$")
     End Function
 
-    'ищем вспогоательное ПО
-    Function findePO() As Boolean
-        On Error GoTo err1
-        findePO = False
-        Dim q() As String
-        Dim wweDate As String = "01.01.1601 3:00:00"
-        Dim opergenDate As String = "01.01.1601 3:00:00"
-        For Each d In Directory.EnumerateDirectories(prjDir & "\APL", "*.*", SearchOption.TopDirectoryOnly)
-            q = Split(d, "\")
-            If q(q.Length - 1) Like "work with excel*" Then
-                If IO.Directory.GetLastWriteTime(d) > wweDate Then
-                    wweDate = IO.Directory.GetLastWriteTime(d)
-                    wweDir = d
-                End If
-            End If
-            If q(q.Length - 1) Like "Opergen*" Then
-                If IO.Directory.GetLastWriteTime(d) > opergenDate Then
-                    opergenDate = IO.Directory.GetLastWriteTime(d)
-                    opergenDir = d
-                End If
-            End If
-        Next
-        findePO = True
-        Exit Function
-err1:
-        Button3.Enabled = False
-        Button4.Enabled = False
-        ToolStripStatusLabel1.Text = "Внимание! Вспомогательное ПО не найдено"
-    End Function
+    '    'ищем вспогоательное ПО
+    '    Function findePO() As Boolean
+    '        On Error GoTo err1
+    '        findePO = False
+    '        Dim q() As String
+    '        Dim wweDate As String = "01.01.1601 3:00:00"
+    '        Dim opergenDate As String = "01.01.1601 3:00:00"
+    '        For Each d In Directory.EnumerateDirectories(prjDir & "\APL", "*.*", SearchOption.TopDirectoryOnly)
+    '            q = Split(d, "\")
+    '            If q(q.Length - 1) Like "work with excel*" Then
+    '                If IO.Directory.GetLastWriteTime(d) > wweDate Then
+    '                    wweDate = IO.Directory.GetLastWriteTime(d)
+    '                    wweDir = d
+    '                End If
+    '            End If
+    '            If q(q.Length - 1) Like "Opergen*" Then
+    '                If IO.Directory.GetLastWriteTime(d) > opergenDate Then
+    '                    opergenDate = IO.Directory.GetLastWriteTime(d)
+    '                    opergenDir = d
+    '                End If
+    '            End If
+    '        Next
+    '        findePO = True
+    '        Exit Function
+    'err1:
+    '        Button3.Enabled = False
+    '        Button4.Enabled = False
+    '        ToolStripStatusLabel1.Text = "Внимание! Вспомогательное ПО не найдено"
+    '        ToolStripStatusLabel1.ForeColor = System.Drawing.Color.Black
+    '    End Function
 
     'ищем послденюю по дате эксельку
     Sub excelSearch()
@@ -160,8 +166,8 @@ err1:
         Dim f1_d As New DateTime
         Dim f2_d As New DateTime
 
-        If strFile1 <> "" Then f1_d = CDate(strFile1)
-        If strFile2 <> "" Then f2_d = CDate(strFile2)
+        If strFile1 <> "" And strFile1 <> " " Then f1_d = CDate(strFile1)
+        If strFile2 <> "" And strFile2 <> " " Then f2_d = CDate(strFile2)
 
         If f1_d > f2_d And (strFile1 <> "" And strFile2 <> "") Then
             compareIzmDate = 1
@@ -190,9 +196,8 @@ err1:
             ToolStripStatusLabel1.Text = "Нет связи"
         End If
 
-
-        If xElem_SynType.Value = "Files" Then
-            For Each fObj In fileCollect
+        'If xElem_SynType.Value = "Files" Then
+        For Each fObj In fileCollect
                 DataGridView1.Rows.Add()
                 DataGridView1.Rows.Item(i).Cells(cn_nm).Value = fObj.Name
                 DataGridView1.Rows.Item(i).Cells(cn_der).Value = fObj.Location
@@ -214,57 +219,53 @@ err1:
                 DataGridView1.Rows.Item(i).Cells(cn_chk).Value = True
                 i = i + 1
             Next
-        Else
-            For Each xer As XElement In xdoc.Element("Root").Element("Catalogs").Elements("Catalog")
-                'xer.Value
-                'xer.Attribute("allFiles").Value
-                Files = IO.Directory.GetFiles(xer.Value)
-                For ki = 0 To Files.Length - 1
-                    If xer.Attribute("allFiles").Value = True Then
-                        DataGridView1.Rows.Add()
-                        DataGridView1.Rows.Item(k).Cells(cn_nm).Value = SyncSetForm.getfName(Files(ki), 0)
-                        DataGridView1.Rows.Item(k).Cells(cn_der).Value = xer.Value
-                        DataGridView1.Rows.Item(k).Cells(cn_loc).Value = Replace(IO.File.GetLastWriteTime(Files(ki)), "01.01.1601 3:00:00", " ")
-                        If bool_connection = True Then DataGridView1.Rows.Item(k).Cells(cn_rem).Value = Replace(IO.File.GetLastWriteTime(convertFilePathToRemote(Files(ki))), "01.01.1601 3:00:00", " ")
+        'Else
+        k = i 'потому что это теперь общий стчетчик, но мне лень переделывать
+        For Each xer As XElement In xdoc.Element("Root").Elements("Sync").Elements("Catalog")
+            Files = IO.Directory.GetFiles(xer.Value)
+            For ki = 0 To Files.Length - 1
+                If xer.Attribute("allFiles").Value = True Then
+                    DataGridView1.Rows.Add()
+                    DataGridView1.Rows.Item(k).Cells(cn_nm).Value = SyncSetForm.getfName(Files(ki), 0)
+                    DataGridView1.Rows.Item(k).Cells(cn_der).Value = xer.Value
+                    DataGridView1.Rows.Item(k).Cells(cn_loc).Value = Replace(IO.File.GetLastWriteTime(Files(ki)), "01.01.1601 3:00:00", " ")
+                    If bool_connection = True Then DataGridView1.Rows.Item(k).Cells(cn_rem).Value = Replace(IO.File.GetLastWriteTime(convertFilePathToRemote(Files(ki))), "01.01.1601 3:00:00", " ")
 
-                        If compareIzmDate(DataGridView1.Rows.Item(i).Cells(cn_loc).Value, DataGridView1.Rows.Item(i).Cells(cn_rem).Value) = 1 Or bool_connection = False Then 'если новый файл на локальном компе
-                            DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Green
-                            DataGridView1.Rows.Item(k).Cells(cn_rem).Style.ForeColor = System.Drawing.Color.Red
-                        ElseIf compareIzmDate(DataGridView1.Rows.Item(i).Cells(cn_loc).Value, DataGridView1.Rows.Item(i).Cells(cn_rem).Value) = 0 Then 'если файлы одинаковые
-                            DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
-                            DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
-                        Else 'если новый файл на удаленном компе
-                            DataGridView1.Rows.Item(k).Cells(cn_rem).Style.ForeColor = System.Drawing.Color.Green
-                            DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Red
-                        End If
-
-                        DataGridView1.Rows.Item(k).Cells(cn_chk).Value = True
-                        k = k + 1
-                    ElseIf xer.Attribute("allFiles").Value = False And checkFileRash(getfName(Files(ki), 0)) = True Then
-                        DataGridView1.Rows.Add()
-                        DataGridView1.Rows.Item(k).Cells(cn_nm).Value = SyncSetForm.getfName(Files(ki), 0)
-                        DataGridView1.Rows.Item(k).Cells(cn_der).Value = xer.Value
-                        DataGridView1.Rows.Item(k).Cells(cn_loc).Value = Replace(IO.File.GetLastWriteTime(Files(ki)), "01.01.1601 3:00:00", " ")
-                        If bool_connection = True Then DataGridView1.Rows.Item(k).Cells(cn_rem).Value = Replace(IO.File.GetLastWriteTime(convertFilePathToRemote(Files(ki))), "01.01.1601 3:00:00", " ")
-
-                        If compareIzmDate(DataGridView1.Rows.Item(i).Cells(cn_loc).Value, DataGridView1.Rows.Item(i).Cells(cn_rem).Value) = 1 Or bool_connection = False Then 'если новый файл на локальном компе
-                            DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Green
-                            DataGridView1.Rows.Item(k).Cells(cn_rem).Style.ForeColor = System.Drawing.Color.Red
-                        ElseIf compareIzmDate(DataGridView1.Rows.Item(i).Cells(cn_loc).Value, DataGridView1.Rows.Item(i).Cells(cn_rem).Value) = 0 Then 'если файлы одинаковые
-                            DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
-                            DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
-                        Else 'если новый файл на удаленном компе
-                            DataGridView1.Rows.Item(k).Cells(cn_rem).Style.ForeColor = System.Drawing.Color.Green
-                            DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Red
-                        End If
-
-                        DataGridView1.Rows.Item(k).Cells(cn_chk).Value = True
-                        k = k + 1
+                    If compareIzmDate(DataGridView1.Rows.Item(k).Cells(cn_loc).Value, DataGridView1.Rows.Item(k).Cells(cn_rem).Value) = 1 Then 'если новый файл на локальном компе
+                        DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Green
+                        DataGridView1.Rows.Item(k).Cells(cn_rem).Style.ForeColor = System.Drawing.Color.Red
+                    ElseIf compareIzmDate(DataGridView1.Rows.Item(k).Cells(cn_loc).Value, DataGridView1.Rows.Item(k).Cells(cn_rem).Value) = 0 Or bool_connection = False Then 'если файлы одинаковые
+                        DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
+                        DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
+                    Else 'если новый файл на удаленном компе
+                        DataGridView1.Rows.Item(k).Cells(cn_rem).Style.ForeColor = System.Drawing.Color.Green
+                        DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Red
                     End If
+                    DataGridView1.Rows.Item(k).Cells(cn_chk).Value = True
+                    k = k + 1
+                ElseIf xer.Attribute("allFiles").Value = False And checkFileRash(getfName(Files(ki), 0)) = True Then
+                    DataGridView1.Rows.Add()
+                    DataGridView1.Rows.Item(k).Cells(cn_nm).Value = SyncSetForm.getfName(Files(ki), 0)
+                    DataGridView1.Rows.Item(k).Cells(cn_der).Value = xer.Value
+                    DataGridView1.Rows.Item(k).Cells(cn_loc).Value = Replace(IO.File.GetLastWriteTime(Files(ki)), "01.01.1601 3:00:00", " ")
+                    If bool_connection = True Then DataGridView1.Rows.Item(k).Cells(cn_rem).Value = Replace(IO.File.GetLastWriteTime(convertFilePathToRemote(Files(ki))), "01.01.1601 3:00:00", " ")
 
-                Next
+                    If compareIzmDate(DataGridView1.Rows.Item(k).Cells(cn_loc).Value, DataGridView1.Rows.Item(k).Cells(cn_rem).Value) = 1 Then 'если новый файл на локальном компе
+                        DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Green
+                        DataGridView1.Rows.Item(k).Cells(cn_rem).Style.ForeColor = System.Drawing.Color.Red
+                    ElseIf compareIzmDate(DataGridView1.Rows.Item(k).Cells(cn_loc).Value, DataGridView1.Rows.Item(k).Cells(cn_rem).Value) = 0 Or bool_connection = False Then 'если файлы одинаковые
+                        DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
+                        DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
+                    Else 'если новый файл на удаленном компе
+                        DataGridView1.Rows.Item(k).Cells(cn_rem).Style.ForeColor = System.Drawing.Color.Green
+                        DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Red
+                    End If
+                    DataGridView1.Rows.Item(k).Cells(cn_chk).Value = True
+                    k = k + 1
+                End If
             Next
-        End If
+        Next
+        'End If
         If TextBox1.Text <> xElem_IP.Value Then ' перезаписываем ip
             xElem_IP.Value = TextBox1.Text
             xdoc.Save(SyncFileName)
@@ -297,7 +298,7 @@ err1:
     End Sub
 
 
-    Public Function getfName(ByVal s As String, Optional b As Integer = 0) As String
+    Public Function getfName(ByVal s As String, Optional b As Integer = 0) As String 'получаем имя файла
         Dim q()
         q = Split(s, "\")
 
@@ -308,12 +309,12 @@ err1:
                 getfName = getfName & q(i) & "\"
             Next
         End If
-
         getfName = Trim(getfName)
-
     End Function
 
-    Function checkFileRash(ByVal s As String) As Boolean
+
+
+    Function checkFileRash(ByVal s As String) As Boolean 'проверяем расширение файла на соотвествие списку фильтров
         Dim q() As String
         Dim fr As String
         q = Split(s, ".")
@@ -323,7 +324,7 @@ err1:
         Next
     End Function
 
-    Function getFileRash(ByVal s As String) As String
+    Function getFileRash(ByVal s As String) As String 'получаем расширение файла
         Dim q() As String
         q = Split(s, ".")
         getFileRash = q(1)
@@ -428,4 +429,7 @@ err1:
         ' запилить возможность сохранения по нажатию ЭНТЭР
     End Sub
 
+    Private Sub Button9_Click(sender As Object, e As EventArgs)
+        Process.Start(convertFilePathToRemote(prjDir))
+    End Sub
 End Class

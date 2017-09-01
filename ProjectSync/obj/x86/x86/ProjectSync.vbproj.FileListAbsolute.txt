@@ -1,0 +1,10 @@
+D:\Development\Work\ProjectSync\ProjectSync\bin\x86\x86\ProjectSync.exe.config
+D:\Development\Work\ProjectSync\ProjectSync\bin\x86\x86\ProjectSync.exe
+D:\Development\Work\ProjectSync\ProjectSync\obj\x86\x86\ProjectSync.FiltersForm.resources
+D:\Development\Work\ProjectSync\ProjectSync\obj\x86\x86\ProjectSync.AlphaCfgForm.resources
+D:\Development\Work\ProjectSync\ProjectSync\obj\x86\x86\ProjectSync.MainForm.resources
+D:\Development\Work\ProjectSync\ProjectSync\obj\x86\x86\ProjectSync.SyncSetForm.resources
+D:\Development\Work\ProjectSync\ProjectSync\obj\x86\x86\ProjectSync.Resources.resources
+D:\Development\Work\ProjectSync\ProjectSync\obj\x86\x86\ProjectSync.vbproj.GenerateResource.Cache
+D:\Development\Work\ProjectSync\ProjectSync\obj\x86\x86\ProjectSync.exe
+D:\Development\Work\ProjectSync\ProjectSync\obj\x86\x86\ProjectSync.vbprojResolveAssemblyReference.cache

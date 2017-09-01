@@ -11,3 +11,5 @@ D:\Development\Work\ProjectSync\ProjectSync\obj\Release\ProjectSync.vbproj.Gener
 D:\Development\Work\ProjectSync\ProjectSync\obj\Release\ProjectSync.exe
 D:\Development\Work\ProjectSync\ProjectSync\obj\Release\ProjectSync.xml
 D:\Development\Work\ProjectSync\ProjectSync\obj\Release\ProjectSync.pdb
+D:\Development\Work\ProjectSync\ProjectSync\obj\Release\ProjectSync.vbprojResolveAssemblyReference.cache
+D:\Development\Work\ProjectSync\ProjectSync\obj\Release\ProjectSync.vbproj.CoreCompileInputs.cache

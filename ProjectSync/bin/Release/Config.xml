@@ -1,53 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
   <Settings>
-    <IP>172.16.17.197</IP>
-    <TypeSync>Files</TypeSync>
+    <IP>172.16.18.86</IP>
     <prjDirSet>Manual</prjDirSet>
-    <prjDir>C:\Dynamics\SSN</prjDir>
+    <prjDir>C:\Dynamics\</prjDir>
     <bkpDir>C:\Users\user\Desktop\backupTest</bkpDir>
   </Settings>
-  <Filters>
-    <Filter>*.grf</Filter>
-    <Filter>*.mdb</Filter>
-    <Filter>*.mbe</Filter>
-  </Filters>
   <Backups>
     <Backup Enable="True">C:\Dynamics\SSNTestBackup</Backup>
   </Backups>
-  <Files>
-    <File fname="SSN_NA_1.grf">
-      <Location>C:\Dynamics\SSN\PIC\</Location>
-    </File>
-    <File fname="SSN_NA_1_r.grf">
-      <Location>C:\Dynamics\SSN\PIC\</Location>
-    </File>
-    <File fname="SSN_NA_10.grf">
-      <Location>C:\Dynamics\SSN\PIC\</Location>
-    </File>
-    <File fname="SSN_NA_10_r.grf">
-      <Location>C:\Dynamics\SSN\PIC\</Location>
-    </File>
-    <File fname="SSN_NA_11.grf">
-      <Location>C:\Dynamics\SSN\PIC\</Location>
-    </File>
-    <File fname="SSN_NA_11_r.grf">
-      <Location>C:\Dynamics\SSN\PIC\</Location>
-    </File>
-    <File fname="SSN_NA_12.grf">
-      <Location>C:\Dynamics\SSN\PIC\</Location>
-    </File>
-    <File fname="SSN_NA_12_r.grf">
-      <Location>C:\Dynamics\SSN\PIC\</Location>
-    </File>
-    <File fname="SSN_NA_2.grf">
-      <Location>C:\Dynamics\SSN\PIC\</Location>
-    </File>
-    <File fname="SSN_NA_2_r.grf">
-      <Location>C:\Dynamics\SSN\PIC\</Location>
-    </File>
-  </Files>
-  <Catalogs>
-    <Catalog allFiles="False">C:\Users\user\Desktop\277 sch</Catalog>
-  </Catalogs>
+  <Filters>
+    <Filter>*.grf</Filter>
+    <Filter>*.mdb</Filter>
+    <Filter>*.udb</Filter>
+  </Filters>
+  <Sync>
+    <Catalog allFiles="false">C:\Dynamics\SSN\PIC</Catalog>
+    <Catalog allFiles="false">C:\Dynamics\SSN\DB</Catalog>
+    <Catalog allFiles="false">C:\Dynamics\SSN\LOCAL</Catalog>
+    <File>C:\Dynamics\SSN\Переменные_ССН_v0.26_fast.xlsm</File>
+    <File>C:\Dynamics\SSN\PIC\User.fxg</File>
+  </Sync>
 </Root>

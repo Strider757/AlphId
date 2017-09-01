@@ -350,7 +350,7 @@ Partial Class MainForm
         Me.Button5.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Button5.Location = New System.Drawing.Point(746, 293)
         Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(120, 34)
+        Me.Button5.Size = New System.Drawing.Size(120, 35)
         Me.Button5.TabIndex = 27
         Me.Button5.Text = "Alpha Конфига"
         Me.Button5.UseVisualStyleBackColor = True
@@ -384,7 +384,7 @@ Partial Class MainForm
         Me.GroupBox4.Controls.Add(Me.Button8)
         Me.GroupBox4.Location = New System.Drawing.Point(742, 169)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(130, 118)
+        Me.GroupBox4.Size = New System.Drawing.Size(130, 119)
         Me.GroupBox4.TabIndex = 31
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Папка проекта"
