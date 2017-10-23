@@ -114,7 +114,7 @@ err1:
             x.Attributes.Append(attr_Id)
             x.Attributes("Id").Value = newIds
         End If
-        newIds = newIds + 1000
+        newIds = newIds + 1
     End Sub
 
     Function comparator(node1 As XmlNode, node2 As XmlNode) As Boolean
