@@ -38,6 +38,8 @@ Public Class AlphaCfgForm
 
         OpenFileDialog1.Multiselect = False
         OpenFileDialog1.Filter = "xmlcfg (*.xmlcfg)|*.xmlcfg"
+        SaveFileDialog1.DefaultExt = "xmlcfg"
+        SaveFileDialog1.Filter = "xmlcfg (*.xmlcfg)|*.xmlcfg"
         ToolStripStatusLabel1.Text = ""
         Exit Sub
 err1:
@@ -78,12 +80,13 @@ err1:
 
     End Sub
 
-    Sub analiz(xe As XmlNode, y As XmlNode) ' x - узел из сгенеренного файла, chekedNode - аналогичный узел из конфиги
+    Sub analiz(xe As XmlNode, y As XmlNode) ' x - узел из сгенеренного файла, y - аналогичный узел из конфиги
         Dim tmpCkNode As XmlNode
         tmpCkNode = y
         For Each x As XmlNode In xe.ChildNodes
             If x.Name = "Item" Then
-                If y IsNot Nothing Then tmpCkNode = y.SelectSingleNode(".//Item[@Name='" & CStr(x.Attributes("Name").Value) & "']")
+                'If y IsNot Nothing Then tmpCkNode = y.SelectSingleNode(".//Item[@Name='" & CStr(x.Attributes("Name").Value) & "']")
+                If y IsNot Nothing Then tmpCkNode = y.SelectSingleNode("Items/Item[@Name='" & CStr(x.Attributes("Name").Value) & "']")
                 If tmpCkNode Is Nothing Then
                     setNewId(x)
                 Else
@@ -111,7 +114,7 @@ err1:
             x.Attributes.Append(attr_Id)
             x.Attributes("Id").Value = newIds
         End If
-        newIds = newIds + 1
+        newIds = newIds + 1000
     End Sub
 
     Function comparator(node1 As XmlNode, node2 As XmlNode) As Boolean
@@ -138,10 +141,15 @@ err1:
         End If
     End Function
 
-    Function AttributesExist(x As XmlNode, ByVal str As String) As Boolean
+    Function AttributesExist(x As XmlNode, ByVal str As String) As Boolean ' проверка на наличие атрибута
         On Error GoTo err2
-        Dim tempStr = x.Attributes(str).Value
-        AttributesExist = True
+        If x.Attributes.Count < 1 Then GoTo err2
+        For Each at In x.Attributes
+            If at.name = str Then AttributesExist = True
+        Next
+        If AttributesExist <> True Then AttributesExist = False
+        'Dim tempStr = x.Attributes(str).Value
+        'AttributesExist = True
         Exit Function
 err2:
         AttributesExist = False
@@ -272,8 +280,10 @@ err1:
         Dim q()
         q = Split(s, "\")
         tempSearchedNode = mNode
+        If InStr(s, "Signals") Then tempSearchedNode = mNode.SelectSingleNode("Signals")
         For k = 1 To q.Length - 1
-            tempSearchedNode = tempSearchedNode.SelectSingleNode(".//Items/Item[@Name='" & q(k) & "']")
+            'tempSearchedNode = tempSearchedNode.SelectSingleNode(".//Items/Item[@Name='" & q(k) & "']")
+            tempSearchedNode = tempSearchedNode.SelectSingleNode("Items/Item[@Name='" & q(k) & "']")
         Next
         getNodeByTreePath = tempSearchedNode
         tempSearchedNode = Nothing

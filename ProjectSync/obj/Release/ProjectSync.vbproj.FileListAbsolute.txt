@@ -8,8 +8,8 @@ D:\Development\Work\ProjectSync\ProjectSync\obj\Release\ProjectSync.MainForm.res
 D:\Development\Work\ProjectSync\ProjectSync\obj\Release\ProjectSync.SyncSetForm.resources
 D:\Development\Work\ProjectSync\ProjectSync\obj\Release\ProjectSync.Resources.resources
 D:\Development\Work\ProjectSync\ProjectSync\obj\Release\ProjectSync.vbproj.GenerateResource.Cache
+D:\Development\Work\ProjectSync\ProjectSync\obj\Release\ProjectSync.vbproj.CoreCompileInputs.cache
 D:\Development\Work\ProjectSync\ProjectSync\obj\Release\ProjectSync.exe
 D:\Development\Work\ProjectSync\ProjectSync\obj\Release\ProjectSync.xml
 D:\Development\Work\ProjectSync\ProjectSync\obj\Release\ProjectSync.pdb
 D:\Development\Work\ProjectSync\ProjectSync\obj\Release\ProjectSync.vbprojResolveAssemblyReference.cache
-D:\Development\Work\ProjectSync\ProjectSync\obj\Release\ProjectSync.vbproj.CoreCompileInputs.cache

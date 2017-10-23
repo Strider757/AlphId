@@ -198,27 +198,27 @@ Public Class MainForm
 
         'If xElem_SynType.Value = "Files" Then
         For Each fObj In fileCollect
-                DataGridView1.Rows.Add()
-                DataGridView1.Rows.Item(i).Cells(cn_nm).Value = fObj.Name
-                DataGridView1.Rows.Item(i).Cells(cn_der).Value = fObj.Location
-                DataGridView1.Rows.Item(i).Cells(cn_loc).Value = Replace(IO.File.GetLastWriteTime(FullFileName(fObj.location, fObj.name)), "01.01.1601 3:00:00", " ")
+            DataGridView1.Rows.Add()
+            DataGridView1.Rows.Item(i).Cells(cn_nm).Value = fObj.Name
+            DataGridView1.Rows.Item(i).Cells(cn_der).Value = fObj.Location
+            DataGridView1.Rows.Item(i).Cells(cn_loc).Value = Replace(IO.File.GetLastWriteTime(FullFileName(fObj.location, fObj.name)), "01.01.1601 3:00:00", " ")
 
-                If bool_connection = True Then DataGridView1.Rows.Item(i).Cells(cn_rem).Value = Replace(IO.File.GetLastWriteTime(FullFileName(convertFilePathToRemote(fObj.location), fObj.name)), "01.01.1601 3:00:00", " ")
+            If bool_connection = True Then DataGridView1.Rows.Item(i).Cells(cn_rem).Value = Replace(IO.File.GetLastWriteTime(FullFileName(convertFilePathToRemote(fObj.location), fObj.name)), "01.01.1601 3:00:00", " ")
 
-                If compareIzmDate(DataGridView1.Rows.Item(i).Cells(cn_loc).Value, DataGridView1.Rows.Item(i).Cells(cn_rem).Value) = 1 Then 'если новый файл на локальном компе
-                    DataGridView1.Rows.Item(i).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Green
-                    DataGridView1.Rows.Item(i).Cells(cn_rem).Style.ForeColor = System.Drawing.Color.Red
-                ElseIf compareIzmDate(DataGridView1.Rows.Item(i).Cells(cn_loc).Value, DataGridView1.Rows.Item(i).Cells(cn_rem).Value) = 0 Or bool_connection = False Then 'если файлы одинаковые
-                    DataGridView1.Rows.Item(i).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
-                    DataGridView1.Rows.Item(i).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
-                Else 'если новый файл на удаленном компе
-                    DataGridView1.Rows.Item(i).Cells(cn_rem).Style.ForeColor = System.Drawing.Color.Green
-                    DataGridView1.Rows.Item(i).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Red
-                End If
+            If compareIzmDate(DataGridView1.Rows.Item(i).Cells(cn_loc).Value, DataGridView1.Rows.Item(i).Cells(cn_rem).Value) = 1 Then 'если новый файл на локальном компе
+                DataGridView1.Rows.Item(i).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Green
+                DataGridView1.Rows.Item(i).Cells(cn_rem).Style.ForeColor = System.Drawing.Color.Red
+            ElseIf compareIzmDate(DataGridView1.Rows.Item(i).Cells(cn_loc).Value, DataGridView1.Rows.Item(i).Cells(cn_rem).Value) = 0 Or bool_connection = False Then 'если файлы одинаковые
+                DataGridView1.Rows.Item(i).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
+                DataGridView1.Rows.Item(i).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
+            Else 'если новый файл на удаленном компе
+                DataGridView1.Rows.Item(i).Cells(cn_rem).Style.ForeColor = System.Drawing.Color.Green
+                DataGridView1.Rows.Item(i).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Red
+            End If
 
-                DataGridView1.Rows.Item(i).Cells(cn_chk).Value = True
-                i = i + 1
-            Next
+            DataGridView1.Rows.Item(i).Cells(cn_chk).Value = True
+            i = i + 1
+        Next
         'Else
         k = i 'потому что это теперь общий стчетчик, но мне лень переделывать
         For Each xer As XElement In xdoc.Element("Root").Elements("Sync").Elements("Catalog")
