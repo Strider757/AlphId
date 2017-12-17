@@ -6,9 +6,9 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{C3048943-2D72-466B-A6A0-43DC687DEDDC}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>ProjectSync.MainForm</StartupObject>
-    <RootNamespace>ProjectSync</RootNamespace>
-    <AssemblyName>ProjectSync</AssemblyName>
+    <StartupObject>AlphaConfigID.AlphaCfgForm</StartupObject>
+    <RootNamespace>AlphaConfigID</RootNamespace>
+    <AssemblyName>AlphaConfigID</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsFormsWithCustomSubMain</MyType>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
@@ -37,7 +37,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>ProjectSync.xml</DocumentationFile>
+    <DocumentationFile>AlphaConfigID.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
@@ -48,7 +48,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>ProjectSync.xml</DocumentationFile>
+    <DocumentationFile>AlphaConfigID.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
