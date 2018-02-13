@@ -16,6 +16,7 @@ Public Class MainForm
     Public xElem_SynType As XElement 'Тип синхронизации По файлам или по Каталогам
     Public xElem_prjDirSet As XElement 'как будт вычислятся папка проекта. Автоматически из распложения файла или вручную
     Public xElem_prjDir As XElement 'Папка проекта в виде ХМЛ элемента
+    Public xElem_Default As XElement 'Стандартный набор синхронизации
 
     Public prjDir As String 'строка с папкой проекта
     Dim prjName As String ' имя проекта
@@ -76,6 +77,7 @@ Public Class MainForm
             xElem_IP = xdoc.Element("Root").Element("Settings").Element("IP")
             xElem_SynType = xdoc.Element("Root").Element("Settings").Element("TypeSync")
             xElem_prjDirSet = xdoc.Element("Root").Element("Settings").Element("prjDirSet")
+            xElem_Default = xdoc.Element("Root").Element("Settings").Element("Default")
 
             TextBox1.Text = xElem_IP.Value
             defineDir()
@@ -416,11 +418,20 @@ err1:
     End Sub
 
     Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
+        On Error GoTo err1
+        Dim tempDir As String
         If tbManualDir.Text <> xElem_prjDir.Value Then ' перезаписываем папку
+            tempDir = xElem_prjDir.Value
             xElem_prjDir.Value = tbManualDir.Text
-            xdoc.Save(SyncFileName)
+            prjDir = tbManualDir.Text
         End If
         Process.Start(prjDir)
+        xdoc.Save(SyncFileName)
+        Exit Sub
+err1:
+        prjDir = tempDir
+        xElem_prjDir.Value = tempDir
+        MsgBox("Ошибка!", vbOKOnly)
     End Sub
 
 

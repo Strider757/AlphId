@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
   <Settings>
-    <IP>172.16.18.86</IP>
+    <IP>127.0.0.1</IP>
     <prjDirSet>Manual</prjDirSet>
-    <prjDir>C:\Dynamics\</prjDir>
+    <prjDir>C:\Dynamics\SSN</prjDir>
     <bkpDir>C:\Users\user\Desktop\backupTest</bkpDir>
   </Settings>
   <Backups>
@@ -13,6 +13,15 @@
     <Filter>*.grf</Filter>
   </Filters>
   <Sync>
-    <Catalog allFiles="false" altFilter="grf,txt,jpg">C:\Users\user\Desktop\OSA</Catalog>
+    <Catalog allFiles="false">C:\Dynamics\SSN\PIC</Catalog>
+    <File>C:\Dynamics\SSN\PIC\User.fxg</File>
+    <File>C:\Dynamics\SSN\DB\Object.mdb</File>
+    <File>C:\Dynamics\SSN\DB\users.udb</File>
   </Sync>
+  <Default>
+    <Catalog allFiles="false">$\PIC</Catalog>
+    <File>$\PIC\User.fxg</File>
+    <File>$\DB\Object.mdb</File>
+    <File>$\DB\users.udb</File>
+  </Default>
 </Root>

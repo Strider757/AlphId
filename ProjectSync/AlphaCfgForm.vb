@@ -189,7 +189,7 @@ err2:
         ToolStripStatusLabel1.Text = "Гружу конфигурацию"
 
 
-        lb_peret1.Visible = False
+
 
         docConfig.Load(confFullName) 'загружаем хмл файл
         rootConfig = docConfig.DocumentElement ' Выбираем главный узел
@@ -210,6 +210,7 @@ err2:
         newIds = maxId + 1000
         If b_Tree1Loaded And b_Tree2Loaded Then bt_compare.Enabled = True
         ToolStripStatusLabel1.Text = "Конфигурация загружена!"
+        lb_peret1.Visible = False
         Exit Sub
 err1:
         MsgBox("Err.Number: " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
@@ -226,7 +227,7 @@ err1:
         On Error GoTo err1
         ToolStripStatusLabel1.Text = "Гружу сгенеренный файл"
 
-        lb_peret2.Visible = False
+
 
         docNewGen.Load(newGen) 'загружаем хмл файл
         rootNewGen = docNewGen.DocumentElement ' Выбираем главный узел
@@ -241,6 +242,7 @@ err1:
 
 
         ToolStripStatusLabel1.Text = "Сгенеренный файл загружен!"
+        lb_peret2.Visible = False
         If b_Tree1Loaded And b_Tree2Loaded Then bt_compare.Enabled = True
         Exit Sub
 err1:

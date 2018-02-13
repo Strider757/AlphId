@@ -29,7 +29,7 @@ Partial Class SyncSetForm
         Me.Button2 = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.but_addFilter = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.b_Deff = New System.Windows.Forms.Button()
         Me.DataGridView2 = New System.Windows.Forms.DataGridView()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.But_add_file = New System.Windows.Forms.Button()
@@ -95,15 +95,15 @@ Partial Class SyncSetForm
         Me.but_addFilter.Text = "Редакт. список..."
         Me.but_addFilter.UseVisualStyleBackColor = True
         '
-        'Button1
+        'b_Deff
         '
-        Me.Button1.Location = New System.Drawing.Point(578, 313)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(111, 28)
-        Me.Button1.TabIndex = 9
-        Me.Button1.Text = "Button1"
-        Me.Button1.UseVisualStyleBackColor = True
-        Me.Button1.Visible = False
+        Me.b_Deff.Location = New System.Drawing.Point(578, 313)
+        Me.b_Deff.Name = "b_Deff"
+        Me.b_Deff.Size = New System.Drawing.Size(111, 28)
+        Me.b_Deff.TabIndex = 9
+        Me.b_Deff.Text = "Ст. набор"
+        Me.b_Deff.UseVisualStyleBackColor = True
+        Me.b_Deff.Visible = False
         '
         'DataGridView2
         '
@@ -134,7 +134,7 @@ Partial Class SyncSetForm
         Me.ClientSize = New System.Drawing.Size(701, 380)
         Me.Controls.Add(Me.DataGridView2)
         Me.Controls.Add(Me.But_add_file)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.b_Deff)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.But_save)
@@ -156,7 +156,7 @@ Partial Class SyncSetForm
     Friend WithEvents Button2 As System.Windows.Forms.Button
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents but_addFilter As System.Windows.Forms.Button
-    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents b_Deff As System.Windows.Forms.Button
     Friend WithEvents DataGridView2 As System.Windows.Forms.DataGridView
     Friend WithEvents FolderBrowserDialog1 As System.Windows.Forms.FolderBrowserDialog
     Friend WithEvents But_add_file As Button

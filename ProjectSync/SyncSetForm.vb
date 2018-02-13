@@ -56,7 +56,15 @@ err1:
                             <Backup Enable="True">C:\Dynamics\SSNTestBackup</Backup>
                         </Backups>
                         <Sync></Sync>
-                        <Filters></Filters>
+                        <Filters>
+                            <Filter>*.grf</Filter>
+                        </Filters>
+                        <Default>
+                            <Catalog allFiles="false">$\PIC</Catalog>
+                            <File>$\PIC\User.fxg</File>
+                            <File>$\DB\Object.mdb</File>
+                            <File>$\DB\users.udb</File>
+                        </Default>
                     </Root>
         MainForm.xdoc = xd
         MainForm.xdoc.Save(MainForm.SyncFileName)
@@ -139,7 +147,6 @@ err1:
     Function getfName(ByVal s As String, Optional b As Integer = 0) As String
         Dim q()
         q = Split(s, "\")
-
         If b = 0 Then
             getfName = q(q.Length - 1)
         Else
@@ -147,9 +154,7 @@ err1:
                 getfName = getfName & q(i) & "\"
             Next
         End If
-
         getfName = Trim(getfName)
-
     End Function
 
     Private Sub Button1_Click(sender As Object, e As EventArgs)
@@ -165,7 +170,6 @@ err1:
             DataGridView2.Rows.Item(DataGridView2.Rows.Count - 1).Cells(cn_chk).Value = False
             DataGridView2.Rows.Item(DataGridView2.Rows.Count - 1).Cells(cn_nm).Style.BackColor = collor_cat ' красим в нужный цвет
         End If
-
     End Sub
 
     Private Sub But_add_file_Click(sender As Object, e As EventArgs) Handles But_add_file.Click
@@ -175,10 +179,7 @@ err1:
 
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-
         DataGridView2.Rows.Clear()
-
-
     End Sub
 
 
@@ -270,6 +271,14 @@ err1:
         Next
 
     End Sub
+
+    Private Sub b_Deff_Click(sender As Object, e As EventArgs) Handles b_Deff.Click
+        DataGridView2.Rows.Clear()
+        DataGridView2.Rows.Add()
+        'MainForm.xElem_Default.re
+    End Sub
+
+
 
 
     'Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
