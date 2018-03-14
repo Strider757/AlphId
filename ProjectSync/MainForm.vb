@@ -18,6 +18,8 @@ Public Class MainForm
     Public xElem_prjDir As XElement 'Папка проекта в виде ХМЛ элемента
     Public xElem_Default As XElement 'Стандартный набор синхронизации
 
+    Public bool_NoAccessToCnD As Boolean = False 'Стандартный набор синхронизации
+
     Public prjDir As String 'строка с папкой проекта
     Dim prjName As String ' имя проекта
 
@@ -31,12 +33,23 @@ Public Class MainForm
     Dim cn_rem As Integer = 3 'Номер столбца с датой удалённого файла
     Dim cn_der As Integer = 4 'Номер столбца с папкой файла
 
+    Dim formWidth As Integer 'Переменная для изменения расположения элементов
+
+
+    Public bool_FormLoaded As Boolean
+
+    Dim treeViewNormalSize As Size
+
+
+
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         SyncSetForm.Visible = True
     End Sub
 
     'грузим форму
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        initAlpohaID() 'инициализация формы для Альфа Конфигурации
 
         ToolStripStatusLabel1.Text = " "
         Dim chk As New DataGridViewCheckBoxColumn()
@@ -50,7 +63,7 @@ Public Class MainForm
             .Columns.Add("directory", "Расположение")
             .Columns(0).Width = 21
             .Columns(0).ReadOnly = False
-            .Columns(1).Width = 150
+            .Columns(1).Width = 360
             .Columns(1).ReadOnly = True
             .Columns(2).Width = 110
             .Columns(2).ReadOnly = True
@@ -94,11 +107,12 @@ Public Class MainForm
         'авто режим (из расположения самой программы) ПОКА НЕ ДОДЕЛАН
         If xElem_prjDirSet.Value = "Auto" Then
             tbManualDir.Enabled = False
-            rbAutoDir.Checked = True
+            'rbAutoDir.Checked = True
             'Ручной (ПОКА ЧТО ТОЛЬКО БЕРЕТ ИЗ КОНФИГА)
         ElseIf xElem_prjDirSet.Value = "Manual" Then
-            rbManualDir.Checked = True
+            'rbManualDir.Checked = True
             prjDir = xdoc.Element("Root").Element("Settings").Element("prjDir").Value ' хранится пока в виде строки
+            bool_NoAccessToCnD = CBool(xdoc.Element("Root").Element("Settings").Element("NoAccessToCnD").Value)
             xElem_prjDir = xdoc.Element("Root").Element("Settings").Element("prjDir") ' потом надо переделать везде что бы обращалось к ХМЛелементу
         End If
     End Sub
@@ -108,7 +122,27 @@ Public Class MainForm
     End Function
 
     Public Function convertFilePathToRemote(ByVal path As String) As String
-        convertFilePathToRemote = "\\" & TextBox1.Text & "\" & Replace(path, ":", "$")
+        Dim q() As String
+        Dim newPath As String
+        Dim dirName As String
+        Dim newPrjDir As String
+        If bool_NoAccessToCnD Then
+
+            q = Split(prjDir, "\")
+            If q(q.Length - 1) <> "" Then
+                dirName = q(q.Length - 1)
+            Else
+                dirName = q(q.Length - 2)
+            End If
+
+            newPrjDir = Replace(prjDir, dirName, "")
+
+            newPath = Replace(path, newPrjDir, "")
+
+            convertFilePathToRemote = "\\" & TextBox1.Text & "\" & newPath
+        Else
+            convertFilePathToRemote = "\\" & TextBox1.Text & "\" & Replace(path, ":", "$")
+        End If
     End Function
 
     '    'ищем вспогоательное ПО
@@ -155,8 +189,6 @@ Public Class MainForm
                 excelName = h(1)
             End If
         Next
-        lb_excelName.Text = excelName
-        lb_excelDate.Text = IO.File.GetLastWriteTime(prjDir & "\" & excelName)
     End Sub
 
     'сравнение дат изменения файлов
@@ -397,23 +429,23 @@ err1:
         Next
     End Sub
 
-    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+    Private Sub Button3_Click(sender As Object, e As EventArgs)
         Shell(wweDir & "\Excel_Export.exe", AppWinStyle.NormalFocus)
     End Sub
 
-    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+    Private Sub Button4_Click(sender As Object, e As EventArgs)
         Shell(opergenDir & "\opergen.exe", AppWinStyle.NormalFocus)
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+    Private Sub Button2_Click(sender As Object, e As EventArgs)
         Shell(prjDir & "\" & excelName, AppWinStyle.NormalFocus)
     End Sub
 
-    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+    Private Sub Button5_Click(sender As Object, e As EventArgs)
         AlphaCfgForm.Show()
     End Sub
 
-    Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
+    Private Sub Button6_Click(sender As Object, e As EventArgs)
         Shell(prjDir & "\DB\Object.mdb", AppWinStyle.NormalFocus) ' че то не работает
     End Sub
 
@@ -436,11 +468,201 @@ err1:
 
 
 
-    Private Sub tbManualDir_KeyPress(sender As Object, e As KeyPressEventArgs) Handles tbManualDir.KeyPress
+    Private Sub tbManualDir_KeyPress(sender As Object, e As KeyPressEventArgs)
         ' запилить возможность сохранения по нажатию ЭНТЭР
     End Sub
 
     Private Sub Button9_Click(sender As Object, e As EventArgs)
         Process.Start(convertFilePathToRemote(prjDir))
     End Sub
+
+
+
+
+    '************************************************************************************************************************
+    '***********************************ТУТА КОД ДЛЯ АЛЬФА КОНФИГИ***********************************************************
+    '************************************************************************************************************************
+    Sub initAlpohaID() 'инициализация
+        On Error GoTo err1
+
+        OpenFileDialog1.Multiselect = False
+        OpenFileDialog1.Filter = "xmlcfg (*.xmlcfg)|*.xmlcfg"
+        SaveFileDialog1.DefaultExt = "xmlcfg"
+        SaveFileDialog1.Filter = "xmlcfg (*.xmlcfg)|*.xmlcfg"
+
+        formWidth = Me.Size.Width
+
+        Me.bt_saveID.Enabled = False
+        Me.MinimumSize = New Size(Me.Size.Width, Me.Size.Height)
+        treeViewNormalSize = New Size(TreeView1.Size.Width, TreeView2.Size.Height)
+        bool_FormLoaded = True
+        Exit Sub
+
+err1:
+        MsgBox("Err.Number: " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
+        Resume Next
+    End Sub
+
+
+
+    '=================================Реализация функции перетаскивания файлов в окно========================================
+    Private Sub TreeView1_DragEnter(sender As Object, e As DragEventArgs) Handles TreeView1.DragEnter
+        If e.Data.GetDataPresent(DataFormats.FileDrop) Then
+            e.Effect = DragDropEffects.All
+        Else
+            e.Effect = DragDropEffects.None
+        End If
+    End Sub
+
+    Private Sub TreeView1_DragDrop(sender As Object, e As DragEventArgs) Handles TreeView1.DragDrop
+        confFullName = e.Data.GetData(DataFormats.FileDrop)(0)
+        loadCfg()
+    End Sub
+
+    Private Sub TreeView2_DragEnter(sender As Object, e As DragEventArgs) Handles TreeView2.DragEnter
+        If e.Data.GetDataPresent(DataFormats.FileDrop) Then
+            e.Effect = DragDropEffects.All
+        Else
+            e.Effect = DragDropEffects.None
+        End If
+    End Sub
+
+    Private Sub TreeView2_DragDrop(sender As Object, e As DragEventArgs) Handles TreeView2.DragDrop
+        newGen = e.Data.GetData(DataFormats.FileDrop)(0)
+        loadNewCfg()
+    End Sub
+    '=================================Конец реализации функции перетаскивания файлов в окно========================================
+
+
+
+    '=================================Изменение расзмера окна и элементов========================================
+    ' хз как по-нормальному сделать. Будет так:
+    Private Sub AlphaCfgForm_ResizeBegin(sender As Object, e As EventArgs) Handles Me.ResizeBegin
+        formWidth = Me.Size.Width
+    End Sub
+
+    Private Sub AlphaCfgForm_ResizeEnd(sender As Object, e As EventArgs) Handles Me.ResizeEnd
+        Dim deltaWidth As Integer
+        deltaWidth = (Me.Size.Width - formWidth) / 2
+        TreeView1.Size = New Size(TreeView1.Size.Width + deltaWidth, TreeView1.Size.Height)
+        TreeView2.Size = New Size(TreeView2.Size.Width + deltaWidth, TreeView2.Size.Height)
+    End Sub
+
+
+
+    Private Sub AlphaCfgForm_Resize(sender As Object, e As EventArgs) Handles Me.Resize
+        If Me.WindowState = FormWindowState.Maximized Then
+            TreeView1.Size = New Size(Me.Size.Width / 2.05, TreeView1.Size.Height)
+            TreeView2.Size = New Size(Me.Size.Width / 2.05, TreeView2.Size.Height)
+            'ElseIf Me.WindowState = FormWindowState.Normal And treeViewNormalSize.Height <> 0 And treeViewNormalSize.Width <> 0 Then
+            '    TreeView1.Size = treeViewNormalSize
+            '    TreeView2.Size = treeViewNormalSize
+        End If
+    End Sub
+    '=================================Конец изменения расзмера окна и элементов========================================
+
+
+
+    '=================================КНОПКИ ========================================
+
+    Private Sub bt_LoadCfg_Click(sender As Object, e As EventArgs) Handles bt_LoadCfg.Click
+        bool_selectCfg = True
+        If OpenFileDialog1.ShowDialog() = DialogResult.Cancel Then Exit Sub
+        loadCfg()
+    End Sub
+
+    Private Sub bt_LoadNewGen_Click(sender As Object, e As EventArgs) Handles bt_LoadNewGen.Click
+        bool_selectCfg = False
+        If OpenFileDialog1.ShowDialog() = DialogResult.Cancel Then Exit Sub
+        loadNewCfg()
+    End Sub
+
+    Private Sub bt_compare_Click(sender As Object, e As EventArgs) Handles bt_compare.Click
+
+        analiz(rootNewGen, mainChekedNode)
+
+        If comparator(rootNewGen, mainChekedNode) = False Then makeEquals(mainChekedNode, rootNewGen)
+
+        TreeView2.Nodes.Clear()
+        addToTree(rootNewGen, TreeView2)
+        parentNode = Nothing
+        TreeView2.Nodes(0).Expand()
+        bt_compare.Enabled = False
+        bt_saveID.Enabled = True
+    End Sub
+
+    Private Sub bt_saveID_Click(sender As Object, e As EventArgs) Handles bt_saveID.Click
+        If SaveFileDialog1.ShowDialog() = DialogResult.Cancel Then Exit Sub
+        docNewGen.Save(saveFilePath)
+    End Sub
+
+    Private Sub bt_addNewGen_Click(sender As Object, e As EventArgs) Handles bt_addNewGen.Click
+        Dim selectedNodeInCfg As XmlNode
+        Dim selectedNode As XmlNode
+        Dim newNode As XmlNode
+
+        selectedNodeInCfg = getNodeByTreePath(TreeView2.SelectedNode.FullPath, mainChekedNode)
+        selectedNode = getNodeByTreePath(TreeView2.SelectedNode.FullPath, rootNewGen)
+        newNode = docConfig.ImportNode(selectedNode, True)
+
+        selectedNodeInCfg.ParentNode.ReplaceChild(newNode, selectedNodeInCfg)
+
+        reloadCfg()
+
+    End Sub
+
+    Private Sub bt_saveAllCfg_Click(sender As Object, e As EventArgs) Handles bt_saveAllCfg.Click
+        If SaveFileDialog1.ShowDialog() = DialogResult.Cancel Then Exit Sub
+        docConfig.Save(saveFilePath)
+    End Sub
+
+    '=============================КОНЕЦ КНОПКИ========================================
+
+
+    Private Sub TreeView1_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles TreeView1.AfterSelect ' что происходит после выбора узла в первом дереве
+
+        lb_cfgPath.Text = TreeView1.SelectedNode.FullPath
+        Dim tmpNdoe As XmlNode = getNodeByTreePath(TreeView1.SelectedNode.FullPath, rootConfig)
+
+        If AttributesExist(tmpNdoe, "Id") Then
+            lb_cfgId.Text = tmpNdoe.Attributes("Id").Value
+        Else
+            lb_cfgId.Text = "ОТСУТСТВУЕТ"
+        End If
+
+    End Sub
+
+    Private Sub TreeView2_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles TreeView2.AfterSelect ' что происходит после выбора узла во втором дереве
+        lb_NewGPath.Text = TreeView2.SelectedNode.FullPath
+
+        Dim tmpNdoe As XmlNode = getNodeByTreePath(TreeView2.SelectedNode.FullPath, rootNewGen)
+
+        If AttributesExist(tmpNdoe, "Id") Then
+            lb_NewGId.Text = tmpNdoe.Attributes("Id").Value
+        Else
+            lb_NewGId.Text = "ОТСУТСТВУЕТ"
+        End If
+
+    End Sub
+
+
+
+    Private Sub OpenFileDialog1_FileOk(sender As Object, e As ComponentModel.CancelEventArgs) Handles OpenFileDialog1.FileOk
+        If bool_selectCfg Then 'если нажата кнопка загурзки конфигурации
+            bool_selectCfg = Nothing
+            confFullName = OpenFileDialog1.FileName
+        ElseIf bool_selectCfg = False Then ' если нажата кнопка загрузки сгенеренного файла
+            bool_selectCfg = Nothing
+            newGen = OpenFileDialog1.FileName
+        End If
+    End Sub
+
+    Private Sub SaveFileDialog1_FileOk(sender As Object, e As ComponentModel.CancelEventArgs) Handles SaveFileDialog1.FileOk
+        saveFilePath = SaveFileDialog1.FileName
+    End Sub
+
+
+    '************************************************************************************************************************
+    '***********************************КОНЕЦ КОДА ДЛЯ АЛЬФА КОНФИГИ*********************************************************
+    '************************************************************************************************************************
 End Class

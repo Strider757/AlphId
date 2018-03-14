@@ -1,0 +1,14 @@
+D:\Dropbox\Development\AlphId\ProjectSync\bin\Debug\AlphId.exe.config
+D:\Dropbox\Development\AlphId\ProjectSync\bin\Debug\AlphId.exe
+D:\Dropbox\Development\AlphId\ProjectSync\bin\Debug\AlphId.pdb
+D:\Dropbox\Development\AlphId\ProjectSync\bin\Debug\AlphId.xml
+D:\Dropbox\Development\AlphId\ProjectSync\obj\Debug\AlphId.vbprojResolveAssemblyReference.cache
+D:\Dropbox\Development\AlphId\ProjectSync\obj\Debug\AlphId.FiltersForm.resources
+D:\Dropbox\Development\AlphId\ProjectSync\obj\Debug\AlphId.AlphaCfgForm.resources
+D:\Dropbox\Development\AlphId\ProjectSync\obj\Debug\AlphId.MainForm.resources
+D:\Dropbox\Development\AlphId\ProjectSync\obj\Debug\AlphId.SyncSetForm.resources
+D:\Dropbox\Development\AlphId\ProjectSync\obj\Debug\AlphId.Resources.resources
+D:\Dropbox\Development\AlphId\ProjectSync\obj\Debug\AlphId.vbproj.GenerateResource.Cache
+D:\Dropbox\Development\AlphId\ProjectSync\obj\Debug\AlphId.exe
+D:\Dropbox\Development\AlphId\ProjectSync\obj\Debug\AlphId.xml
+D:\Dropbox\Development\AlphId\ProjectSync\obj\Debug\AlphId.pdb

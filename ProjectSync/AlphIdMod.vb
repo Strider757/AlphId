@@ -2,72 +2,52 @@
 Imports System.IO
 Imports System.Xml
 
-Public Class AlphaCfgForm
 
+
+Module AlphIdMod
 
     '=================Переменные для альфа конфиги===================
 
     Public docConfig As XmlDocument = New XmlDocument() 'Альфа конфига
     Public docNewGen As XmlDocument = New XmlDocument() 'Сгенерёнынй ХМЛ файл из workwithexel
 
-    Dim rootConfig As XmlNode
+    Public rootConfig As XmlNode
     Dim SignalsNode As XmlNode
-    Dim rootNewGen As XmlNode
+    Public rootNewGen As XmlNode
 
-    Dim parentNode As TreeNode
+    Public parentNode As TreeNode
     Dim mainNode As TreeNode
 
-    Dim mainChekedNode As XmlNode
+    Public mainChekedNode As XmlNode
     Dim chekedNode As XmlNode
     Dim tempSearchedNode As XmlNode
 
-    Dim bool_selectCfg As Boolean
+    Public bool_selectCfg As Boolean
     Dim bool_Tree1Loaded As Boolean
     Dim bool_Tree2Loaded As Boolean
     Dim key As Integer = 1
     Dim maxId As Integer
 
-    Dim bool_FormLoaded As Boolean
+
 
     Dim newIds As Integer
     Dim tempWth As Integer
 
-    Dim formWidth As Integer
+
 
     Public confFullName As String '= "D:\Development\Work\AlphaConfigIDTest\mainTestConfig_id.xmlcfg"
     Public newGen As String '= "D:\Development\Work\AlphaConfigIDTest\AnalogsInCfg ID 1.xmlcfg"
     Public saveFilePath As String
 
-    '=================Переменные для альфа конфиги===================
+
+    '=================Конец переменные для альфа конфиги===================
 
 
-
-
-
-    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        initAlpohaID() 'инициализация
-    End Sub
-
-    Sub initAlpohaID() 'инициализация
-        On Error GoTo err1
-
-        OpenFileDialog1.Multiselect = False
-        OpenFileDialog1.Filter = "xmlcfg (*.xmlcfg)|*.xmlcfg"
-        SaveFileDialog1.DefaultExt = "xmlcfg"
-        SaveFileDialog1.Filter = "xmlcfg (*.xmlcfg)|*.xmlcfg"
-
-        formWidth = Me.Size.Width
-
-        bt_saveID.Enabled = False
-        Me.MinimumSize = New Size(Me.Size.Width, Me.Size.Height)
-
-        bool_FormLoaded = True
-        Exit Sub
-
-err1:
-        MsgBox("Err.Number: " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
-        Resume Next
-    End Sub
+    Dim MyMainForm As MainForm = MainForm
+    Dim OpenFileDialog1 As OpenFileDialog = MyMainForm.OpenFileDialog1
+    Dim SaveFileDialog1 As SaveFileDialog = MyMainForm.SaveFileDialog1
+    Dim TreeView1 As TreeView = MyMainForm.TreeView1
+    Dim TreeView2 As TreeView = MyMainForm.TreeView2
 
 
     Sub addToTree(xe As XmlNode, Optional tree As TreeView = Nothing, Optional parent As TreeNode = Nothing) 'Рекурсивная процедура добавления xml узла в дерево. xe-добавляемый узел, tree-treeView  в который добавлем, parent - предок узла(если есть)
@@ -169,19 +149,7 @@ err2:
         AttributesExist = False
     End Function
 
-    Private Sub OpenFileDialog1_FileOk(sender As Object, e As ComponentModel.CancelEventArgs) Handles OpenFileDialog1.FileOk
-        If bool_selectCfg Then 'если нажата кнопка загурзки конфигурации
-            bool_selectCfg = Nothing
-            confFullName = OpenFileDialog1.FileName
-        ElseIf bool_selectCfg = False Then ' если нажата кнопка загрузки сгенеренного файла
-            bool_selectCfg = Nothing
-            newGen = OpenFileDialog1.FileName
-        End If
-    End Sub
 
-    Private Sub SaveFileDialog1_FileOk(sender As Object, e As ComponentModel.CancelEventArgs) Handles SaveFileDialog1.FileOk
-        saveFilePath = SaveFileDialog1.FileName
-    End Sub
 
     Sub loadCfg() 'тута грузим конфигу альфы
         On Error GoTo err1
@@ -198,10 +166,10 @@ err2:
         parentNode = Nothing 'обнуление родительского узла
         TreeView1.Nodes(0).Expand() ' раскрываем дерево
         bool_Tree1Loaded = True
-        lb_maxId.Text = maxId
+        MyMainForm.lb_maxId.Text = maxId
         newIds = maxId + 100 'задаём начало новых ID
         setMainChekedNode() 'Находим сравниваемый узел
-        lb_peret1.Visible = False
+        MyMainForm.lb_peret1.Visible = False
 
         Exit Sub
 err1:
@@ -220,7 +188,7 @@ err1:
 
         TreeView1.Nodes(0).Expand() ' раскрываем дерево
         bool_Tree1Loaded = True
-        lb_maxId.Text = maxId
+        MyMainForm.lb_maxId.Text = maxId
 
         newIds = maxId + 100 'задаём начало новых ID
     End Sub
@@ -241,7 +209,7 @@ letsTry:
         TreeView2.Nodes(0).Expand()
         bool_Tree2Loaded = True
 
-        lb_peret2.Visible = False
+        MyMainForm.lb_peret2.Visible = False
 
         setMainChekedNode() 'Находим сравниваемый узел
 
@@ -265,47 +233,23 @@ err1:
 
     Sub setMainChekedNode() 'если два дерева загружены, то ищем в конфигурации аналагочиный узел, который будем сравнивать с корневым узлом в сгенерённом файле 
         If bool_Tree1Loaded And bool_Tree2Loaded Then
-            bt_compare.Enabled = True 'включаем кнопу
+            MyMainForm.bt_compare.Enabled = True 'включаем кнопу
             mainChekedNode = SignalsNode.SelectSingleNode("//Item[@Name='" & CStr(rootNewGen.Attributes("Name").Value) & "']") 'Здесь выбираем узел аналогичный сгенеренному  в конфиге
         End If
     End Sub
 
     Sub setRootManual(str As String) ' задаём корневой узел вручную. Нужен для обработки исключения
         Dim editText As String = "<Item Name=""" & str & """ Type=""Folder"">
-                                        <Properties />
-                                        <Items> 
-                                        " & File.ReadAllText(newGen) ' текст вначале и наш файл
+                                    <Properties />
+                                    <Items> 
+                                    " & File.ReadAllText(newGen) ' текст вначале и наш файл
 
         File.WriteAllText(newGen, editText & "             </Items>
-                </Item>") ' записываем текст и плюс текст в конце
+            </Item>") ' записываем текст и плюс текст в конце
     End Sub
 
 
-    Private Sub TreeView1_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles TreeView1.AfterSelect ' что происходит после выбора узла в первом дереве
 
-        lb_cfgPath.Text = TreeView1.SelectedNode.FullPath
-        Dim tmpNdoe As XmlNode = getNodeByTreePath(TreeView1.SelectedNode.FullPath, rootConfig)
-
-        If AttributesExist(tmpNdoe, "Id") Then
-            lb_cfgId.Text = tmpNdoe.Attributes("Id").Value
-        Else
-            lb_cfgId.Text = "ОТСУТСТВУЕТ"
-        End If
-
-    End Sub
-
-    Private Sub TreeView2_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles TreeView2.AfterSelect ' что происходит после выбора узла во втором дереве
-        lb_NewGPath.Text = TreeView2.SelectedNode.FullPath
-
-        Dim tmpNdoe As XmlNode = getNodeByTreePath(TreeView2.SelectedNode.FullPath, rootNewGen)
-
-        If AttributesExist(tmpNdoe, "Id") Then
-            lb_NewGId.Text = tmpNdoe.Attributes("Id").Value
-        Else
-            lb_NewGId.Text = "ОТСУТСТВУЕТ"
-        End If
-
-    End Sub
 
     Function getNodeByTreePath(ByVal s As String, mNode As XmlNode) As XmlNode ' получем узел по пути в дереве "FIX\MNS1\AN"
         Dim q()
@@ -318,118 +262,4 @@ err1:
         getNodeByTreePath = tempSearchedNode
         tempSearchedNode = Nothing
     End Function
-
-
-
-
-
-    '=================================Реализация функции перетаскивания файлов в окно========================================
-    Private Sub TreeView1_DragEnter(sender As Object, e As DragEventArgs) Handles TreeView1.DragEnter
-        If e.Data.GetDataPresent(DataFormats.FileDrop) Then
-            e.Effect = DragDropEffects.All
-        Else
-            e.Effect = DragDropEffects.None
-        End If
-    End Sub
-
-    Private Sub TreeView1_DragDrop(sender As Object, e As DragEventArgs) Handles TreeView1.DragDrop
-        confFullName = e.Data.GetData(DataFormats.FileDrop)(0)
-        loadCfg()
-    End Sub
-
-    Private Sub TreeView2_DragEnter(sender As Object, e As DragEventArgs) Handles TreeView2.DragEnter
-        If e.Data.GetDataPresent(DataFormats.FileDrop) Then
-            e.Effect = DragDropEffects.All
-        Else
-            e.Effect = DragDropEffects.None
-        End If
-    End Sub
-
-    Private Sub TreeView2_DragDrop(sender As Object, e As DragEventArgs) Handles TreeView2.DragDrop
-        newGen = e.Data.GetData(DataFormats.FileDrop)(0)
-        loadNewCfg()
-    End Sub
-    '=================================Конец реализации функции перетаскивания файлов в окно========================================
-
-
-
-    '=================================Изменение расзмера окна и элементов========================================
-    ' хз как по-нормальному сделать. Будет так:
-    Private Sub AlphaCfgForm_ResizeBegin(sender As Object, e As EventArgs) Handles Me.ResizeBegin
-        formWidth = Me.Size.Width
-    End Sub
-
-    Private Sub AlphaCfgForm_ResizeEnd(sender As Object, e As EventArgs) Handles Me.ResizeEnd
-        Dim deltaWidth As Integer
-        deltaWidth = (Me.Size.Width - formWidth) / 2
-        TreeView1.Size = New Size(TreeView1.Size.Width + deltaWidth, TreeView1.Size.Height)
-        TreeView2.Size = New Size(TreeView2.Size.Width + deltaWidth, TreeView2.Size.Height)
-    End Sub
-
-
-
-    Private Sub AlphaCfgForm_Resize(sender As Object, e As EventArgs) Handles Me.Resize
-        If Me.WindowState = FormWindowState.Maximized Then
-            TreeView1.Size = New Size(Me.Size.Width / 2.05, TreeView1.Size.Height)
-            TreeView2.Size = New Size(Me.Size.Width / 2.05, TreeView2.Size.Height)
-        End If
-    End Sub
-    '=================================Конец изменения расзмера окна и элементов========================================
-
-
-
-    '=================================КНОПКИ ========================================
-
-    Private Sub bt_LoadCfg_Click(sender As Object, e As EventArgs) Handles bt_LoadCfg.Click
-        bool_selectCfg = True
-        If OpenFileDialog1.ShowDialog() = DialogResult.Cancel Then Exit Sub
-        loadCfg()
-    End Sub
-
-    Private Sub bt_LoadNewGen_Click(sender As Object, e As EventArgs) Handles bt_LoadNewGen.Click
-        bool_selectCfg = False
-        If OpenFileDialog1.ShowDialog() = DialogResult.Cancel Then Exit Sub
-        loadNewCfg()
-    End Sub
-
-    Private Sub bt_compare_Click(sender As Object, e As EventArgs) Handles bt_compare.Click
-
-        analiz(rootNewGen, mainChekedNode)
-
-        If comparator(rootNewGen, mainChekedNode) = False Then makeEquals(mainChekedNode, rootNewGen)
-
-        TreeView2.Nodes.Clear()
-        addToTree(rootNewGen, TreeView2)
-        parentNode = Nothing
-        TreeView2.Nodes(0).Expand()
-        bt_compare.Enabled = False
-        bt_saveID.Enabled = True
-    End Sub
-
-    Private Sub bt_saveID_Click(sender As Object, e As EventArgs) Handles bt_saveID.Click
-        If SaveFileDialog1.ShowDialog() = DialogResult.Cancel Then Exit Sub
-        docNewGen.Save(saveFilePath)
-    End Sub
-
-    Private Sub bt_addNewGen_Click(sender As Object, e As EventArgs) Handles bt_addNewGen.Click
-        Dim selectedNodeInCfg As XmlNode
-        Dim selectedNode As XmlNode
-        Dim newNode As XmlNode
-
-        selectedNodeInCfg = getNodeByTreePath(TreeView2.SelectedNode.FullPath, mainChekedNode)
-        selectedNode = getNodeByTreePath(TreeView2.SelectedNode.FullPath, rootNewGen)
-        newNode = docConfig.ImportNode(selectedNode, True)
-
-        selectedNodeInCfg.ParentNode.ReplaceChild(newNode, selectedNodeInCfg)
-
-        reloadCfg()
-
-    End Sub
-
-    Private Sub bt_saveAllCfg_Click(sender As Object, e As EventArgs) Handles bt_saveAllCfg.Click
-        If SaveFileDialog1.ShowDialog() = DialogResult.Cancel Then Exit Sub
-        docConfig.Save(saveFilePath)
-    End Sub
-
-    '=============================КОНЕЦ КНОПКИ========================================
-End Class
+End Module

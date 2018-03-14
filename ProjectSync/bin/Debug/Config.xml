@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
   <Settings>
-    <IP>127.0.0.1</IP>
+    <IP>192.168.209.17</IP>
     <prjDirSet>Manual</prjDirSet>
     <prjDir>C:\Dynamics\SSN</prjDir>
     <bkpDir>C:\Users\user\Desktop\backupTest</bkpDir>
+    <NoAccessToCnD>true</NoAccessToCnD>
   </Settings>
   <Backups>
     <Backup Enable="True">C:\Dynamics\SSNTestBackup</Backup>
@@ -12,16 +13,18 @@
   <Filters>
     <Filter>*.grf</Filter>
   </Filters>
-  <Sync>
-    <Catalog allFiles="false">C:\Dynamics\SSN\PIC</Catalog>
-    <File>C:\Dynamics\SSN\PIC\User.fxg</File>
-    <File>C:\Dynamics\SSN\DB\Object.mdb</File>
-    <File>C:\Dynamics\SSN\DB\users.udb</File>
-  </Sync>
   <Default>
     <Catalog allFiles="false">$\PIC</Catalog>
     <File>$\PIC\User.fxg</File>
     <File>$\DB\Object.mdb</File>
     <File>$\DB\users.udb</File>
   </Default>
+  <Sync>
+    <Catalog allFiles="false">C:\Dynamics\SSN\PIC</Catalog>
+    <File>C:\Dynamics\SSN\PIC\User.fxg</File>
+    <File>C:\Dynamics\SSN\DB\Object.mdb</File>
+    <File>C:\Dynamics\SSN\DB\users.udb</File>
+    <File>C:\Dynamics\SSN\Переменные_ССН_v0.30(Доработка_277.30).xlsm</File>
+    <Catalog allFiles="true">C:\Dynamics\SSN\APL\work with excel_2018.03.01 SSN</Catalog>
+  </Sync>
 </Root>

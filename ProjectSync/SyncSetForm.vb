@@ -281,6 +281,7 @@ err1:
 
 
 
+
     'Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
     '    For i = 0 To DataGridView1.SelectedRows.Count - 1
     '        DataGridView1.SelectedRows(i).Cells.RemoveAt(i)

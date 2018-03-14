@@ -33,6 +33,8 @@ Partial Class SyncSetForm
         Me.DataGridView2 = New System.Windows.Forms.DataGridView()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.But_add_file = New System.Windows.Forms.Button()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -101,7 +103,7 @@ Partial Class SyncSetForm
         Me.b_Deff.Name = "b_Deff"
         Me.b_Deff.Size = New System.Drawing.Size(111, 28)
         Me.b_Deff.TabIndex = 9
-        Me.b_Deff.Text = "Ст. набор"
+        Me.b_Deff.Text = "Стндрт. набор"
         Me.b_Deff.UseVisualStyleBackColor = True
         Me.b_Deff.Visible = False
         '
@@ -127,11 +129,34 @@ Partial Class SyncSetForm
         Me.But_add_file.Text = "Добавить файлы..."
         Me.But_add_file.UseVisualStyleBackColor = True
         '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Location = New System.Drawing.Point(381, 309)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(176, 17)
+        Me.CheckBox1.TabIndex = 0
+        Me.CheckBox1.Text = "Отсутствует доступ к C$ и D$"
+        Me.CheckBox1.UseVisualStyleBackColor = True
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Calibri", 8.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.Label1.Location = New System.Drawing.Point(380, 326)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(192, 52)
+        Me.Label1.TabIndex = 12
+        Me.Label1.Text = "Если отстуствует доступ к C$ и D$," & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "то шарим папку с проектом ручками." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Еще надо " &
+    "указать папку с проектом" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "в самой проге." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        '
         'SyncSetForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(701, 380)
+        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.CheckBox1)
         Me.Controls.Add(Me.DataGridView2)
         Me.Controls.Add(Me.But_add_file)
         Me.Controls.Add(Me.b_Deff)
@@ -146,6 +171,7 @@ Partial Class SyncSetForm
         Me.GroupBox1.ResumeLayout(False)
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -160,4 +186,6 @@ Partial Class SyncSetForm
     Friend WithEvents DataGridView2 As System.Windows.Forms.DataGridView
     Friend WithEvents FolderBrowserDialog1 As System.Windows.Forms.FolderBrowserDialog
     Friend WithEvents But_add_file As Button
+    Friend WithEvents CheckBox1 As CheckBox
+    Friend WithEvents Label1 As Label
 End Class

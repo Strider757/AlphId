@@ -38,56 +38,58 @@ Partial Class AlphaCfgForm
         Me.Label3 = New System.Windows.Forms.Label()
         Me.lb_NewGId = New System.Windows.Forms.Label()
         Me.lb_NewGPath = New System.Windows.Forms.Label()
-        Me.Button1 = New System.Windows.Forms.Button()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
-        Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.lb_peret2 = New System.Windows.Forms.Label()
         Me.lb_peret1 = New System.Windows.Forms.Label()
-        Me.StatusStrip1.SuspendLayout()
+        Me.bt_addNewGen = New System.Windows.Forms.Button()
+        Me.bt_saveID = New System.Windows.Forms.Button()
+        Me.bt_saveAllCfg = New System.Windows.Forms.Button()
+        Me.TabControl1 = New System.Windows.Forms.TabControl()
+        Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
+        Me.TabControl1.SuspendLayout()
+        Me.TabPage1.SuspendLayout()
         Me.SuspendLayout()
         '
         'TreeView1
         '
         Me.TreeView1.AllowDrop = True
-        Me.TreeView1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TreeView1.Location = New System.Drawing.Point(12, 12)
+        Me.TreeView1.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.TreeView1.Location = New System.Drawing.Point(4, 46)
         Me.TreeView1.Name = "TreeView1"
-        Me.TreeView1.Size = New System.Drawing.Size(425, 291)
+        Me.TreeView1.Size = New System.Drawing.Size(450, 300)
         Me.TreeView1.TabIndex = 0
         '
         'TreeView2
         '
         Me.TreeView2.AllowDrop = True
-        Me.TreeView2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TreeView2.Location = New System.Drawing.Point(483, 11)
+        Me.TreeView2.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.TreeView2.Location = New System.Drawing.Point(469, 46)
         Me.TreeView2.Name = "TreeView2"
-        Me.TreeView2.Size = New System.Drawing.Size(425, 292)
+        Me.TreeView2.Size = New System.Drawing.Size(450, 300)
         Me.TreeView2.TabIndex = 3
         '
         'bt_LoadCfg
         '
-        Me.bt_LoadCfg.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.bt_LoadCfg.Location = New System.Drawing.Point(12, 312)
+        Me.bt_LoadCfg.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.bt_LoadCfg.Location = New System.Drawing.Point(6, 6)
         Me.bt_LoadCfg.Name = "bt_LoadCfg"
-        Me.bt_LoadCfg.Size = New System.Drawing.Size(118, 46)
+        Me.bt_LoadCfg.Size = New System.Drawing.Size(118, 36)
         Me.bt_LoadCfg.TabIndex = 4
         Me.bt_LoadCfg.Text = "Загрузить конфигурацию"
         Me.bt_LoadCfg.UseVisualStyleBackColor = True
         '
         'bt_LoadNewGen
         '
-        Me.bt_LoadNewGen.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.bt_LoadNewGen.Location = New System.Drawing.Point(483, 312)
+        Me.bt_LoadNewGen.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.bt_LoadNewGen.Location = New System.Drawing.Point(469, 6)
         Me.bt_LoadNewGen.Name = "bt_LoadNewGen"
-        Me.bt_LoadNewGen.Size = New System.Drawing.Size(118, 46)
+        Me.bt_LoadNewGen.Size = New System.Drawing.Size(118, 36)
         Me.bt_LoadNewGen.TabIndex = 5
         Me.bt_LoadNewGen.Text = "Загрузить сгенеренный файл"
         Me.bt_LoadNewGen.UseVisualStyleBackColor = True
@@ -98,11 +100,11 @@ Partial Class AlphaCfgForm
         '
         'bt_compare
         '
-        Me.bt_compare.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.bt_compare.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.bt_compare.Enabled = False
-        Me.bt_compare.Location = New System.Drawing.Point(808, 339)
+        Me.bt_compare.Location = New System.Drawing.Point(593, 6)
         Me.bt_compare.Name = "bt_compare"
-        Me.bt_compare.Size = New System.Drawing.Size(100, 29)
+        Me.bt_compare.Size = New System.Drawing.Size(118, 36)
         Me.bt_compare.TabIndex = 6
         Me.bt_compare.Text = "Раздать ID"
         Me.bt_compare.UseVisualStyleBackColor = True
@@ -197,68 +199,49 @@ Partial Class AlphaCfgForm
         Me.lb_NewGPath.TabIndex = 13
         Me.lb_NewGPath.Text = "***"
         '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(410, 312)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(67, 42)
-        Me.Button1.TabIndex = 18
-        Me.Button1.Text = "Button1"
-        Me.Button1.UseVisualStyleBackColor = True
-        Me.Button1.Visible = False
-        '
         'StatusStrip1
         '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 387)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 461)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(920, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(930, 22)
         Me.StatusStrip1.TabIndex = 19
         Me.StatusStrip1.Text = "StatusStrip1"
         '
-        'ToolStripStatusLabel1
-        '
-        Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
-        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(111, 17)
-        Me.ToolStripStatusLabel1.Text = "ToolStripStatusLabel1"
-        '
-        'SaveFileDialog1
-        '
-        '
         'GroupBox1
         '
-        Me.GroupBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox1.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.GroupBox1.Controls.Add(Me.Label6)
         Me.GroupBox1.Controls.Add(Me.lb_cfgPath)
         Me.GroupBox1.Controls.Add(Me.Label5)
         Me.GroupBox1.Controls.Add(Me.lb_cfgId)
         Me.GroupBox1.Controls.Add(Me.Label4)
         Me.GroupBox1.Controls.Add(Me.lb_maxId)
-        Me.GroupBox1.Location = New System.Drawing.Point(136, 308)
+        Me.GroupBox1.Location = New System.Drawing.Point(4, 352)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(268, 76)
+        Me.GroupBox1.Size = New System.Drawing.Size(450, 76)
         Me.GroupBox1.TabIndex = 20
         Me.GroupBox1.TabStop = False
         '
         'GroupBox2
         '
-        Me.GroupBox2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox2.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.GroupBox2.Controls.Add(Me.Label3)
         Me.GroupBox2.Controls.Add(Me.lb_NewGPath)
         Me.GroupBox2.Controls.Add(Me.lb_NewGId)
         Me.GroupBox2.Controls.Add(Me.Label2)
-        Me.GroupBox2.Location = New System.Drawing.Point(607, 308)
+        Me.GroupBox2.Location = New System.Drawing.Point(469, 352)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(195, 76)
+        Me.GroupBox2.Size = New System.Drawing.Size(449, 76)
         Me.GroupBox2.TabIndex = 21
         Me.GroupBox2.TabStop = False
         '
         'lb_peret2
         '
+        Me.lb_peret2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom), System.Windows.Forms.AnchorStyles)
         Me.lb_peret2.AutoSize = True
         Me.lb_peret2.BackColor = System.Drawing.Color.White
         Me.lb_peret2.ForeColor = System.Drawing.Color.DarkGray
-        Me.lb_peret2.Location = New System.Drawing.Point(646, 144)
+        Me.lb_peret2.Location = New System.Drawing.Point(507, 187)
         Me.lb_peret2.Name = "lb_peret2"
         Me.lb_peret2.Size = New System.Drawing.Size(97, 13)
         Me.lb_peret2.TabIndex = 22
@@ -267,42 +250,105 @@ Partial Class AlphaCfgForm
         '
         'lb_peret1
         '
+        Me.lb_peret1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom), System.Windows.Forms.AnchorStyles)
         Me.lb_peret1.AutoSize = True
         Me.lb_peret1.BackColor = System.Drawing.Color.White
         Me.lb_peret1.ForeColor = System.Drawing.Color.DarkGray
-        Me.lb_peret1.Location = New System.Drawing.Point(173, 144)
+        Me.lb_peret1.Location = New System.Drawing.Point(31, 187)
         Me.lb_peret1.Name = "lb_peret1"
         Me.lb_peret1.Size = New System.Drawing.Size(97, 13)
         Me.lb_peret1.TabIndex = 23
         Me.lb_peret1.Text = "+ Перетащи сюда"
         Me.lb_peret1.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
+        'bt_addNewGen
+        '
+        Me.bt_addNewGen.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.bt_addNewGen.Location = New System.Drawing.Point(408, 6)
+        Me.bt_addNewGen.Name = "bt_addNewGen"
+        Me.bt_addNewGen.Size = New System.Drawing.Size(46, 36)
+        Me.bt_addNewGen.TabIndex = 24
+        Me.bt_addNewGen.Text = "<"
+        Me.bt_addNewGen.UseVisualStyleBackColor = True
+        '
+        'bt_saveID
+        '
+        Me.bt_saveID.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.bt_saveID.Location = New System.Drawing.Point(717, 6)
+        Me.bt_saveID.Name = "bt_saveID"
+        Me.bt_saveID.Size = New System.Drawing.Size(118, 36)
+        Me.bt_saveID.TabIndex = 25
+        Me.bt_saveID.Text = "Сохранить c ID"
+        Me.bt_saveID.UseVisualStyleBackColor = True
+        '
+        'bt_saveAllCfg
+        '
+        Me.bt_saveAllCfg.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.bt_saveAllCfg.Location = New System.Drawing.Point(284, 4)
+        Me.bt_saveAllCfg.Name = "bt_saveAllCfg"
+        Me.bt_saveAllCfg.Size = New System.Drawing.Size(118, 36)
+        Me.bt_saveAllCfg.TabIndex = 26
+        Me.bt_saveAllCfg.Text = "Сохранить конфигурацию"
+        Me.bt_saveAllCfg.UseVisualStyleBackColor = True
+        '
+        'TabControl1
+        '
+        Me.TabControl1.Controls.Add(Me.TabPage1)
+        Me.TabControl1.Controls.Add(Me.TabPage2)
+        Me.TabControl1.Location = New System.Drawing.Point(0, 5)
+        Me.TabControl1.Name = "TabControl1"
+        Me.TabControl1.SelectedIndex = 0
+        Me.TabControl1.Size = New System.Drawing.Size(930, 478)
+        Me.TabControl1.TabIndex = 27
+        '
+        'TabPage1
+        '
+        Me.TabPage1.Controls.Add(Me.lb_peret2)
+        Me.TabPage1.Controls.Add(Me.bt_saveID)
+        Me.TabPage1.Controls.Add(Me.bt_saveAllCfg)
+        Me.TabPage1.Controls.Add(Me.GroupBox1)
+        Me.TabPage1.Controls.Add(Me.bt_compare)
+        Me.TabPage1.Controls.Add(Me.GroupBox2)
+        Me.TabPage1.Controls.Add(Me.bt_addNewGen)
+        Me.TabPage1.Controls.Add(Me.lb_peret1)
+        Me.TabPage1.Controls.Add(Me.TreeView2)
+        Me.TabPage1.Controls.Add(Me.TreeView1)
+        Me.TabPage1.Controls.Add(Me.bt_LoadNewGen)
+        Me.TabPage1.Controls.Add(Me.bt_LoadCfg)
+        Me.TabPage1.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage1.Name = "TabPage1"
+        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage1.Size = New System.Drawing.Size(922, 452)
+        Me.TabPage1.TabIndex = 0
+        Me.TabPage1.Text = "AlphaКонфига"
+        Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        'TabPage2
+        '
+        Me.TabPage2.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage2.Name = "TabPage2"
+        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage2.Size = New System.Drawing.Size(922, 452)
+        Me.TabPage2.TabIndex = 1
+        Me.TabPage2.Text = "Синхронизация файлов ВУ"
+        Me.TabPage2.UseVisualStyleBackColor = True
+        '
         'AlphaCfgForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(920, 409)
-        Me.Controls.Add(Me.lb_peret1)
-        Me.Controls.Add(Me.lb_peret2)
-        Me.Controls.Add(Me.GroupBox2)
-        Me.Controls.Add(Me.GroupBox1)
+        Me.ClientSize = New System.Drawing.Size(930, 483)
         Me.Controls.Add(Me.StatusStrip1)
-        Me.Controls.Add(Me.Button1)
-        Me.Controls.Add(Me.bt_compare)
-        Me.Controls.Add(Me.bt_LoadNewGen)
-        Me.Controls.Add(Me.bt_LoadCfg)
-        Me.Controls.Add(Me.TreeView2)
-        Me.Controls.Add(Me.TreeView1)
-        Me.MaximizeBox = False
-        Me.MinimizeBox = False
+        Me.Controls.Add(Me.TabControl1)
         Me.Name = "AlphaCfgForm"
-        Me.Text = "Alpha Конфига"
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
+        Me.Text = "AlphID"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
+        Me.TabControl1.ResumeLayout(False)
+        Me.TabPage1.ResumeLayout(False)
+        Me.TabPage1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -324,12 +370,16 @@ Partial Class AlphaCfgForm
     Friend WithEvents Label3 As Label
     Friend WithEvents lb_NewGId As Label
     Friend WithEvents lb_NewGPath As Label
-    Friend WithEvents Button1 As Button
     Friend WithEvents StatusStrip1 As StatusStrip
-    Friend WithEvents ToolStripStatusLabel1 As ToolStripStatusLabel
     Friend WithEvents SaveFileDialog1 As SaveFileDialog
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents lb_peret2 As Label
     Friend WithEvents lb_peret1 As Label
+    Friend WithEvents bt_addNewGen As Button
+    Friend WithEvents bt_saveID As Button
+    Friend WithEvents bt_saveAllCfg As Button
+    Friend WithEvents TabControl1 As TabControl
+    Friend WithEvents TabPage1 As TabPage
+    Friend WithEvents TabPage2 As TabPage
 End Class
