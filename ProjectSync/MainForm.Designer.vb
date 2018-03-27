@@ -22,6 +22,7 @@ Partial Class MainForm
     'Не изменяйте ее в редакторе исходного кода.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
@@ -67,6 +68,7 @@ Partial Class MainForm
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -111,7 +113,7 @@ Partial Class MainForm
         Me.DataGridView1.RowHeadersVisible = False
         Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DataGridView1.ShowEditingIcon = False
-        Me.DataGridView1.Size = New System.Drawing.Size(922, 356)
+        Me.DataGridView1.Size = New System.Drawing.Size(922, 369)
         Me.DataGridView1.TabIndex = 4
         '
         'but_Anal
@@ -223,10 +225,10 @@ Partial Class MainForm
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TabControl1.Controls.Add(Me.TabPage2)
         Me.TabControl1.Controls.Add(Me.TabPage1)
-        Me.TabControl1.Location = New System.Drawing.Point(4, 0)
+        Me.TabControl1.Location = New System.Drawing.Point(0, 0)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(934, 490)
+        Me.TabControl1.Size = New System.Drawing.Size(938, 503)
         Me.TabControl1.TabIndex = 17
         '
         'TabPage2
@@ -246,7 +248,7 @@ Partial Class MainForm
         Me.TabPage2.Location = New System.Drawing.Point(4, 22)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(926, 464)
+        Me.TabPage2.Size = New System.Drawing.Size(930, 477)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "AlphId"
         Me.TabPage2.UseVisualStyleBackColor = True
@@ -257,7 +259,7 @@ Partial Class MainForm
         Me.lb_peret2.AutoSize = True
         Me.lb_peret2.BackColor = System.Drawing.Color.White
         Me.lb_peret2.ForeColor = System.Drawing.Color.DarkGray
-        Me.lb_peret2.Location = New System.Drawing.Point(642, 203)
+        Me.lb_peret2.Location = New System.Drawing.Point(644, 203)
         Me.lb_peret2.Name = "lb_peret2"
         Me.lb_peret2.Size = New System.Drawing.Size(97, 13)
         Me.lb_peret2.TabIndex = 24
@@ -281,7 +283,7 @@ Partial Class MainForm
         'bt_saveID
         '
         Me.bt_saveID.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.bt_saveID.Location = New System.Drawing.Point(716, 6)
+        Me.bt_saveID.Location = New System.Drawing.Point(718, 6)
         Me.bt_saveID.Name = "bt_saveID"
         Me.bt_saveID.Size = New System.Drawing.Size(118, 36)
         Me.bt_saveID.TabIndex = 35
@@ -306,7 +308,7 @@ Partial Class MainForm
         Me.GroupBox2.Controls.Add(Me.lb_cfgId)
         Me.GroupBox2.Controls.Add(Me.Label4)
         Me.GroupBox2.Controls.Add(Me.lb_maxId)
-        Me.GroupBox2.Location = New System.Drawing.Point(6, 382)
+        Me.GroupBox2.Location = New System.Drawing.Point(3, 393)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(450, 76)
         Me.GroupBox2.TabIndex = 32
@@ -370,7 +372,7 @@ Partial Class MainForm
         '
         Me.bt_compare.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.bt_compare.Enabled = False
-        Me.bt_compare.Location = New System.Drawing.Point(592, 6)
+        Me.bt_compare.Location = New System.Drawing.Point(594, 6)
         Me.bt_compare.Name = "bt_compare"
         Me.bt_compare.Size = New System.Drawing.Size(118, 36)
         Me.bt_compare.TabIndex = 31
@@ -384,9 +386,9 @@ Partial Class MainForm
         Me.GroupBox5.Controls.Add(Me.lb_NewGPath)
         Me.GroupBox5.Controls.Add(Me.lb_NewGId)
         Me.GroupBox5.Controls.Add(Me.Label2)
-        Me.GroupBox5.Location = New System.Drawing.Point(471, 382)
+        Me.GroupBox5.Location = New System.Drawing.Point(470, 393)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(449, 76)
+        Me.GroupBox5.Size = New System.Drawing.Size(450, 76)
         Me.GroupBox5.TabIndex = 33
         Me.GroupBox5.TabStop = False
         '
@@ -429,7 +431,8 @@ Partial Class MainForm
         'bt_addNewGen
         '
         Me.bt_addNewGen.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.bt_addNewGen.Location = New System.Drawing.Point(407, 6)
+        Me.bt_addNewGen.Enabled = False
+        Me.bt_addNewGen.Location = New System.Drawing.Point(409, 6)
         Me.bt_addNewGen.Name = "bt_addNewGen"
         Me.bt_addNewGen.Size = New System.Drawing.Size(46, 36)
         Me.bt_addNewGen.TabIndex = 34
@@ -440,9 +443,9 @@ Partial Class MainForm
         '
         Me.TreeView2.AllowDrop = True
         Me.TreeView2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom), System.Windows.Forms.AnchorStyles)
-        Me.TreeView2.Location = New System.Drawing.Point(468, 48)
+        Me.TreeView2.Location = New System.Drawing.Point(470, 48)
         Me.TreeView2.Name = "TreeView2"
-        Me.TreeView2.Size = New System.Drawing.Size(450, 330)
+        Me.TreeView2.Size = New System.Drawing.Size(450, 343)
         Me.TreeView2.TabIndex = 28
         '
         'TreeView1
@@ -452,13 +455,13 @@ Partial Class MainForm
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.TreeView1.Location = New System.Drawing.Point(3, 48)
         Me.TreeView1.Name = "TreeView1"
-        Me.TreeView1.Size = New System.Drawing.Size(450, 330)
+        Me.TreeView1.Size = New System.Drawing.Size(450, 343)
         Me.TreeView1.TabIndex = 27
         '
         'bt_LoadNewGen
         '
         Me.bt_LoadNewGen.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.bt_LoadNewGen.Location = New System.Drawing.Point(468, 6)
+        Me.bt_LoadNewGen.Location = New System.Drawing.Point(470, 6)
         Me.bt_LoadNewGen.Name = "bt_LoadNewGen"
         Me.bt_LoadNewGen.Size = New System.Drawing.Size(118, 36)
         Me.bt_LoadNewGen.TabIndex = 30
@@ -489,7 +492,7 @@ Partial Class MainForm
         Me.TabPage1.Location = New System.Drawing.Point(4, 22)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(926, 464)
+        Me.TabPage1.Size = New System.Drawing.Size(930, 477)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Синхронизация файлов ВУ"
         Me.TabPage1.UseVisualStyleBackColor = True
@@ -538,13 +541,17 @@ Partial Class MainForm
         'SaveFileDialog1
         '
         '
+        'ToolTip1
+        '
+        Me.ToolTip1.ToolTipTitle = "Заменить выбранный узел"
+        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(938, 515)
-        Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.StatusStrip1)
+        Me.Controls.Add(Me.TabControl1)
         Me.Name = "MainForm"
         Me.Text = "Для ВУ"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -569,7 +576,6 @@ Partial Class MainForm
 
     End Sub
     Friend WithEvents Button1 As Button
-    Friend WithEvents TextBox1 As TextBox
     Friend WithEvents DataGridView1 As System.Windows.Forms.DataGridView
     Friend WithEvents but_Anal As System.Windows.Forms.Button
     Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
@@ -612,5 +618,7 @@ Partial Class MainForm
     Friend WithEvents lb_peret1 As Label
     Friend WithEvents Button8 As Button
     Friend WithEvents GroupBox4 As GroupBox
-    Friend WithEvents tbManualDir As TextBox
+    Public WithEvents TextBox1 As TextBox
+    Public WithEvents tbManualDir As TextBox
+    Friend WithEvents ToolTip1 As ToolTip
 End Class

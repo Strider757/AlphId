@@ -1,5 +1,6 @@
 ﻿Imports System
 Imports System.IO
+Imports System.Text
 Imports System.Xml
 
 
@@ -9,6 +10,7 @@ Module AlphIdMod
     '=================Переменные для альфа конфиги===================
 
     Public docConfig As XmlDocument = New XmlDocument() 'Альфа конфига
+    Public strNewGen As String 'Сгенерёнынй ХМЛ файл  из workwithexel в виде строки
     Public docNewGen As XmlDocument = New XmlDocument() 'Сгенерёнынй ХМЛ файл из workwithexel
 
     Public rootConfig As XmlNode
@@ -39,15 +41,18 @@ Module AlphIdMod
     Public newGen As String '= "D:\Development\Work\AlphaConfigIDTest\AnalogsInCfg ID 1.xmlcfg"
     Public saveFilePath As String
 
+    Public confPath As String
+    Public newGenPath As String
+
 
     '=================Конец переменные для альфа конфиги===================
 
 
     Dim MyMainForm As MainForm = MainForm
-    Dim OpenFileDialog1 As OpenFileDialog = MyMainForm.OpenFileDialog1
-    Dim SaveFileDialog1 As SaveFileDialog = MyMainForm.SaveFileDialog1
-    Dim TreeView1 As TreeView = MyMainForm.TreeView1
-    Dim TreeView2 As TreeView = MyMainForm.TreeView2
+    Dim OpenFileDialog1 As OpenFileDialog = MainForm.OpenFileDialog1
+    Dim SaveFileDialog1 As SaveFileDialog = MainForm.SaveFileDialog1
+    Dim TreeView1 As TreeView = MainForm.TreeView1
+    Dim TreeView2 As TreeView = MainForm.TreeView2
 
 
     Sub addToTree(xe As XmlNode, Optional tree As TreeView = Nothing, Optional parent As TreeNode = Nothing) 'Рекурсивная процедура добавления xml узла в дерево. xe-добавляемый узел, tree-treeView  в который добавлем, parent - предок узла(если есть)
@@ -162,10 +167,12 @@ err2:
         TreeView1.Nodes.Clear() '
         bool_Tree1Loaded = False ' 
         maxId = 0 ' сбрасываем максимальный ID
+
         addToTree(SignalsNode, TreeView1) 'добавляем в дерево
         parentNode = Nothing 'обнуление родительского узла
         TreeView1.Nodes(0).Expand() ' раскрываем дерево
         bool_Tree1Loaded = True
+        MainForm.ToolStripStatusLabel1.Text = "Конфигурация загружена"
         MyMainForm.lb_maxId.Text = maxId
         newIds = maxId + 100 'задаём начало новых ID
         setMainChekedNode() 'Находим сравниваемый узел
@@ -191,13 +198,16 @@ err1:
         MyMainForm.lb_maxId.Text = maxId
 
         newIds = maxId + 100 'задаём начало новых ID
+        MainForm.ToolStripStatusLabel1.Text = "Конфигурация перезагружена"
     End Sub
 
 
     Sub loadNewCfg() 'тута грузин сгенерённый файл
         On Error GoTo err1
 letsTry:
-        docNewGen.Load(newGen) 'загружаем хмл файл
+        strNewGen = My.Computer.FileSystem.ReadAllText(newGen, Encoding.Default) 'Сразу грузить в XML документ он не может из-за проблем с кодировками, поэтому сначала читаем как текст.
+        docNewGen.LoadXml(strNewGen) 'загружаем хмл файл
+        'docNewGen.Load(newGen) 'загружаем хмл файл
         rootNewGen = docNewGen.DocumentElement ' Выбираем главный узел
 
         TreeView2.Nodes.Clear()
@@ -209,10 +219,11 @@ letsTry:
         TreeView2.Nodes(0).Expand()
         bool_Tree2Loaded = True
 
+
         MyMainForm.lb_peret2.Visible = False
 
         setMainChekedNode() 'Находим сравниваемый узел
-
+        MainForm.ToolStripStatusLabel1.Text = "Сгенерённый файл загружен"
         'TreeView1.Nodes.Item(0).ForeColor = Color.Red
         Exit Sub
 err1:
@@ -233,19 +244,28 @@ err1:
 
     Sub setMainChekedNode() 'если два дерева загружены, то ищем в конфигурации аналагочиный узел, который будем сравнивать с корневым узлом в сгенерённом файле 
         If bool_Tree1Loaded And bool_Tree2Loaded Then
+            MainForm.bt_addNewGen.Enabled = True
             MyMainForm.bt_compare.Enabled = True 'включаем кнопу
             mainChekedNode = SignalsNode.SelectSingleNode("//Item[@Name='" & CStr(rootNewGen.Attributes("Name").Value) & "']") 'Здесь выбираем узел аналогичный сгенеренному  в конфиге
         End If
     End Sub
 
     Sub setRootManual(str As String) ' задаём корневой узел вручную. Нужен для обработки исключения
+        'Dim editTextUtf8 As String
         Dim editText As String = "<Item Name=""" & str & """ Type=""Folder"">
                                     <Properties />
                                     <Items> 
-                                    " & File.ReadAllText(newGen) ' текст вначале и наш файл
+                                    " & File.ReadAllText(newGen, Encoding.Default) ' текст вначале и наш файл , Encoding.Default
+
+        'Dim UTF8 As Encoding = Encoding.UTF8
+        'Dim Def As Encoding = Encoding.Default
+        'Dim DefButes As Byte() = Def.GetBytes(editText)
+        'Dim UTF8Bytes As Byte() = Encoding.Convert(UTF8, Def, DefButes)
+        'editTextUtf8 = UTF8.GetString(UTF8Bytes)
+
 
         File.WriteAllText(newGen, editText & "             </Items>
-            </Item>") ' записываем текст и плюс текст в конце
+            </Item>", Encoding.Default) ' записываем текст и плюс текст в конце
     End Sub
 
 

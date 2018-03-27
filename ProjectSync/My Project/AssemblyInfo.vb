@@ -8,10 +8,10 @@ Imports System.Runtime.InteropServices
 
 ' Проверьте значения атрибутов сборки
 
-<Assembly: AssemblyTitle("ProjectSync")>
+<Assembly: AssemblyTitle("AlphID")>
 <Assembly: AssemblyDescription("")>
-<Assembly: AssemblyCompany("Microsoft")>
-<Assembly: AssemblyProduct("ProjectSync")>
+<Assembly: AssemblyCompany("ASKeng")>
+<Assembly: AssemblyProduct("AlphID")>
 <Assembly: AssemblyCopyright("Copyright © Microsoft 2017")>
 <Assembly: AssemblyTrademark("")>
 
@@ -31,5 +31,5 @@ Imports System.Runtime.InteropServices
 ' используя "*", как показано ниже:
 ' <Assembly: AssemblyVersion("1.0.*")>
 
-<Assembly: AssemblyVersion("0.7.7.0")>
-<Assembly: AssemblyFileVersion("0.7.7.0")>
+<Assembly: AssemblyVersion("1.0.0.0")>
+<Assembly: AssemblyFileVersion("1.0.0.0")>

@@ -25,18 +25,24 @@ Public Class SyncSetForm
             .Title = "Окно выбора файлов"
         End With
 
+
+
         On Error GoTo err1
         addToCoBox() 'Читаем список фильтров
         addToGrid() 'добавление элементов в таблицу
-
+        chb_accesCnD.Checked = xElem_NoAccessToCnD.Value
         Exit Sub
 err1:
-        If MainForm.bool_configFileExist = False Then
+        If bool_configFileExist = False Then
             Dim m As MsgBoxResult
-            m = MsgBox("Конфигурационный файл не найден. Создать новый?", vbOKCancel, vbQuestion)
+            m = MsgBox("Конфигурационный файл не найден. Создать новый?", vbOKCancel + vbQuestion)
             If m = 1 Then
+
                 createConfigFile()
-                MainForm.initConfig()
+                initConfig()
+            Else
+                Me.Close()
+                Exit Sub
             End If
             Resume
         End If
@@ -51,6 +57,7 @@ err1:
                             <prjDirSet>Manual</prjDirSet>
                             <prjDir>C:\Dynamics\</prjDir>
                             <bkpDir>C:\Users\user\Desktop\backupTest</bkpDir>
+                            <NoAccessToCnD>False</NoAccessToCnD>
                         </Settings>
                         <Backups>
                             <Backup Enable="True">C:\Dynamics\SSNTestBackup</Backup>
@@ -66,8 +73,8 @@ err1:
                             <File>$\DB\users.udb</File>
                         </Default>
                     </Root>
-        MainForm.xdoc = xd
-        MainForm.xdoc.Save(MainForm.SyncFileName)
+        xdoc = xd
+        xdoc.Save(SyncFileName)
     End Sub
     Public Sub addToCoBox()
 
@@ -77,7 +84,7 @@ err1:
         ComboBox1.Items.Clear()
         ComboBox1.Items.Add("") 'добавляем пустой фильтр
 
-        For Each xe As XElement In MainForm.xdoc.Element("Root").Element("Filters").Elements("Filter") 'Читаем список фильтров и добавляем его в комбобокс
+        For Each xe As XElement In xdoc.Element("Root").Element("Filters").Elements("Filter") 'Читаем список фильтров и добавляем его в комбобокс
             ComboBox1.Items.Add(xe.Value)
         Next
         ComboBox1.SelectedIndex = 0
@@ -97,23 +104,23 @@ err1:
     Public Function xmlLoad() As Boolean 'загружаем хмл со списком файлов. И сохраняем его в коллекцию  При удачной загрузке возвращает true
         On Error GoTo err1
         Dim i As Integer = 0
-        MainForm.fileCollect.Clear()
-        MainForm.catCollect.Clear()
+        fileCollect.Clear()
+        catCollect.Clear()
 
-        If MainForm.xdoc.Element("Root").Elements("Sync") Is Nothing Then
+        If xdoc.Element("Root").Elements("Sync") Is Nothing Then
             xmlLoad = False
             Exit Function
         End If
 
-        For Each xe As XElement In MainForm.xdoc.Element("Root").Elements("Sync").Elements("File")
-            MainForm.fileCollect.Add(New FileObj)
-            MainForm.fileCollect.Item(i).Name = MainForm.getfName(xe.Value, 0)
-            MainForm.fileCollect.Item(i).Location = MainForm.getfName(xe.Value, 1)
+        For Each xe As XElement In xdoc.Element("Root").Elements("Sync").Elements("File")
+            fileCollect.Add(New FileObj)
+            fileCollect.Item(i).Name = getfName(xe.Value, 0)
+            fileCollect.Item(i).Location = getfName(xe.Value, 1)
             i = i + 1
         Next
 
-        For Each xer As XElement In MainForm.xdoc.Element("Root").Element("Sync").Elements("Catalog")
-            MainForm.catCollect.Add(xer.Value)
+        For Each xer As XElement In xdoc.Element("Root").Element("Sync").Elements("Catalog")
+            catCollect.Add(xer.Value)
         Next
 
         xmlLoad = True
@@ -127,14 +134,14 @@ err1:
     Sub addToGrid() 'добавляем в табличку
         Dim k As Integer = 0
         DataGridView2.Rows.Clear()
-        For Each xer As XElement In MainForm.xdoc.Element("Root").Elements("Sync").Elements("Catalog") ' Добавляем каталоги
+        For Each xer As XElement In xdoc.Element("Root").Elements("Sync").Elements("Catalog") ' Добавляем каталоги
             DataGridView2.Rows.Add()
             DataGridView2.Rows.Item(k).Cells(cn_nm).Value = xer.Value
             DataGridView2.Rows.Item(k).Cells(cn_chk).Value = xer.Attribute("allFiles").Value
             DataGridView2.Rows.Item(k).Cells(cn_nm).Style.BackColor = collor_cat ' красим в нужный цвет
             k = k + 1
         Next
-        For Each xer As XElement In MainForm.xdoc.Element("Root").Element("Sync").Elements("File") 'Файлы
+        For Each xer As XElement In xdoc.Element("Root").Element("Sync").Elements("File") 'Файлы
             DataGridView2.Rows.Add()
             DataGridView2.Rows.Item(k).Cells(cn_nm).Value = xer.Value
             DataGridView2.Rows.Item(k).Cells(cn_nm).Style.BackColor = collor_file ' красим в нужный цвет
@@ -173,7 +180,6 @@ err1:
     End Sub
 
     Private Sub But_add_file_Click(sender As Object, e As EventArgs) Handles But_add_file.Click
-        Dim dr As DialogResult
         OpenFileDialog1.ShowDialog()
     End Sub
 
@@ -193,15 +199,15 @@ err1:
 
     Private Sub But_save_Click(sender As Object, e As EventArgs) Handles But_save.Click ' сохраняем и еще раз загружаем в коллекцию список файлов
 
-        If Not MainForm.bool_configFileExist Then
-            Dim fs As FileStream = File.Create(MainForm.SyncFileName)
+        If Not bool_configFileExist Then
+            Dim fs As FileStream = File.Create(SyncFileName)
             Dim info As Byte() = New UTF8Encoding(True).GetBytes("<?xml version=""1.0"" encoding=""utf-8""?>" & Chr(13) & "<Root>" & Chr(13) & "</Root>")
             fs.Write(info, 0, info.Length)
             fs.Close()
             'MainForm.xdoc = XDocument.Load(MainForm.SyncFileName)
         End If
 
-        If Not MainForm.xdoc.Element("Root").Element("Sync") Is Nothing Then MainForm.xdoc.Element("Root").Element("Sync").Remove() 'удаляем существующий список объектов
+        If Not xdoc.Element("Root").Element("Sync") Is Nothing Then xdoc.Element("Root").Element("Sync").Remove() 'удаляем существующий список объектов
 
         Dim xmlTree1 As XElement =
             <Sync>
@@ -217,7 +223,8 @@ err1:
             End If
         Next
 
-        MainForm.xdoc.Element("Root").Add(New XElement(xmlTree1))
+        xdoc.Element("Root").Add(New XElement(xmlTree1))
+        xdoc.Element("Root").Element("Settings").Element("NoAccessToCnD").Value = chb_accesCnD.Checked
         '__________________________________________________________________
 
 
@@ -246,7 +253,7 @@ err1:
         'End If
 
 
-        MainForm.xdoc.Save(MainForm.SyncFileName)
+        xdoc.Save(SyncFileName)
         xmlLoad()
 
         MsgBox("Успешно сохранено!", vbOKOnly)

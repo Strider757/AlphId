@@ -1,0 +1,13 @@
+D:\Dropbox\Development\AlphId\ProjectSync\bin\Release\AlphId.exe.config
+D:\Dropbox\Development\AlphId\ProjectSync\bin\Release\AlphId.exe
+D:\Dropbox\Development\AlphId\ProjectSync\bin\Release\AlphId.pdb
+D:\Dropbox\Development\AlphId\ProjectSync\bin\Release\AlphId.xml
+D:\Dropbox\Development\AlphId\ProjectSync\obj\Release\AlphId.FiltersForm.resources
+D:\Dropbox\Development\AlphId\ProjectSync\obj\Release\AlphId.AlphaCfgForm.resources
+D:\Dropbox\Development\AlphId\ProjectSync\obj\Release\AlphId.MainForm.resources
+D:\Dropbox\Development\AlphId\ProjectSync\obj\Release\AlphId.SyncSetForm.resources
+D:\Dropbox\Development\AlphId\ProjectSync\obj\Release\AlphId.Resources.resources
+D:\Dropbox\Development\AlphId\ProjectSync\obj\Release\AlphId.vbproj.GenerateResource.Cache
+D:\Dropbox\Development\AlphId\ProjectSync\obj\Release\AlphId.exe
+D:\Dropbox\Development\AlphId\ProjectSync\obj\Release\AlphId.xml
+D:\Dropbox\Development\AlphId\ProjectSync\obj\Release\AlphId.pdb

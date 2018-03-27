@@ -1,24 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
   <Settings>
-    <IP>192.168.209.145</IP>
+    <IP>192.168.209.132</IP>
     <prjDirSet>Manual</prjDirSet>
     <prjDir>C:\Dynamics\SSN</prjDir>
     <bkpDir>C:\Users\user\Desktop\backupTest</bkpDir>
+    <NoAccessToCnD>True</NoAccessToCnD>
   </Settings>
   <Backups>
     <Backup Enable="True">C:\Dynamics\SSNTestBackup</Backup>
   </Backups>
   <Filters>
     <Filter>*.grf</Filter>
-    <Filter>*.mdb</Filter>
-    <Filter>*.udb</Filter>
   </Filters>
+  <Default>
+    <Catalog allFiles="false">$\PIC</Catalog>
+    <File>$\PIC\User.fxg</File>
+    <File>$\DB\Object.mdb</File>
+    <File>$\DB\users.udb</File>
+  </Default>
   <Sync>
     <Catalog allFiles="false">C:\Dynamics\SSN\PIC</Catalog>
-    <Catalog allFiles="false">C:\Dynamics\SSN\DB</Catalog>
-    <Catalog allFiles="false">C:\Dynamics\SSN\LOCAL</Catalog>
-    <File>C:\Dynamics\SSN\Переменные_ССН_v0.26_fast.xlsm</File>
+    <Catalog allFiles="true">C:\Dynamics\SSN\APL\work with excel_2018.03.01 SSN</Catalog>
     <File>C:\Dynamics\SSN\PIC\User.fxg</File>
+    <File>C:\Dynamics\SSN\DB\Object.mdb</File>
+    <File>C:\Dynamics\SSN\DB\users.udb</File>
+    <File>C:\Dynamics\SSN\Переменные_ССН_v0.30(Доработка_277.30).xlsm</File>
+    <File>C:\Dynamics\SSN\XML\Alpha.ServerExternalObjects.xml</File>
   </Sync>
 </Root>

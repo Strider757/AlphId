@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
   <Settings>
-    <IP>192.168.209.132</IP>
+    <IP>192.168.209.145</IP>
     <prjDirSet>Manual</prjDirSet>
     <prjDir>C:\Dynamics\SSN</prjDir>
     <bkpDir>C:\Users\user\Desktop\backupTest</bkpDir>
@@ -26,6 +26,5 @@
     <File>C:\Dynamics\SSN\DB\Object.mdb</File>
     <File>C:\Dynamics\SSN\DB\users.udb</File>
     <File>C:\Dynamics\SSN\Переменные_ССН_v0.30(Доработка_277.30).xlsm</File>
-    <File>C:\Dynamics\SSN\XML\Alpha.ServerExternalObjects.xml</File>
   </Sync>
 </Root>

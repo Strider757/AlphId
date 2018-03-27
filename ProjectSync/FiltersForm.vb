@@ -9,7 +9,7 @@
         Dim i As Integer = 0
         DataGridView1.Rows.Clear()
         OpenFileDialog1.Multiselect = False
-        For Each xe As XElement In MainForm.xdoc.Element("Root").Element("Filters").Elements("Filter")
+        For Each xe As XElement In xdoc.Element("Root").Element("Filters").Elements("Filter")
             DataGridView1.Rows.Add()
             DataGridView1.Rows.Item(i).Cells(0).Value = xe.Value
             i = i + 1
@@ -21,7 +21,7 @@ err1:
 
 
     Private Sub But_save_Click(sender As Object, e As EventArgs) Handles But_save.Click
-        MainForm.xdoc.Element("Root").Element("Filters").Remove()
+        xdoc.Element("Root").Element("Filters").Remove()
 
         Dim xmlTree1 As XElement =
             <Filters>
@@ -37,8 +37,8 @@ err1:
             End If
         Next
 
-        MainForm.xdoc.Element("Root").Add(New XElement(xmlTree1))
-        MainForm.xdoc.Save(MainForm.SyncFileName)
+        xdoc.Element("Root").Add(New XElement(xmlTree1))
+        xdoc.Save(SyncFileName)
         Call SyncSetForm.addToCoBox()
         'Dim xe As XElement = xdoc.Element("Root").Element("Filters")
         MsgBox("Список фильтров сохранён!", vbOKOnly, "Фильтры")

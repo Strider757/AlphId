@@ -33,7 +33,7 @@ Partial Class SyncSetForm
         Me.DataGridView2 = New System.Windows.Forms.DataGridView()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.But_add_file = New System.Windows.Forms.Button()
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.chb_accesCnD = New System.Windows.Forms.CheckBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -129,15 +129,15 @@ Partial Class SyncSetForm
         Me.But_add_file.Text = "Добавить файлы..."
         Me.But_add_file.UseVisualStyleBackColor = True
         '
-        'CheckBox1
+        'chb_accesCnD
         '
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(381, 309)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(176, 17)
-        Me.CheckBox1.TabIndex = 0
-        Me.CheckBox1.Text = "Отсутствует доступ к C$ и D$"
-        Me.CheckBox1.UseVisualStyleBackColor = True
+        Me.chb_accesCnD.AutoSize = True
+        Me.chb_accesCnD.Location = New System.Drawing.Point(381, 309)
+        Me.chb_accesCnD.Name = "chb_accesCnD"
+        Me.chb_accesCnD.Size = New System.Drawing.Size(176, 17)
+        Me.chb_accesCnD.TabIndex = 0
+        Me.chb_accesCnD.Text = "Отсутствует доступ к C$ и D$"
+        Me.chb_accesCnD.UseVisualStyleBackColor = True
         '
         'Label1
         '
@@ -156,7 +156,7 @@ Partial Class SyncSetForm
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(701, 380)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.CheckBox1)
+        Me.Controls.Add(Me.chb_accesCnD)
         Me.Controls.Add(Me.DataGridView2)
         Me.Controls.Add(Me.But_add_file)
         Me.Controls.Add(Me.b_Deff)
@@ -186,6 +186,6 @@ Partial Class SyncSetForm
     Friend WithEvents DataGridView2 As System.Windows.Forms.DataGridView
     Friend WithEvents FolderBrowserDialog1 As System.Windows.Forms.FolderBrowserDialog
     Friend WithEvents But_add_file As Button
-    Friend WithEvents CheckBox1 As CheckBox
+    Friend WithEvents chb_accesCnD As CheckBox
     Friend WithEvents Label1 As Label
 End Class
