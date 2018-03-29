@@ -14,8 +14,10 @@ Public Class MainForm
         ToolStripStatusLabel1.Text = " " ' прячем всё лишнее
         ToolStripProgressBar1.Visible = False
 
+        TabPage3.Parent = Nothing
+
         initAlpohaID() 'инициализация формы для Альфа Конфигурации
-        initSyncFilePanel() 'инициализация формы дляc синхронизации файлов
+        initSyncFilePanel() 'инициализация формы для синхронизации файлов
         bool_FormLoaded = True
     End Sub
 
@@ -108,17 +110,18 @@ err1:
 
     '=================================Конец Кнопок===========================================================================
 
-
-
-    'Private Sub tbManualDir_TextChanged(sender As Object, e As EventArgs) Handles tbManualDir.TextChanged
-    '    If tbManualDir.Text <> xElem_prjDir.Value Then
-    '        Button8.Text = "Открыть*"
-    '    End If
-    'End Sub
-
-
-
-
+    Private Sub tbManualDir_KeyDown(sender As Object, e As KeyEventArgs) Handles tbManualDir.KeyDown
+        Dim tempDir
+        If e.KeyCode = 13 Then
+            If tbManualDir.Text <> xElem_prjDir.Value Then ' перезаписываем папку
+                tempDir = xElem_prjDir.Value
+                xElem_prjDir.Value = tbManualDir.Text
+                prjDir = tbManualDir.Text
+            End If
+            xdoc.Save(SyncFileName)
+            MsgBox("Папка перезаписана")
+        End If
+    End Sub
 
 
     '************************************************************************************************************************
@@ -328,24 +331,6 @@ err1:
     Private Sub SaveFileDialog1_FileOk(sender As Object, e As ComponentModel.CancelEventArgs) Handles SaveFileDialog1.FileOk
         saveFilePath = SaveFileDialog1.FileName
     End Sub
-
-
-
-
-    Private Sub tbManualDir_KeyDown(sender As Object, e As KeyEventArgs) Handles tbManualDir.KeyDown
-        Dim tempDir
-        If e.KeyCode = 13 Then
-            If tbManualDir.Text <> xElem_prjDir.Value Then ' перезаписываем папку
-                tempDir = xElem_prjDir.Value
-                xElem_prjDir.Value = tbManualDir.Text
-                prjDir = tbManualDir.Text
-            End If
-            xdoc.Save(SyncFileName)
-            MsgBox("Папка перезаписана")
-        End If
-    End Sub
-
-
 
     '************************************************************************************************************************
     '***********************************КОНЕЦ КОДА ДЛЯ АЛЬФА КОНФИГИ*********************************************************

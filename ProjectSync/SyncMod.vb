@@ -346,10 +346,11 @@ err1:
         Dim q() As String
         Dim fr As String
         q = Split(s, ".")
-        fr = q(1)
+        fr = q(q.Length - 1)
         For Each xe As XElement In xdoc.Element("Root").Element("Filters").Elements("Filter")
             If "*." & fr = xe.Value Then
                 checkFileRash = True
+                Exit Function
             Else
                 checkFileRash = False
             End If
