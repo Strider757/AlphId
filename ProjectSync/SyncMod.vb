@@ -29,6 +29,7 @@ Module SyncMod
     Dim cn_loc As Integer = 2 'Номер столбца с датой местного файла
     Dim cn_rem As Integer = 3 'Номер столбца с датой удалённого файла
     Dim cn_der As Integer = 4 'Номер столбца с папкой файла
+    Dim cn_chn As Integer = 5 'Номер столбца с папкой файла
 
 
 
@@ -193,12 +194,14 @@ Module SyncMod
             If compareIzmDate(MainForm.DataGridView1.Rows.Item(i).Cells(cn_loc).Value, MainForm.DataGridView1.Rows.Item(i).Cells(cn_rem).Value) = 1 Then 'если новый файл на локальном компе
                 MainForm.DataGridView1.Rows.Item(i).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Green
                 MainForm.DataGridView1.Rows.Item(i).Cells(cn_rem).Style.ForeColor = System.Drawing.Color.Red
+                MainForm.DataGridView1.Rows.Item(i).Cells(cn_chn).Value = "Да"
             ElseIf compareIzmDate(MainForm.DataGridView1.Rows.Item(i).Cells(cn_loc).Value, MainForm.DataGridView1.Rows.Item(i).Cells(cn_rem).Value) = 0 Or bool_connection = False Then 'если файлы одинаковые
                 MainForm.DataGridView1.Rows.Item(i).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
                 MainForm.DataGridView1.Rows.Item(i).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
             Else 'если новый файл на удаленном компе
                 MainForm.DataGridView1.Rows.Item(i).Cells(cn_rem).Style.ForeColor = System.Drawing.Color.Green
                 MainForm.DataGridView1.Rows.Item(i).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Red
+                MainForm.DataGridView1.Rows.Item(i).Cells(cn_chn).Value = "Да"
             End If
 
             MainForm.DataGridView1.Rows.Item(i).Cells(cn_chk).Value = True
@@ -209,7 +212,7 @@ Module SyncMod
         For Each xer As XElement In xdoc.Element("Root").Elements("Sync").Elements("Catalog")
             Files = IO.Directory.GetFiles(xer.Value)
             For ki = 0 To Files.Length - 1
-                If xer.Attribute("allFiles").Value = True Then
+                If xer.Attribute("allFiles").Value = True And xer.Attribute("enable").Value = True Then
                     MainForm.DataGridView1.Rows.Add()
                     MainForm.DataGridView1.Rows.Item(k).Cells(cn_nm).Value = SyncSetForm.getfName(Files(ki), 0)
                     MainForm.DataGridView1.Rows.Item(k).Cells(cn_der).Value = xer.Value
@@ -219,16 +222,18 @@ Module SyncMod
                     If compareIzmDate(MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Value, MainForm.DataGridView1.Rows.Item(k).Cells(cn_rem).Value) = 1 Then 'если новый файл на локальном компе
                         MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Green
                         MainForm.DataGridView1.Rows.Item(k).Cells(cn_rem).Style.ForeColor = System.Drawing.Color.Red
+                        MainForm.DataGridView1.Rows.Item(k).Cells(cn_chn).Value = "Да"
                     ElseIf compareIzmDate(MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Value, MainForm.DataGridView1.Rows.Item(k).Cells(cn_rem).Value) = 0 Or bool_connection = False Then 'если файлы одинаковые
                         MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
                         MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
                     Else 'если новый файл на удаленном компе
                         MainForm.DataGridView1.Rows.Item(k).Cells(cn_rem).Style.ForeColor = System.Drawing.Color.Green
                         MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Red
+                        MainForm.DataGridView1.Rows.Item(k).Cells(cn_chn).Value = "Да"
                     End If
                     MainForm.DataGridView1.Rows.Item(k).Cells(cn_chk).Value = True
                     k = k + 1
-                ElseIf xer.Attribute("allFiles").Value = False And checkFileRash(getfName(Files(ki), 0)) = True Then
+                ElseIf xer.Attribute("allFiles").Value = False And checkFileRash(getfName(Files(ki), 0)) = True And xer.Attribute("enable").Value = True Then
                     MainForm.DataGridView1.Rows.Add()
                     MainForm.DataGridView1.Rows.Item(k).Cells(cn_nm).Value = SyncSetForm.getfName(Files(ki), 0)
                     MainForm.DataGridView1.Rows.Item(k).Cells(cn_der).Value = xer.Value
@@ -238,12 +243,14 @@ Module SyncMod
                     If compareIzmDate(MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Value, MainForm.DataGridView1.Rows.Item(k).Cells(cn_rem).Value) = 1 Then 'если новый файл на локальном компе
                         MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Green
                         MainForm.DataGridView1.Rows.Item(k).Cells(cn_rem).Style.ForeColor = System.Drawing.Color.Red
+                        MainForm.DataGridView1.Rows.Item(k).Cells(cn_chn).Value = "Да"
                     ElseIf compareIzmDate(MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Value, MainForm.DataGridView1.Rows.Item(k).Cells(cn_rem).Value) = 0 Or bool_connection = False Then 'если файлы одинаковые
                         MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
                         MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
                     Else 'если новый файл на удаленном компе
                         MainForm.DataGridView1.Rows.Item(k).Cells(cn_rem).Style.ForeColor = System.Drawing.Color.Green
                         MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Red
+                        MainForm.DataGridView1.Rows.Item(k).Cells(cn_chn).Value = "Да"
                     End If
                     MainForm.DataGridView1.Rows.Item(k).Cells(cn_chk).Value = True
                     k = k + 1
@@ -251,6 +258,8 @@ Module SyncMod
             Next
         Next
         'End If
+        MainForm.DataGridView1.Sort(MainForm.DataGridView1.Columns(cn_chn), System.ComponentModel.ListSortDirection.Descending)
+
         If MainForm.TextBox1.Text <> xElem_IP.Value Then ' перезаписываем ip
             xElem_IP.Value = MainForm.TextBox1.Text
             xdoc.Save(SyncFileName)

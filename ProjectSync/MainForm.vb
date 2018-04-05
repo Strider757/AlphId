@@ -14,7 +14,7 @@ Public Class MainForm
         ToolStripStatusLabel1.Text = " " ' прячем всё лишнее
         ToolStripProgressBar1.Visible = False
 
-        TabPage3.Parent = Nothing
+        'TabPage3.Parent = Nothing 'скрыть третью вкладку
 
         initAlpohaID() 'инициализация формы для Альфа Конфигурации
         initSyncFilePanel() 'инициализация формы для синхронизации файлов
@@ -36,9 +36,10 @@ Public Class MainForm
             .Columns.Add("local", "Местный")
             .Columns.Add("remote", "Удалённый")
             .Columns.Add("directory", "Расположение")
+            .Columns.Add("changed", "Изм.")
             .Columns(0).Width = 21
             .Columns(0).ReadOnly = False
-            .Columns(1).Width = 360
+            .Columns(1).Width = 310
             .Columns(1).ReadOnly = True
             .Columns(2).Width = 110
             .Columns(2).ReadOnly = True
@@ -46,6 +47,8 @@ Public Class MainForm
             .Columns(3).ReadOnly = True
             .Columns(4).Width = 300
             .Columns(4).ReadOnly = True
+            .Columns(5).Width = 50
+            .Columns(5).ReadOnly = True
         End With
 
         RadioButton1.Checked = True

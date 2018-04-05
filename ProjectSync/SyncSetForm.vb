@@ -4,20 +4,28 @@ Imports System.Text
 Public Class SyncSetForm
     Dim cn_chk As Integer = 0 'Номер столбца с чекбоксом
     Dim cn_nm As Integer = 1 'Номер столбца с именем
+    Dim cn_type As Integer = 2 'Номер столбца с типом
+    Dim cn_enab As Integer = 3 'Номер столбца с Чекбоксом на разрешение синхронизации
     Dim collor_cat As System.Drawing.Color = System.Drawing.Color.LavenderBlush
     Dim collor_file As System.Drawing.Color = System.Drawing.Color.PaleTurquoise
 
     Private Sub FilesForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Dim chk As New DataGridViewCheckBoxColumn()
+        Dim chk1 As New DataGridViewCheckBoxColumn()
         Dim dstr(3) As String
         With DataGridView2
             .Columns.Add(chk)
             .Columns.Add("obj", "Объект")
+            .Columns.Add("obj", "Тип")
+            .Columns.Add(chk1)
 
-            .Columns.Item(cn_chk).Name = "All Files"
-            .Columns(cn_nm).Width = 570
+            .Columns.Item(cn_chk).Name = "Все файлы"
+            .Columns.Item(cn_enab).Name = "Разреш."
             .Columns(cn_chk).Width = 50
+            .Columns(cn_nm).Width = 500
+            .Columns(cn_type).Width = 50
+            .Columns(cn_enab).Width = 50
         End With
 
         With OpenFileDialog1
@@ -67,10 +75,10 @@ err1:
                             <Filter>*.grf</Filter>
                         </Filters>
                         <Default>
-                            <Catalog allFiles="false">$\PIC</Catalog>
-                            <File>$\PIC\User.fxg</File>
-                            <File>$\DB\Object.mdb</File>
-                            <File>$\DB\users.udb</File>
+                            <Catalog allFiles="false" enable="true">$\PIC</Catalog>
+                            <File enable="true">$\PIC\User.fxg</File>
+                            <File enable="true">$\DB\Object.mdb</File>
+                            <File enable="true">$\DB\users.udb</File>
                         </Default>
                     </Root>
         xdoc = xd
@@ -113,21 +121,25 @@ err1:
         End If
 
         For Each xe As XElement In xdoc.Element("Root").Elements("Sync").Elements("File")
-            fileCollect.Add(New FileObj)
-            fileCollect.Item(i).Name = getfName(xe.Value, 0)
-            fileCollect.Item(i).Location = getfName(xe.Value, 1)
-            i = i + 1
+            If xe.Attribute("enable").Value = True Then
+                fileCollect.Add(New FileObj)
+                fileCollect.Item(i).Name = getfName(xe.Value, 0)
+                fileCollect.Item(i).Location = getfName(xe.Value, 1)
+                i = i + 1
+            End If
         Next
 
         For Each xer As XElement In xdoc.Element("Root").Element("Sync").Elements("Catalog")
-            catCollect.Add(xer.Value)
+            If xer.Attribute("enable").Value = True Then
+                catCollect.Add(xer.Value)
+            End If
         Next
 
         xmlLoad = True
 
         Exit Function
 err1:
-        MsgBox("Ошибка номер " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
+        MsgBox("Ошибка в конфигурации. Ошибка номер " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
         xmlLoad = False
     End Function
 
@@ -138,14 +150,23 @@ err1:
             DataGridView2.Rows.Add()
             DataGridView2.Rows.Item(k).Cells(cn_nm).Value = xer.Value
             DataGridView2.Rows.Item(k).Cells(cn_chk).Value = xer.Attribute("allFiles").Value
+            DataGridView2.Rows.Item(k).Cells(cn_enab).Value = xer.Attribute("enable").Value
             DataGridView2.Rows.Item(k).Cells(cn_nm).Style.BackColor = collor_cat ' красим в нужный цвет
+            DataGridView2.Rows.Item(k).Cells(cn_type).Style.BackColor = collor_cat ' красим в нужный цвет
+            DataGridView2.Rows.Item(k).Cells(cn_enab).Style.BackColor = collor_cat ' красим в нужный цвет
+            DataGridView2.Rows.Item(k).Cells(cn_type).Value = "Папка" ' Пишем тип
+
             k = k + 1
         Next
         For Each xer As XElement In xdoc.Element("Root").Element("Sync").Elements("File") 'Файлы
             DataGridView2.Rows.Add()
             DataGridView2.Rows.Item(k).Cells(cn_nm).Value = xer.Value
+            DataGridView2.Rows.Item(k).Cells(cn_enab).Value = xer.Attribute("enable").Value
             DataGridView2.Rows.Item(k).Cells(cn_nm).Style.BackColor = collor_file ' красим в нужный цвет
             DataGridView2.Rows.Item(k).Cells(cn_chk).Style.BackColor = SystemColors.Control ' красим в нужный цвет
+            DataGridView2.Rows.Item(k).Cells(cn_type).Style.BackColor = collor_file ' красим в нужный цвет
+            DataGridView2.Rows.Item(k).Cells(cn_enab).Style.BackColor = collor_file ' красим в нужный цвет
+            DataGridView2.Rows.Item(k).Cells(cn_type).Value = "Файл" ' Пишем тип
             DataGridView2.Rows.Item(k).Cells(cn_chk).ReadOnly = True
             k = k + 1
         Next
@@ -216,9 +237,9 @@ err1:
         For Each dataElem As DataGridViewRow In DataGridView2.Rows
             If dataElem.Cells(cn_nm).Value <> "" Then
                 If dataElem.Cells(cn_nm).Style.BackColor = collor_cat Then
-                    xmlTree1.Add(New XElement(<Catalog allFiles=<%= dataElem.Cells(cn_chk).Value %>><%= dataElem.Cells(cn_nm).Value %></Catalog>))
+                    xmlTree1.Add(New XElement(<Catalog allFiles=<%= dataElem.Cells(cn_chk).Value %> enable=<%= dataElem.Cells(cn_enab).Value %>><%= dataElem.Cells(cn_nm).Value %></Catalog>))
                 ElseIf dataElem.Cells(cn_nm).Style.BackColor = collor_file Then
-                    xmlTree1.Add(New XElement(<File><%= dataElem.Cells(cn_nm).Value %></File>))
+                    xmlTree1.Add(New XElement(<File enable=<%= dataElem.Cells(cn_enab).Value %>><%= dataElem.Cells(cn_nm).Value %></File>))
                 End If
             End If
         Next

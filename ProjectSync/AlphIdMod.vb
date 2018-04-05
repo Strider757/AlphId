@@ -202,7 +202,7 @@ err1:
     End Sub
 
 
-    Sub loadNewCfg() 'тута грузин сгенерённый файл
+    Sub loadNewCfg() 'тута грузим сгенерённый файл
         On Error GoTo err1
 letsTry:
         strNewGen = My.Computer.FileSystem.ReadAllText(newGen, Encoding.Default) 'Сразу грузить в XML документ он не может из-за проблем с кодировками, поэтому сначала читаем как текст.
@@ -223,6 +223,7 @@ letsTry:
         MyMainForm.lb_peret2.Visible = False
 
         setMainChekedNode() 'Находим сравниваемый узел
+        MainForm.bt_saveID.Enabled = False
         MainForm.ToolStripStatusLabel1.Text = "Сгенерённый файл загружен"
         'TreeView1.Nodes.Item(0).ForeColor = Color.Red
         Exit Sub

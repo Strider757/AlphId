@@ -11,23 +11,25 @@
     <Backup Enable="True">C:\Dynamics\SSNTestBackup</Backup>
   </Backups>
   <Default>
-    <Catalog allFiles="false">$\PIC</Catalog>
-    <File>$\PIC\User.fxg</File>
-    <File>$\DB\Object.mdb</File>
-    <File>$\DB\users.udb</File>
+    <Catalog allFiles="false" enable="true">$\PIC</Catalog>
+    <File enable="true">$\PIC\User.fxg</File>
+    <File enable="true">$\DB\Object.mdb</File>
+    <File enable="true">$\DB\users.udb</File>
   </Default>
   <Filters>
     <Filter>*.grf</Filter>
-    <Filter>*.ini</Filter>
+    <Filter>*.con</Filter>
   </Filters>
   <Sync>
-    <Catalog allFiles="false">C:\Dynamics\SSN\PIC</Catalog>
-    <Catalog allFiles="true">C:\Dynamics\SSN\APL\work with excel_2018.03.01 SSN</Catalog>
-    <Catalog allFiles="false">C:\Dynamics\SSN\APL\Nuts</Catalog>
-    <File>C:\Dynamics\SSN\PIC\User.fxg</File>
-    <File>C:\Dynamics\SSN\DB\Object.mdb</File>
-    <File>C:\Dynamics\SSN\DB\users.udb</File>
-    <File>C:\Dynamics\SSN\Переменные_ССН_v0.31(Доработка_277.30).xlsm</File>
-    <File>C:\Dynamics\SSN\XML\Alpha.ServerExternalObjects.xml</File>
+    <Catalog allFiles="false" enable="true">C:\Dynamics\SSN\PIC</Catalog>
+    <Catalog allFiles="true" enable="true">C:\Dynamics\SSN\APL\work with excel_2018.03.01 SSN</Catalog>
+    <Catalog allFiles="false" enable="true">C:\Dynamics\SSN\APL\Nuts</Catalog>
+    <File enable="true">C:\Dynamics\SSN\PIC\User.fxg</File>
+    <File enable="true">C:\Dynamics\SSN\DB\Object.mdb</File>
+    <File enable="true">C:\Dynamics\SSN\DB\users.udb</File>
+    <File enable="true">C:\Dynamics\SSN\Переменные_ССН_v0.31(Доработка_277.30).xlsm</File>
+    <File enable="true">C:\Dynamics\SSN\XML\Alpha.ServerExternalObjects.xml</File>
+    <File enable="true">C:\Dynamics\SSN\APL\Nuts\ssn_analog.csv</File>
+    <File enable="true">C:\Dynamics\SSN\APL\Nuts\ssn_obsh.csv</File>
   </Sync>
 </Root>
