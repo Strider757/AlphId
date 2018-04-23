@@ -3,6 +3,7 @@
 Public Class MainForm
     Dim formWidth As Integer 'Переменная для изменения расположения элементов
     Dim bool_FormLoaded As Boolean
+    Public version As String = "1.1.1 beta"
     Dim treeViewNormalSize As Size
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
@@ -82,19 +83,22 @@ Public Class MainForm
     Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
         On Error GoTo err1
         Dim tempDir As String
-        If tbManualDir.Text <> xElem_prjDir.Value Then ' перезаписываем папку
-            tempDir = xElem_prjDir.Value
-            xElem_prjDir.Value = tbManualDir.Text
-            prjDir = tbManualDir.Text
+        If bool_configFileExist Then
+            If tbManualDir.Text <> xElem_prjDir.Value Then ' перезаписываем папку
+                tempDir = xElem_prjDir.Value
+                xElem_prjDir.Value = tbManualDir.Text
+                prjDir = tbManualDir.Text
+            End If
+            xdoc.Save(SyncFileName)
+            Process.Start(prjDir)
+        Else
+            tempDir = tbManualDir.Text
+            Process.Start(tbManualDir.Text)
         End If
-        xdoc.Save(SyncFileName)
-        Process.Start(prjDir)
 
         Exit Sub
 err1:
-        prjDir = tempDir
-        xElem_prjDir.Value = tempDir
-        MsgBox("Ошибка!", vbCritical + vbOKOnly)
+        MsgBox("Err.Number: " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
     End Sub
 
 
@@ -219,19 +223,35 @@ err1:
 
     Private Sub bt_LoadCfg_Click(sender As Object, e As EventArgs) Handles bt_LoadCfg.Click
         bool_selectCfg = True
-        If xElem_prjDir IsNot Nothing Then OpenFileDialog1.InitialDirectory = xElem_prjDir.Value
-        If confPath IsNot Nothing Then OpenFileDialog1.InitialDirectory = confPath
+        If confPath Is Nothing Then
+            If xElem_prjDir IsNot Nothing Then OpenFileDialog1.InitialDirectory = xElem_prjDir.Value
+        Else
+            OpenFileDialog1.InitialDirectory = confPath
+        End If
         If OpenFileDialog1.ShowDialog() = DialogResult.Cancel Then Exit Sub
-        confPath = OpenFileDialog1.FileName
+        confPath = getDirectotyByFileName(OpenFileDialog1.FileName)
         loadCfg()
     End Sub
 
+    Function getDirectotyByFileName(s As String) As String
+        Dim q()
+        q = Split(s, "\")
+        For k = 0 To q.Length - 2
+            getDirectotyByFileName = getDirectotyByFileName & q(k)
+            If k = q.Length - 2 Then Exit For
+            getDirectotyByFileName = getDirectotyByFileName & "\"
+        Next
+    End Function
+
     Private Sub bt_LoadNewGen_Click(sender As Object, e As EventArgs) Handles bt_LoadNewGen.Click
         bool_selectCfg = False
-        If xElem_prjDir IsNot Nothing Then OpenFileDialog1.InitialDirectory = xElem_prjDir.Value
-        If newGenPath IsNot Nothing Then OpenFileDialog1.InitialDirectory = newGenPath
+        If newGenPath Is Nothing Then
+            If xElem_prjDir IsNot Nothing Then OpenFileDialog1.InitialDirectory = xElem_prjDir.Value
+        Else
+            OpenFileDialog1.InitialDirectory = newGenPath
+        End If
         If OpenFileDialog1.ShowDialog() = DialogResult.Cancel Then Exit Sub
-        newGenPath = OpenFileDialog1.FileName
+        newGenPath = getDirectotyByFileName(OpenFileDialog1.FileName)
         loadNewCfg()
     End Sub
 

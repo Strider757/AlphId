@@ -35,8 +35,11 @@ Partial Class SyncSetForm
         Me.But_add_file = New System.Windows.Forms.Button()
         Me.chb_accesCnD = New System.Windows.Forms.CheckBox()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
+        Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.GroupBox1.SuspendLayout()
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'But_add_cat
@@ -70,7 +73,7 @@ Partial Class SyncSetForm
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(578, 345)
+        Me.Button2.Location = New System.Drawing.Point(586, 349)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(111, 28)
         Me.Button2.TabIndex = 6
@@ -99,7 +102,7 @@ Partial Class SyncSetForm
         '
         'b_Deff
         '
-        Me.b_Deff.Location = New System.Drawing.Point(578, 313)
+        Me.b_Deff.Location = New System.Drawing.Point(586, 313)
         Me.b_Deff.Name = "b_Deff"
         Me.b_Deff.Size = New System.Drawing.Size(111, 28)
         Me.b_Deff.TabIndex = 9
@@ -122,7 +125,7 @@ Partial Class SyncSetForm
         '
         'But_add_file
         '
-        Me.But_add_file.Location = New System.Drawing.Point(6, 345)
+        Me.But_add_file.Location = New System.Drawing.Point(6, 349)
         Me.But_add_file.Name = "But_add_file"
         Me.But_add_file.Size = New System.Drawing.Size(117, 28)
         Me.But_add_file.TabIndex = 11
@@ -150,11 +153,30 @@ Partial Class SyncSetForm
         Me.Label1.Text = "Если отстуствует доступ к C$ и D$," & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "то шарим папку с проектом ручками." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Еще надо " &
     "указать папку с проектом" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "в самой проге." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         '
+        'StatusStrip1
+        '
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1})
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 379)
+        Me.StatusStrip1.Name = "StatusStrip1"
+        Me.StatusStrip1.Size = New System.Drawing.Size(701, 22)
+        Me.StatusStrip1.SizingGrip = False
+        Me.StatusStrip1.Stretch = False
+        Me.StatusStrip1.TabIndex = 13
+        Me.StatusStrip1.Text = "StatusStrip1"
+        '
+        'ToolStripStatusLabel1
+        '
+        Me.ToolStripStatusLabel1.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
+        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(111, 17)
+        Me.ToolStripStatusLabel1.Text = "ToolStripStatusLabel1"
+        '
         'SyncSetForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(701, 380)
+        Me.ClientSize = New System.Drawing.Size(701, 401)
+        Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.chb_accesCnD)
         Me.Controls.Add(Me.DataGridView2)
@@ -170,6 +192,8 @@ Partial Class SyncSetForm
         Me.Text = "Настройка синхронизации"
         Me.GroupBox1.ResumeLayout(False)
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.StatusStrip1.ResumeLayout(False)
+        Me.StatusStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -188,4 +212,6 @@ Partial Class SyncSetForm
     Friend WithEvents But_add_file As Button
     Friend WithEvents chb_accesCnD As CheckBox
     Friend WithEvents Label1 As Label
+    Friend WithEvents StatusStrip1 As StatusStrip
+    Friend WithEvents ToolStripStatusLabel1 As ToolStripStatusLabel
 End Class

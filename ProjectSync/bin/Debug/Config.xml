@@ -29,5 +29,6 @@
     <File enable="true">C:\Dynamics\SSN\DB\users.udb</File>
     <File enable="true">C:\Dynamics\SSN\Переменные_ССН_v0.31(Доработка_277.30).xlsm</File>
     <File enable="true">C:\Dynamics\SSN\XML\Alpha.ServerExternalObjects.xml</File>
+    <File enable="true">C:\Dynamics\SSN\XML\Settings.xml</File>
   </Sync>
 </Root>

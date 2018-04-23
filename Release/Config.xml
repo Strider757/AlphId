@@ -22,14 +22,17 @@
   </Filters>
   <Sync>
     <Catalog allFiles="false" enable="true">C:\Dynamics\SSN\PIC</Catalog>
-    <Catalog allFiles="true" enable="true">C:\Dynamics\SSN\APL\work with excel_2018.03.01 SSN</Catalog>
+    <Catalog allFiles="true" enable="true">C:\Dynamics\SSN\APL\work with excel SSN</Catalog>
     <Catalog allFiles="false" enable="true">C:\Dynamics\SSN\APL\Nuts</Catalog>
     <File enable="true">C:\Dynamics\SSN\PIC\User.fxg</File>
     <File enable="true">C:\Dynamics\SSN\DB\Object.mdb</File>
     <File enable="true">C:\Dynamics\SSN\DB\users.udb</File>
-    <File enable="true">C:\Dynamics\SSN\Переменные_ССН_v0.31(Доработка_277.30).xlsm</File>
+    <File enable="true">C:\Dynamics\SSN\Переменные_ССН_v0.33(Доработка_277.30).xlsm</File>
     <File enable="true">C:\Dynamics\SSN\XML\Alpha.ServerExternalObjects.xml</File>
     <File enable="true">C:\Dynamics\SSN\APL\Nuts\ssn_analog.csv</File>
     <File enable="true">C:\Dynamics\SSN\APL\Nuts\ssn_obsh.csv</File>
+    <File enable="true">C:\Dynamics\SSN\XML\AccessPoint_P_2018_04_02_id.xmlcfg</File>
+    <File enable="true">C:\Dynamics\SSN\XML\AccessPoint_S_2018_04_02_id.xmlcfg</File>
+    <File enable="true">C:\Dynamics\SSN\XML\Settings.xml</File>
   </Sync>
 </Root>

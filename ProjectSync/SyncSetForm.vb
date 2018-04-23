@@ -14,6 +14,9 @@ Public Class SyncSetForm
         Dim chk As New DataGridViewCheckBoxColumn()
         Dim chk1 As New DataGridViewCheckBoxColumn()
         Dim dstr(3) As String
+
+        ToolStripStatusLabel1.Text = "Версия - " & MainForm.version
+
         With DataGridView2
             .Columns.Add(chk)
             .Columns.Add("obj", "Объект")
@@ -196,7 +199,13 @@ err1:
             DataGridView2.Rows.Add()
             DataGridView2.Rows.Item(DataGridView2.Rows.Count - 1).Cells(cn_nm).Value = FolderBrowserDialog1.SelectedPath
             DataGridView2.Rows.Item(DataGridView2.Rows.Count - 1).Cells(cn_chk).Value = False
+            DataGridView2.Rows.Item(DataGridView2.Rows.Count - 1).Cells(cn_type).Value = "Папка"
+            DataGridView2.Rows.Item(DataGridView2.Rows.Count - 1).Cells(cn_enab).Value = True
+
+
             DataGridView2.Rows.Item(DataGridView2.Rows.Count - 1).Cells(cn_nm).Style.BackColor = collor_cat ' красим в нужный цвет
+            DataGridView2.Rows.Item(DataGridView2.Rows.Count - 1).Cells(cn_type).Style.BackColor = collor_cat ' красим в нужный цвет
+            DataGridView2.Rows.Item(DataGridView2.Rows.Count - 1).Cells(cn_enab).Style.BackColor = collor_cat ' красим в нужный цвет
         End If
     End Sub
 
@@ -293,8 +302,12 @@ err1:
             DataGridView2.Rows.Item(rowsCount).Cells(cn_nm).Value = OpenFileDialog1.FileNames(i) 'getfName(OpenFileDialog1.FileNames(i))
             DataGridView2.Rows.Item(rowsCount).Cells(cn_chk).Style.BackColor = SystemColors.Control ' красим в нужный цвет
             DataGridView2.Rows.Item(rowsCount).Cells(cn_chk).ReadOnly = True
+            DataGridView2.Rows.Item(rowsCount).Cells(cn_type).Value = "Файл"
+            DataGridView2.Rows.Item(rowsCount).Cells(cn_enab).Value = True
 
             DataGridView2.Rows.Item(rowsCount).Cells(cn_nm).Style.BackColor = collor_file ' красим в нужный цвет
+            DataGridView2.Rows.Item(rowsCount).Cells(cn_type).Style.BackColor = collor_file
+            DataGridView2.Rows.Item(rowsCount).Cells(cn_enab).Style.BackColor = collor_file
             rowsCount = rowsCount + 1
         Next
 
