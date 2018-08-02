@@ -58,6 +58,7 @@ err1:
             Resume
         End If
         MsgBox("Ошибка номер " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
+        MainForm.WriteLog("Err.Number: " & Err.Number & ". " & Err.Description)
     End Sub
     Sub createConfigFile()
         Dim xd As XDocument =
@@ -143,6 +144,7 @@ err1:
         Exit Function
 err1:
         MsgBox("Ошибка в конфигурации. Ошибка номер " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
+        MainForm.WriteLog("Err.Number: " & Err.Number & ". " & Err.Description)
         xmlLoad = False
     End Function
 
@@ -287,6 +289,7 @@ err1:
         xmlLoad()
 
         MsgBox("Успешно сохранено!", vbOKOnly)
+        MainForm.WriteLog("Настройки синхронизации успешно сохранены!")
 
     End Sub
 

@@ -47,11 +47,11 @@ Module SyncMod
 
             MainForm.TextBox1.Text = xElem_IP.Value
             defineDir()
-            MainForm.ToolStripStatusLabel1.Text = ""
-            MainForm.ToolStripStatusLabel1.ForeColor = System.Drawing.Color.Black
+            'MainForm.ToolStripStatusLabel1.Text = ""
+            'MainForm.ToolStripStatusLabel1.ForeColor = System.Drawing.Color.Black
         Else
-            MainForm.ToolStripStatusLabel1.Text = "Внимание! Конфигурационный файл не найден!"
-            MainForm.ToolStripStatusLabel1.ForeColor = System.Drawing.Color.Red
+            MainForm.WriteLog("Внимание! Конфигурационный файл не найден!")
+            'MainForm.ToolStripStatusLabel1.ForeColor = System.Drawing.Color.Red
         End If
     End Sub
 
@@ -174,12 +174,20 @@ Module SyncMod
         Dim Folder As Directory
         Dim Files() As String
         MainForm.DataGridView1.Rows.Clear()
+
+        If MainForm.TextBox1.Text <> xElem_IP.Value Then ' перезаписываем ip
+            xElem_IP.Value = MainForm.TextBox1.Text
+            xdoc.Save(SyncFileName)
+            MainForm.WriteLog("IP изменен на " & xElem_IP.Value)
+        End If
+
+        MainForm.WriteLog("Сравниваем файлы с " & xElem_IP.Value)
         If My.Computer.Network.Ping(MainForm.TextBox1.Text) Then
             MainForm.TextBox1.BackColor = System.Drawing.Color.Green
             bool_connection = True
         Else
             MainForm.TextBox1.BackColor = System.Drawing.Color.Red
-            MainForm.ToolStripStatusLabel1.Text = "Нет связи"
+            MainForm.WriteLog("Нет связи")
         End If
 
         'If xElem_SynType.Value = "Files" Then
@@ -210,84 +218,85 @@ Module SyncMod
         'Else
         k = i 'потому что это теперь общий стчетчик, но мне лень переделывать
         For Each xer As XElement In xdoc.Element("Root").Elements("Sync").Elements("Catalog")
-            Files = IO.Directory.GetFiles(xer.Value)
-            For ki = 0 To Files.Length - 1
-                If xer.Attribute("allFiles").Value = True And xer.Attribute("enable").Value = True Then
-                    MainForm.DataGridView1.Rows.Add()
-                    MainForm.DataGridView1.Rows.Item(k).Cells(cn_nm).Value = SyncSetForm.getfName(Files(ki), 0)
-                    MainForm.DataGridView1.Rows.Item(k).Cells(cn_der).Value = xer.Value
-                    MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Value = Replace(IO.File.GetLastWriteTime(Files(ki)), "01.01.1601 3:00:00", " ")
-                    If bool_connection = True Then MainForm.DataGridView1.Rows.Item(k).Cells(cn_rem).Value = Replace(IO.File.GetLastWriteTime(convertFilePathToRemote(Files(ki))), "01.01.1601 3:00:00", " ")
+            If xer.Attribute("enable").Value = True Then
+                Files = IO.Directory.GetFiles(xer.Value)
+                For ki = 0 To Files.Length - 1
+                    If xer.Attribute("allFiles").Value = True And xer.Attribute("enable").Value = True Then
+                        MainForm.DataGridView1.Rows.Add()
+                        MainForm.DataGridView1.Rows.Item(k).Cells(cn_nm).Value = SyncSetForm.getfName(Files(ki), 0)
+                        MainForm.DataGridView1.Rows.Item(k).Cells(cn_der).Value = xer.Value
+                        MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Value = Replace(IO.File.GetLastWriteTime(Files(ki)), "01.01.1601 3:00:00", " ")
+                        If bool_connection = True Then MainForm.DataGridView1.Rows.Item(k).Cells(cn_rem).Value = Replace(IO.File.GetLastWriteTime(convertFilePathToRemote(Files(ki))), "01.01.1601 3:00:00", " ")
 
-                    If compareIzmDate(MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Value, MainForm.DataGridView1.Rows.Item(k).Cells(cn_rem).Value) = 1 Then 'если новый файл на локальном компе
-                        MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Green
-                        MainForm.DataGridView1.Rows.Item(k).Cells(cn_rem).Style.ForeColor = System.Drawing.Color.Red
-                        MainForm.DataGridView1.Rows.Item(k).Cells(cn_chn).Value = "Да"
-                    ElseIf compareIzmDate(MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Value, MainForm.DataGridView1.Rows.Item(k).Cells(cn_rem).Value) = 0 Or bool_connection = False Then 'если файлы одинаковые
-                        MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
-                        MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
-                    Else 'если новый файл на удаленном компе
-                        MainForm.DataGridView1.Rows.Item(k).Cells(cn_rem).Style.ForeColor = System.Drawing.Color.Green
-                        MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Red
-                        MainForm.DataGridView1.Rows.Item(k).Cells(cn_chn).Value = "Да"
-                    End If
-                    MainForm.DataGridView1.Rows.Item(k).Cells(cn_chk).Value = True
-                    k = k + 1
-                ElseIf xer.Attribute("allFiles").Value = False And checkFileRash(getfName(Files(ki), 0)) = True And xer.Attribute("enable").Value = True Then
-                    MainForm.DataGridView1.Rows.Add()
-                    MainForm.DataGridView1.Rows.Item(k).Cells(cn_nm).Value = SyncSetForm.getfName(Files(ki), 0)
-                    MainForm.DataGridView1.Rows.Item(k).Cells(cn_der).Value = xer.Value
-                    MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Value = Replace(IO.File.GetLastWriteTime(Files(ki)), "01.01.1601 3:00:00", " ")
-                    If bool_connection = True Then MainForm.DataGridView1.Rows.Item(k).Cells(cn_rem).Value = Replace(IO.File.GetLastWriteTime(convertFilePathToRemote(Files(ki))), "01.01.1601 3:00:00", " ")
+                        If compareIzmDate(MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Value, MainForm.DataGridView1.Rows.Item(k).Cells(cn_rem).Value) = 1 Then 'если новый файл на локальном компе
+                            MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Green
+                            MainForm.DataGridView1.Rows.Item(k).Cells(cn_rem).Style.ForeColor = System.Drawing.Color.Red
+                            MainForm.DataGridView1.Rows.Item(k).Cells(cn_chn).Value = "Да"
+                        ElseIf compareIzmDate(MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Value, MainForm.DataGridView1.Rows.Item(k).Cells(cn_rem).Value) = 0 Or bool_connection = False Then 'если файлы одинаковые
+                            MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
+                            MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
+                        Else 'если новый файл на удаленном компе
+                            MainForm.DataGridView1.Rows.Item(k).Cells(cn_rem).Style.ForeColor = System.Drawing.Color.Green
+                            MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Red
+                            MainForm.DataGridView1.Rows.Item(k).Cells(cn_chn).Value = "Да"
+                        End If
+                        MainForm.DataGridView1.Rows.Item(k).Cells(cn_chk).Value = True
+                        k = k + 1
+                    ElseIf xer.Attribute("allFiles").Value = False And checkFileRash(getfName(Files(ki), 0)) = True And xer.Attribute("enable").Value = True Then
+                        MainForm.DataGridView1.Rows.Add()
+                        MainForm.DataGridView1.Rows.Item(k).Cells(cn_nm).Value = SyncSetForm.getfName(Files(ki), 0)
+                        MainForm.DataGridView1.Rows.Item(k).Cells(cn_der).Value = xer.Value
+                        MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Value = Replace(IO.File.GetLastWriteTime(Files(ki)), "01.01.1601 3:00:00", " ")
+                        If bool_connection = True Then MainForm.DataGridView1.Rows.Item(k).Cells(cn_rem).Value = Replace(IO.File.GetLastWriteTime(convertFilePathToRemote(Files(ki))), "01.01.1601 3:00:00", " ")
 
-                    If compareIzmDate(MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Value, MainForm.DataGridView1.Rows.Item(k).Cells(cn_rem).Value) = 1 Then 'если новый файл на локальном компе
-                        MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Green
-                        MainForm.DataGridView1.Rows.Item(k).Cells(cn_rem).Style.ForeColor = System.Drawing.Color.Red
-                        MainForm.DataGridView1.Rows.Item(k).Cells(cn_chn).Value = "Да"
-                    ElseIf compareIzmDate(MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Value, MainForm.DataGridView1.Rows.Item(k).Cells(cn_rem).Value) = 0 Or bool_connection = False Then 'если файлы одинаковые
-                        MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
-                        MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
-                    Else 'если новый файл на удаленном компе
-                        MainForm.DataGridView1.Rows.Item(k).Cells(cn_rem).Style.ForeColor = System.Drawing.Color.Green
-                        MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Red
-                        MainForm.DataGridView1.Rows.Item(k).Cells(cn_chn).Value = "Да"
+                        If compareIzmDate(MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Value, MainForm.DataGridView1.Rows.Item(k).Cells(cn_rem).Value) = 1 Then 'если новый файл на локальном компе
+                            MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Green
+                            MainForm.DataGridView1.Rows.Item(k).Cells(cn_rem).Style.ForeColor = System.Drawing.Color.Red
+                            MainForm.DataGridView1.Rows.Item(k).Cells(cn_chn).Value = "Да"
+                        ElseIf compareIzmDate(MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Value, MainForm.DataGridView1.Rows.Item(k).Cells(cn_rem).Value) = 0 Or bool_connection = False Then 'если файлы одинаковые
+                            MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
+                            MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Black
+                        Else 'если новый файл на удаленном компе
+                            MainForm.DataGridView1.Rows.Item(k).Cells(cn_rem).Style.ForeColor = System.Drawing.Color.Green
+                            MainForm.DataGridView1.Rows.Item(k).Cells(cn_loc).Style.ForeColor = System.Drawing.Color.Red
+                            MainForm.DataGridView1.Rows.Item(k).Cells(cn_chn).Value = "Да"
+                        End If
+                        MainForm.DataGridView1.Rows.Item(k).Cells(cn_chk).Value = True
+                        k = k + 1
                     End If
-                    MainForm.DataGridView1.Rows.Item(k).Cells(cn_chk).Value = True
-                    k = k + 1
-                End If
-            Next
+                Next
+            End If
         Next
         'End If
         MainForm.DataGridView1.Sort(MainForm.DataGridView1.Columns(cn_chn), System.ComponentModel.ListSortDirection.Descending)
 
-        If MainForm.TextBox1.Text <> xElem_IP.Value Then ' перезаписываем ip
-            xElem_IP.Value = MainForm.TextBox1.Text
-            xdoc.Save(SyncFileName)
-        End If
 
+        MainForm.WriteLog("Сравнение файлов с " & xElem_IP.Value & " завершено")
         Exit Sub
 err1:
         If Err.Number = 5 Then
             MsgBox(k & " Err.Number: " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
             bool_connection = False
-            MainForm.ToolStripStatusLabel1.Text = "Нет доступа"
+            MainForm.WriteLog("Нет доступа")
             Resume Next
 
         ElseIf Err.Number = 57 And bool_connection = False Then
             MsgBox("Кажись удаленный узел не доступен. Err.Number: " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
+            MainForm.WriteLog("Кажись удаленный узел не доступен. Err.Number: " & Err.Number & ". " & Err.Description)
         ElseIf Err.Number = 57 And bool_connection = True Then
             MsgBox("Связь есть, но надо залогинится. Для этого зайди на удаленную машину Err.Number: " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
             bool_connection = False
-            MainForm.ToolStripStatusLabel1.Text = "Не выполенен вход"
+            MainForm.WriteLog("Не выполенен вход")
             Resume Next
         ElseIf Err.Number = 13 Then
             MsgBox("Err.Number: " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
+            MainForm.WriteLog("Err.Number: " & Err.Number & ". " & Err.Description)
             Resume Next
         ElseIf Err.Number = 57 And bool_connection = False Then
-        ElseIf Err.Number = 91 Then 'непонятная ошибка надо разобраться
-            Resume Next
+
         Else
             MsgBox("Err.Number: " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
+            MainForm.WriteLog("Err.Number: " & Err.Number & ". " & Err.Description)
         End If
     End Sub
 
@@ -297,39 +306,44 @@ err1:
         Dim err_check As Boolean = False
         On Error GoTo err1
         If MsgBox("Выполнить синхронизацию?", vbOKCancel Or vbQuestion, "Вопрос") = MsgBoxResult.Cancel Then Exit Sub
-        MainForm.ToolStripProgressBar1.Maximum = MainForm.DataGridView1.Rows.Count
-        MainForm.ToolStripProgressBar1.Visible = True
+        MainForm.WriteLog("Начата синхронизация с " & xElem_IP.Value)
+        'MainForm.ToolStripProgressBar1.Maximum = MainForm.DataGridView1.Rows.Count
+        'MainForm.ToolStripProgressBar1.Visible = True
         For Each dataElem As DataGridViewRow In MainForm.DataGridView1.Rows 'dataElem.Cells(0).Value
 
             If MainForm.RadioButton1.Checked And dataElem.Cells(cn_chk).Value = True Then ' туда 
                 If compareIzmDate(dataElem.Cells(cn_loc).Value, dataElem.Cells(cn_rem).Value) = 1 Then
                     IO.File.Copy(FullFileName(dataElem.Cells(cn_der).Value, dataElem.Cells(cn_nm).Value), FullFileName(convertFilePathToRemote(dataElem.Cells(cn_der).Value), dataElem.Cells(cn_nm).Value), True)
+                    MainForm.WriteLog(" -" & dataElem.Cells(cn_nm).Value & " заменён на " & xElem_IP.Value)
                 End If
             ElseIf MainForm.RadioButton2.Checked And dataElem.Cells(cn_chk).Value = True Then ' cюда
                 If compareIzmDate(dataElem.Cells(cn_loc).Value, dataElem.Cells(cn_rem).Value) = 2 Then
                     IO.File.Copy(FullFileName(convertFilePathToRemote(dataElem.Cells(cn_der).Value), dataElem.Cells(cn_nm).Value), FullFileName(dataElem.Cells(cn_der).Value, dataElem.Cells(cn_nm).Value), True)
+                    MainForm.WriteLog(" -" & dataElem.Cells(cn_nm).Value & " заменён на локальной машине")
                 End If
             ElseIf MainForm.RadioButton3.Checked And dataElem.Cells(cn_chk).Value = True Then ' туда - сюда
                 If compareIzmDate(dataElem.Cells(cn_loc).Value, dataElem.Cells(cn_rem).Value) = 1 Then
                     IO.File.Copy(FullFileName(dataElem.Cells(cn_der).Value, dataElem.Cells(cn_nm).Value), FullFileName(convertFilePathToRemote(dataElem.Cells(cn_der).Value), dataElem.Cells(cn_nm).Value), True)
+                    MainForm.WriteLog(" -" & dataElem.Cells(cn_nm).Value & " заменён на " & xElem_IP.Value)
                 End If
                 If compareIzmDate(dataElem.Cells(cn_loc).Value, dataElem.Cells(cn_rem).Value) = 2 Then
                     IO.File.Copy(FullFileName(convertFilePathToRemote(dataElem.Cells(cn_der).Value), dataElem.Cells(cn_nm).Value), FullFileName(dataElem.Cells(cn_der).Value, dataElem.Cells(cn_nm).Value), True)
+                    MainForm.WriteLog(" -" & dataElem.Cells(cn_nm).Value & " заменён на локальной машине")
                 End If
             End If
-            MainForm.ToolStripProgressBar1.Value = MainForm.ToolStripProgressBar1.Value + 1
+            'MainForm.ToolStripProgressBar1.Value = 'MainForm.ToolStripProgressBar1.Value + 1
         Next
-
+        MainForm.WriteLog("Синхронизация файлов с " & xElem_IP.Value & " выполнена!")
         MsgBox("Синхронизация выполнена!", vbOKOnly)
-        MainForm.ToolStripProgressBar1.Visible = False
-        MainForm.ToolStripProgressBar1.Value = 0
-        MainForm.ToolStripProgressBar1.Maximum = 0
+        'MainForm.ToolStripProgressBar1.Visible = False
+        ''MainForm.ToolStripProgressBar1.Value = 0
+        'MainForm.ToolStripProgressBar1.Maximum = 0
 
 err1:
         If Err.Number = 76 And err_check = False Then
             MsgBox("Err.Number: " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
             err_check = True
-            MainForm.ToolStripStatusLabel1.Text = "Не удалось найти часть пути"
+            MainForm.WriteLog("Не удалось найти часть пути")
         End If
         Resume Next
     End Sub

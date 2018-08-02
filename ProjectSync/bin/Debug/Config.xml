@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
   <Settings>
-    <IP>192.168.209.17</IP>
+    <IP>172.17.17.15</IP>
     <prjDirSet>Manual</prjDirSet>
     <prjDir>C:\Dynamics\SSN</prjDir>
     <bkpDir>C:\Users\user\Desktop\backupTest</bkpDir>
-    <NoAccessToCnD>True</NoAccessToCnD>
+    <NoAccessToCnD>False</NoAccessToCnD>
   </Settings>
   <Backups>
     <Backup Enable="True">C:\Dynamics\SSNTestBackup</Backup>

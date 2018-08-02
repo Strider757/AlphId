@@ -3,8 +3,9 @@
 Public Class MainForm
     Dim formWidth As Integer 'Переменная для изменения расположения элементов
     Dim bool_FormLoaded As Boolean
-    Public version As String = "1.1.1 beta"
+    Public version As String = "1.2.0 beta"
     Dim treeViewNormalSize As Size
+    Dim testInt As Integer
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         SyncSetForm.Visible = True
@@ -12,17 +13,18 @@ Public Class MainForm
 
     'грузим форму
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ToolStripStatusLabel1.Text = " " ' прячем всё лишнее
-        ToolStripProgressBar1.Visible = False
-
-        'TabPage3.Parent = Nothing 'скрыть третью вкладку
+        TabPage3.Parent = Nothing 'скрыть третью вкладку
 
         initAlpohaID() 'инициализация формы для Альфа Конфигурации
         initSyncFilePanel() 'инициализация формы для синхронизации файлов
         bool_FormLoaded = True
     End Sub
 
-
+    Public Sub WriteLog(ByVal mesStr As String)
+        LogTextBox.AppendText(vbCrLf & "  # " & mesStr)
+        LogTextBox.SelectionStart = LogTextBox.Text.Length
+        LogTextBox.ScrollToCaret()
+    End Sub
 
     '************************************************************************************************************************
     '***********************************ТУТА КОД ДЛЯ СИНХРОНИЗАЛКИ ФАЙЛОВ****************************************************
@@ -88,8 +90,10 @@ Public Class MainForm
                 tempDir = xElem_prjDir.Value
                 xElem_prjDir.Value = tbManualDir.Text
                 prjDir = tbManualDir.Text
+                WriteLog("Папка с проектом изменена на " & prjDir)
             End If
             xdoc.Save(SyncFileName)
+
             Process.Start(prjDir)
         Else
             tempDir = tbManualDir.Text
@@ -98,6 +102,7 @@ Public Class MainForm
 
         Exit Sub
 err1:
+        WriteLog("Err.Number: " & Err.Number & ". " & Err.Description)
         MsgBox("Err.Number: " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
     End Sub
 
@@ -126,10 +131,33 @@ err1:
                 prjDir = tbManualDir.Text
             End If
             xdoc.Save(SyncFileName)
-            MsgBox("Папка перезаписана")
+            WriteLog("Папка с проектом изменена на " & prjDir)
         End If
     End Sub
 
+    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+        On Error GoTo err1
+        Dim tempDir As String
+        If bool_configFileExist Then
+            If tbManualDir.Text <> xElem_prjDir.Value Then ' перезаписываем папку
+                tempDir = xElem_prjDir.Value
+                xElem_prjDir.Value = tbManualDir.Text
+                prjDir = tbManualDir.Text
+                WriteLog("Папка с проектом изменена на " & prjDir)
+            End If
+            xdoc.Save(SyncFileName)
+
+            Process.Start(convertFilePathToRemote(prjDir))
+        Else
+            tempDir = tbManualDir.Text
+            Process.Start(convertFilePathToRemote(tbManualDir.Text))
+        End If
+
+        Exit Sub
+err1:
+        MsgBox("Err.Number: " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
+        WriteLog("Err.Number: " & Err.Number & ". " & Err.Description)
+    End Sub
 
     '************************************************************************************************************************
     '***********************************КОНЕЦ КОДА ДЛЯ СИНХРОНИЗАЛКИ ФАЙЛОВ**************************************************
@@ -158,6 +186,7 @@ err1:
 
 err1:
         MsgBox("Err.Number: " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
+        WriteLog("Err.Number: " & Err.Number & ". " & Err.Description)
         Resume Next
     End Sub
 
@@ -256,12 +285,13 @@ err1:
     End Sub
 
     Private Sub bt_compare_Click(sender As Object, e As EventArgs) Handles bt_compare.Click
-        ToolStripStatusLabel1.Text = ""
+
 
         analiz(rootNewGen, mainChekedNode)
 
         If mainChekedNode Is Nothing Then
             MsgBox("Главный узел сгенерённого файла не найден в конфигурации! скорее всего не ID розданы неправильно", vbCritical + vbOKOnly)
+            WriteLog("Главный узел сгенерённого файла не найден в конфигурации! скорее всего не ID розданы неправильно")
         Else
             If comparator(rootNewGen, mainChekedNode) = False Then makeEquals(mainChekedNode, rootNewGen)
         End If
@@ -272,7 +302,7 @@ err1:
         TreeView2.Nodes(0).Expand()
         bt_compare.Enabled = False
         bt_saveID.Enabled = True
-        ToolStripStatusLabel1.Text = "ID розданы"
+        WriteLog("ID розданы для " & newGen)
     End Sub
 
     Private Sub bt_saveID_Click(sender As Object, e As EventArgs) Handles bt_saveID.Click
@@ -280,7 +310,7 @@ err1:
         SaveFileDialog1.FileName = Replace(newGen, ".xmlcfg", "") & "_id"
         If SaveFileDialog1.ShowDialog() = DialogResult.Cancel Then Exit Sub
         docNewGen.Save(saveFilePath)
-        ToolStripStatusLabel1.Text = "Сгенерённый файл сохранён"
+        WriteLog("Сгенерённый файл сохранён в " & saveFilePath)
         MsgBox("Файл сохранён!")
     End Sub
 
@@ -295,8 +325,10 @@ err1:
 
         selectedNodeInCfg.ParentNode.ReplaceChild(newNode, selectedNodeInCfg)
 
+        WriteLog("Узел " & selectedNodeInCfg.Attributes("Name").Value & " заменён полностью")
+
         reloadCfg()
-        ToolStripStatusLabel1.Text = "Узел " & selectedNodeInCfg.Attributes("Name").Value & " заменён полностью"
+
         TreeView2.Select()
     End Sub
 
@@ -306,7 +338,7 @@ err1:
 
         If SaveFileDialog1.ShowDialog() = DialogResult.Cancel Then Exit Sub
         docConfig.Save(saveFilePath)
-        ToolStripStatusLabel1.Text = "Конфигурация сохранена"
+        WriteLog("Конфигурация сохранена в файл: " & SaveFileDialog1.FileName)
         MsgBox("Файл сохранён!")
     End Sub
 
@@ -354,6 +386,12 @@ err1:
     Private Sub SaveFileDialog1_FileOk(sender As Object, e As ComponentModel.CancelEventArgs) Handles SaveFileDialog1.FileOk
         saveFilePath = SaveFileDialog1.FileName
     End Sub
+
+
+
+
+
+
 
     '************************************************************************************************************************
     '***********************************КОНЕЦ КОДА ДЛЯ АЛЬФА КОНФИГИ*********************************************************

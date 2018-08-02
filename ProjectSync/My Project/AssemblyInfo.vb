@@ -10,7 +10,7 @@ Imports System.Runtime.InteropServices
 
 <Assembly: AssemblyTitle("AlphID")>
 <Assembly: AssemblyDescription("")>
-<Assembly: AssemblyCompany("ASKeng")>
+<Assembly: AssemblyCompany("Sintek")>
 <Assembly: AssemblyProduct("AlphID")>
 <Assembly: AssemblyCopyright("Copyright © Microsoft 2017")>
 <Assembly: AssemblyTrademark("")>
@@ -31,5 +31,5 @@ Imports System.Runtime.InteropServices
 ' используя "*", как показано ниже:
 ' <Assembly: AssemblyVersion("1.0.*")>
 
-<Assembly: AssemblyVersion("1.1.1.0")>
-<Assembly: AssemblyFileVersion("1.1.1.0")>
+<Assembly: AssemblyVersion("1.2.0.0")>
+<Assembly: AssemblyFileVersion("1.2.0.0")>

@@ -172,7 +172,9 @@ err2:
         parentNode = Nothing 'обнуление родительского узла
         TreeView1.Nodes(0).Expand() ' раскрываем дерево
         bool_Tree1Loaded = True
-        MainForm.ToolStripStatusLabel1.Text = "Конфигурация загружена"
+
+        MainForm.WriteLog("Конфигурационный файл " & confFullName & " загружен.")
+
         MyMainForm.lb_maxId.Text = maxId
         newIds = maxId + 100 'задаём начало новых ID
         setMainChekedNode() 'Находим сравниваемый узел
@@ -181,6 +183,7 @@ err2:
         Exit Sub
 err1:
         MsgBox("Err.Number: " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
+        MainForm.WriteLog("Err.Number: " & Err.Number & ". " & Err.Description)
     End Sub
 
     Sub reloadCfg() 'Перезагружаем дерево конфигурации альфа сервера
@@ -198,12 +201,16 @@ err1:
         MyMainForm.lb_maxId.Text = maxId
 
         newIds = maxId + 100 'задаём начало новых ID
-        MainForm.ToolStripStatusLabel1.Text = "Конфигурация перезагружена"
+        MainForm.WriteLog("Конфигурация перезагружена")
     End Sub
 
 
     Sub loadNewCfg() 'тута грузим сгенерённый файл
         On Error GoTo err1
+        Dim backup_strNewGen As String
+        Dim backup_docNewGen As XmlDocument
+        backup_strNewGen = strNewGen
+        backup_docNewGen = docNewGen
 letsTry:
         strNewGen = My.Computer.FileSystem.ReadAllText(newGen, Encoding.Default) 'Сразу грузить в XML документ он не может из-за проблем с кодировками, поэтому сначала читаем как текст.
         docNewGen.LoadXml(strNewGen) 'загружаем хмл файл
@@ -224,8 +231,12 @@ letsTry:
 
         setMainChekedNode() 'Находим сравниваемый узел
         MainForm.bt_saveID.Enabled = False
-        MainForm.ToolStripStatusLabel1.Text = "Сгенерённый файл загружен"
+        MainForm.WriteLog("Сгенерённый файл " & newGen & " загружен")
         'TreeView1.Nodes.Item(0).ForeColor = Color.Red
+        Exit Sub
+backup:
+        strNewGen = backup_strNewGen
+        If strNewGen IsNot Nothing Then docNewGen.LoadXml(strNewGen)
         Exit Sub
 err1:
         Dim msgb_res As MsgBoxResult
@@ -234,12 +245,15 @@ err1:
             msgb_res = MsgBox("Err.Number: " & Err.Number & ". " & Err.Description & " Добавить главный корневой эелемент самостоятельно? Внимание! Файл будет пересохранён!", vbCritical + vbYesNo, "Ошибка")
             If msgb_res = 6 Then
                 manualRoot = InputBox("Введите имя корневого элемента: ") ' запрашиваем нового корневого узла
-                If manualRoot = "" Then Exit Sub
+                If manualRoot = "" Then GoTo backup
                 setRootManual(manualRoot) ' задаём корневой узел вручную
                 GoTo letsTry
+            ElseIf msgb_res = 7 Then
+                GoTo backup
             End If
         Else
             MsgBox("Err.Number: " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
+            MainForm.WriteLog("Err.Number: " & Err.Number & ". " & Err.Description)
         End If
     End Sub
 
@@ -267,6 +281,7 @@ err1:
 
         File.WriteAllText(newGen, editText & "             </Items>
             </Item>", Encoding.Default) ' записываем текст и плюс текст в конце
+        MainForm.WriteLog("Задан общий корневой узел " & str & ". Сохранено в " & newGen)
     End Sub
 
 

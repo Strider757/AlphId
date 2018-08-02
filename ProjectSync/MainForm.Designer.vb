@@ -27,9 +27,6 @@ Partial Class MainForm
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.but_Anal = New System.Windows.Forms.Button()
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
-        Me.ToolStripProgressBar1 = New System.Windows.Forms.ToolStripProgressBar()
-        Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.but_sync = New System.Windows.Forms.Button()
         Me.RadioButton1 = New System.Windows.Forms.RadioButton()
         Me.RadioButton2 = New System.Windows.Forms.RadioButton()
@@ -62,6 +59,7 @@ Partial Class MainForm
         Me.bt_LoadNewGen = New System.Windows.Forms.Button()
         Me.bt_LoadCfg = New System.Windows.Forms.Button()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.Button5 = New System.Windows.Forms.Button()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.tbManualDir = New System.Windows.Forms.TextBox()
         Me.Button8 = New System.Windows.Forms.Button()
@@ -76,8 +74,8 @@ Partial Class MainForm
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.LogTextBox = New System.Windows.Forms.RichTextBox()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.StatusStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
@@ -116,7 +114,7 @@ Partial Class MainForm
         Me.DataGridView1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.DataGridView1.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.DataGridView1.BackgroundColor = System.Drawing.SystemColors.Window
         Me.DataGridView1.Location = New System.Drawing.Point(4, 98)
         Me.DataGridView1.MultiSelect = False
         Me.DataGridView1.Name = "DataGridView1"
@@ -134,26 +132,6 @@ Partial Class MainForm
         Me.but_Anal.TabIndex = 5
         Me.but_Anal.Text = "Анализ"
         Me.but_Anal.UseVisualStyleBackColor = True
-        '
-        'StatusStrip1
-        '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripProgressBar1, Me.ToolStripStatusLabel1})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 493)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(938, 22)
-        Me.StatusStrip1.TabIndex = 7
-        Me.StatusStrip1.Text = "StatusStrip1"
-        '
-        'ToolStripProgressBar1
-        '
-        Me.ToolStripProgressBar1.Name = "ToolStripProgressBar1"
-        Me.ToolStripProgressBar1.Size = New System.Drawing.Size(100, 16)
-        '
-        'ToolStripStatusLabel1
-        '
-        Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
-        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(111, 17)
-        Me.ToolStripStatusLabel1.Text = "ToolStripStatusLabel1"
         '
         'but_sync
         '
@@ -239,7 +217,7 @@ Partial Class MainForm
         Me.TabControl1.Location = New System.Drawing.Point(0, 0)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(938, 503)
+        Me.TabControl1.Size = New System.Drawing.Size(938, 488)
         Me.TabControl1.TabIndex = 17
         '
         'TabPage2
@@ -259,7 +237,7 @@ Partial Class MainForm
         Me.TabPage2.Location = New System.Drawing.Point(4, 22)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(930, 477)
+        Me.TabPage2.Size = New System.Drawing.Size(930, 462)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "ID для Alpha.Server"
         Me.TabPage2.UseVisualStyleBackColor = True
@@ -319,7 +297,7 @@ Partial Class MainForm
         Me.GroupBox2.Controls.Add(Me.lb_cfgId)
         Me.GroupBox2.Controls.Add(Me.Label4)
         Me.GroupBox2.Controls.Add(Me.lb_maxId)
-        Me.GroupBox2.Location = New System.Drawing.Point(3, 393)
+        Me.GroupBox2.Location = New System.Drawing.Point(3, 378)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(450, 76)
         Me.GroupBox2.TabIndex = 32
@@ -397,7 +375,7 @@ Partial Class MainForm
         Me.GroupBox5.Controls.Add(Me.lb_NewGPath)
         Me.GroupBox5.Controls.Add(Me.lb_NewGId)
         Me.GroupBox5.Controls.Add(Me.Label2)
-        Me.GroupBox5.Location = New System.Drawing.Point(470, 393)
+        Me.GroupBox5.Location = New System.Drawing.Point(470, 378)
         Me.GroupBox5.Name = "GroupBox5"
         Me.GroupBox5.Size = New System.Drawing.Size(450, 76)
         Me.GroupBox5.TabIndex = 33
@@ -456,7 +434,7 @@ Partial Class MainForm
         Me.TreeView2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom), System.Windows.Forms.AnchorStyles)
         Me.TreeView2.Location = New System.Drawing.Point(470, 48)
         Me.TreeView2.Name = "TreeView2"
-        Me.TreeView2.Size = New System.Drawing.Size(450, 343)
+        Me.TreeView2.Size = New System.Drawing.Size(450, 328)
         Me.TreeView2.TabIndex = 28
         '
         'TreeView1
@@ -466,7 +444,7 @@ Partial Class MainForm
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.TreeView1.Location = New System.Drawing.Point(3, 48)
         Me.TreeView1.Name = "TreeView1"
-        Me.TreeView1.Size = New System.Drawing.Size(450, 343)
+        Me.TreeView1.Size = New System.Drawing.Size(450, 328)
         Me.TreeView1.TabIndex = 27
         '
         'bt_LoadNewGen
@@ -490,6 +468,7 @@ Partial Class MainForm
         '
         'TabPage1
         '
+        Me.TabPage1.Controls.Add(Me.Button5)
         Me.TabPage1.Controls.Add(Me.GroupBox4)
         Me.TabPage1.Controls.Add(Me.Button8)
         Me.TabPage1.Controls.Add(Me.GroupBox3)
@@ -503,10 +482,19 @@ Partial Class MainForm
         Me.TabPage1.Location = New System.Drawing.Point(4, 22)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(930, 477)
+        Me.TabPage1.Size = New System.Drawing.Size(930, 462)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Синхронизация файлов ВУ"
         Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        'Button5
+        '
+        Me.Button5.Location = New System.Drawing.Point(506, 73)
+        Me.Button5.Name = "Button5"
+        Me.Button5.Size = New System.Drawing.Size(130, 20)
+        Me.Button5.TabIndex = 34
+        Me.Button5.Text = "Открыть на удал."
+        Me.Button5.UseVisualStyleBackColor = True
         '
         'GroupBox4
         '
@@ -528,9 +516,9 @@ Partial Class MainForm
         '
         'Button8
         '
-        Me.Button8.Location = New System.Drawing.Point(506, 54)
+        Me.Button8.Location = New System.Drawing.Point(506, 53)
         Me.Button8.Name = "Button8"
-        Me.Button8.Size = New System.Drawing.Size(130, 38)
+        Me.Button8.Size = New System.Drawing.Size(130, 20)
         Me.Button8.TabIndex = 31
         Me.Button8.Text = "Открыть"
         Me.Button8.UseVisualStyleBackColor = True
@@ -554,7 +542,7 @@ Partial Class MainForm
         Me.TabPage3.Controls.Add(Me.DataGridView2)
         Me.TabPage3.Location = New System.Drawing.Point(4, 22)
         Me.TabPage3.Name = "TabPage3"
-        Me.TabPage3.Size = New System.Drawing.Size(930, 477)
+        Me.TabPage3.Size = New System.Drawing.Size(930, 462)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "Backup"
         Me.TabPage3.UseVisualStyleBackColor = True
@@ -610,14 +598,14 @@ Partial Class MainForm
         Me.DataGridView2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.DataGridView2.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.DataGridView2.BackgroundColor = System.Drawing.SystemColors.Window
         Me.DataGridView2.Location = New System.Drawing.Point(4, 98)
         Me.DataGridView2.MultiSelect = False
         Me.DataGridView2.Name = "DataGridView2"
         Me.DataGridView2.RowHeadersVisible = False
         Me.DataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DataGridView2.ShowEditingIcon = False
-        Me.DataGridView2.Size = New System.Drawing.Size(922, 369)
+        Me.DataGridView2.Size = New System.Drawing.Size(922, 351)
         Me.DataGridView2.TabIndex = 5
         '
         'OpenFileDialog1
@@ -631,18 +619,28 @@ Partial Class MainForm
         '
         Me.ToolTip1.ToolTipTitle = "Заменить выбранный узел"
         '
+        'LogTextBox
+        '
+        Me.LogTextBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LogTextBox.BackColor = System.Drawing.SystemColors.Window
+        Me.LogTextBox.Location = New System.Drawing.Point(0, 490)
+        Me.LogTextBox.Name = "LogTextBox"
+        Me.LogTextBox.ReadOnly = True
+        Me.LogTextBox.Size = New System.Drawing.Size(938, 44)
+        Me.LogTextBox.TabIndex = 18
+        Me.LogTextBox.Text = ""
+        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(938, 515)
-        Me.Controls.Add(Me.StatusStrip1)
+        Me.ClientSize = New System.Drawing.Size(938, 537)
+        Me.Controls.Add(Me.LogTextBox)
         Me.Controls.Add(Me.TabControl1)
         Me.Name = "MainForm"
         Me.Text = "Для ВУ"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.TabControl1.ResumeLayout(False)
@@ -662,14 +660,11 @@ Partial Class MainForm
         Me.GroupBox6.PerformLayout()
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
     Friend WithEvents Button1 As Button
     Friend WithEvents DataGridView1 As System.Windows.Forms.DataGridView
     Friend WithEvents but_Anal As System.Windows.Forms.Button
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents ToolStripStatusLabel1 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents but_sync As System.Windows.Forms.Button
     Friend WithEvents RadioButton1 As System.Windows.Forms.RadioButton
     Friend WithEvents RadioButton2 As System.Windows.Forms.RadioButton
@@ -677,7 +672,6 @@ Partial Class MainForm
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents But_selAll As System.Windows.Forms.Button
     Friend WithEvents But_UnSel As System.Windows.Forms.Button
-    Friend WithEvents ToolStripProgressBar1 As System.Windows.Forms.ToolStripProgressBar
     Friend WithEvents TabControl1 As System.Windows.Forms.TabControl
     Friend WithEvents TabPage1 As System.Windows.Forms.TabPage
     Friend WithEvents TabPage2 As System.Windows.Forms.TabPage
@@ -718,4 +712,6 @@ Partial Class MainForm
     Friend WithEvents DataGridView2 As DataGridView
     Friend WithEvents GroupBox6 As GroupBox
     Public WithEvents TextBox2 As TextBox
+    Friend WithEvents LogTextBox As RichTextBox
+    Friend WithEvents Button5 As Button
 End Class

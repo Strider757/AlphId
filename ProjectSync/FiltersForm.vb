@@ -17,6 +17,7 @@
         Exit Sub
 err1:
         MsgBox("Ошибка номер " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
+        MainForm.WriteLog("Err.Number: " & Err.Number & ". " & Err.Description)
     End Sub
 
 
@@ -42,6 +43,7 @@ err1:
         Call SyncSetForm.addToCoBox()
         'Dim xe As XElement = xdoc.Element("Root").Element("Filters")
         MsgBox("Список фильтров сохранён!", vbOKOnly, "Фильтры")
+        MainForm.WriteLog("Список фильтров сохранён!")
     End Sub
 
 

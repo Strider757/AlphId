@@ -11,3 +11,17 @@ D:\Dropbox\Development\AlphId\ProjectSync\obj\Release\AlphId.vbproj.GenerateReso
 D:\Dropbox\Development\AlphId\ProjectSync\obj\Release\AlphId.exe
 D:\Dropbox\Development\AlphId\ProjectSync\obj\Release\AlphId.xml
 D:\Dropbox\Development\AlphId\ProjectSync\obj\Release\AlphId.pdb
+C:\Users\d.usov\OneDrive\Work\Development\AlphId\ProjectSync\bin\Release\AlphId.exe.config
+C:\Users\d.usov\OneDrive\Work\Development\AlphId\ProjectSync\bin\Release\AlphId.exe
+C:\Users\d.usov\OneDrive\Work\Development\AlphId\ProjectSync\bin\Release\AlphId.pdb
+C:\Users\d.usov\OneDrive\Work\Development\AlphId\ProjectSync\bin\Release\AlphId.xml
+C:\Users\d.usov\OneDrive\Work\Development\AlphId\ProjectSync\obj\Release\AlphId.FiltersForm.resources
+C:\Users\d.usov\OneDrive\Work\Development\AlphId\ProjectSync\obj\Release\AlphId.AlphaCfgForm.resources
+C:\Users\d.usov\OneDrive\Work\Development\AlphId\ProjectSync\obj\Release\AlphId.MainForm.resources
+C:\Users\d.usov\OneDrive\Work\Development\AlphId\ProjectSync\obj\Release\AlphId.SyncSetForm.resources
+C:\Users\d.usov\OneDrive\Work\Development\AlphId\ProjectSync\obj\Release\AlphId.Resources.resources
+C:\Users\d.usov\OneDrive\Work\Development\AlphId\ProjectSync\obj\Release\AlphId.vbproj.GenerateResource.cache
+C:\Users\d.usov\OneDrive\Work\Development\AlphId\ProjectSync\obj\Release\AlphId.vbproj.CoreCompileInputs.cache
+C:\Users\d.usov\OneDrive\Work\Development\AlphId\ProjectSync\obj\Release\AlphId.exe
+C:\Users\d.usov\OneDrive\Work\Development\AlphId\ProjectSync\obj\Release\AlphId.xml
+C:\Users\d.usov\OneDrive\Work\Development\AlphId\ProjectSync\obj\Release\AlphId.pdb
