@@ -36,24 +36,26 @@ Partial Class MainForm
         Me.But_UnSel = New System.Windows.Forms.Button()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.bt_setManualMainChekedNode = New System.Windows.Forms.Button()
+        Me.bt_pasteNewGen = New System.Windows.Forms.Button()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.lb_NewGPath = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.lb_NewGId = New System.Windows.Forms.Label()
+        Me.lb_maxId = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.lb_cfgId = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.lb_cfgPath = New System.Windows.Forms.Label()
+        Me.lb_mainChekedNode = New System.Windows.Forms.Label()
         Me.lb_peret2 = New System.Windows.Forms.Label()
         Me.lb_peret1 = New System.Windows.Forms.Label()
         Me.bt_saveID = New System.Windows.Forms.Button()
         Me.bt_saveAllCfg = New System.Windows.Forms.Button()
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.lb_cfgPath = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.lb_cfgId = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.lb_maxId = New System.Windows.Forms.Label()
         Me.bt_compare = New System.Windows.Forms.Button()
-        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.lb_NewGPath = New System.Windows.Forms.Label()
-        Me.lb_NewGId = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.bt_addNewGen = New System.Windows.Forms.Button()
+        Me.bt_replaceNewGen = New System.Windows.Forms.Button()
         Me.TreeView2 = New System.Windows.Forms.TreeView()
         Me.TreeView1 = New System.Windows.Forms.TreeView()
         Me.bt_LoadNewGen = New System.Windows.Forms.Button()
@@ -79,8 +81,6 @@ Partial Class MainForm
         Me.GroupBox1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
-        Me.GroupBox5.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -222,14 +222,26 @@ Partial Class MainForm
         '
         'TabPage2
         '
+        Me.TabPage2.Controls.Add(Me.bt_setManualMainChekedNode)
+        Me.TabPage2.Controls.Add(Me.bt_pasteNewGen)
+        Me.TabPage2.Controls.Add(Me.Label3)
+        Me.TabPage2.Controls.Add(Me.Label1)
+        Me.TabPage2.Controls.Add(Me.lb_NewGPath)
+        Me.TabPage2.Controls.Add(Me.Label4)
+        Me.TabPage2.Controls.Add(Me.lb_NewGId)
+        Me.TabPage2.Controls.Add(Me.lb_maxId)
+        Me.TabPage2.Controls.Add(Me.Label2)
+        Me.TabPage2.Controls.Add(Me.Label5)
+        Me.TabPage2.Controls.Add(Me.lb_cfgId)
+        Me.TabPage2.Controls.Add(Me.Label6)
+        Me.TabPage2.Controls.Add(Me.lb_cfgPath)
+        Me.TabPage2.Controls.Add(Me.lb_mainChekedNode)
         Me.TabPage2.Controls.Add(Me.lb_peret2)
         Me.TabPage2.Controls.Add(Me.lb_peret1)
         Me.TabPage2.Controls.Add(Me.bt_saveID)
         Me.TabPage2.Controls.Add(Me.bt_saveAllCfg)
-        Me.TabPage2.Controls.Add(Me.GroupBox2)
         Me.TabPage2.Controls.Add(Me.bt_compare)
-        Me.TabPage2.Controls.Add(Me.GroupBox5)
-        Me.TabPage2.Controls.Add(Me.bt_addNewGen)
+        Me.TabPage2.Controls.Add(Me.bt_replaceNewGen)
         Me.TabPage2.Controls.Add(Me.TreeView2)
         Me.TabPage2.Controls.Add(Me.TreeView1)
         Me.TabPage2.Controls.Add(Me.bt_LoadNewGen)
@@ -241,6 +253,150 @@ Partial Class MainForm
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "ID для Alpha.Server"
         Me.TabPage2.UseVisualStyleBackColor = True
+        '
+        'bt_setManualMainChekedNode
+        '
+        Me.bt_setManualMainChekedNode.Enabled = False
+        Me.bt_setManualMainChekedNode.Location = New System.Drawing.Point(252, 6)
+        Me.bt_setManualMainChekedNode.Name = "bt_setManualMainChekedNode"
+        Me.bt_setManualMainChekedNode.Size = New System.Drawing.Size(75, 36)
+        Me.bt_setManualMainChekedNode.TabIndex = 40
+        Me.bt_setManualMainChekedNode.Text = "SetTarget Node"
+        Me.bt_setManualMainChekedNode.UseVisualStyleBackColor = True
+        '
+        'bt_pasteNewGen
+        '
+        Me.bt_pasteNewGen.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.bt_pasteNewGen.Enabled = False
+        Me.bt_pasteNewGen.Location = New System.Drawing.Point(333, 6)
+        Me.bt_pasteNewGen.Name = "bt_pasteNewGen"
+        Me.bt_pasteNewGen.Size = New System.Drawing.Size(61, 36)
+        Me.bt_pasteNewGen.TabIndex = 39
+        Me.bt_pasteNewGen.Text = "< Вставить"
+        Me.bt_pasteNewGen.UseVisualStyleBackColor = True
+        '
+        'Label3
+        '
+        Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(472, 402)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(32, 13)
+        Me.Label3.TabIndex = 16
+        Me.Label3.Text = "Path:"
+        '
+        'Label1
+        '
+        Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(3, 434)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(70, 13)
+        Me.Label1.TabIndex = 38
+        Me.Label1.Text = "Target Node:"
+        '
+        'lb_NewGPath
+        '
+        Me.lb_NewGPath.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.lb_NewGPath.AutoSize = True
+        Me.lb_NewGPath.Location = New System.Drawing.Point(515, 402)
+        Me.lb_NewGPath.Name = "lb_NewGPath"
+        Me.lb_NewGPath.Size = New System.Drawing.Size(19, 13)
+        Me.lb_NewGPath.TabIndex = 13
+        Me.lb_NewGPath.Text = "***"
+        '
+        'Label4
+        '
+        Me.Label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(31, 398)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(42, 13)
+        Me.Label4.TabIndex = 12
+        Me.Label4.Text = "Max Id:"
+        Me.Label4.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'lb_NewGId
+        '
+        Me.lb_NewGId.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.lb_NewGId.AutoSize = True
+        Me.lb_NewGId.Location = New System.Drawing.Point(515, 382)
+        Me.lb_NewGId.Name = "lb_NewGId"
+        Me.lb_NewGId.Size = New System.Drawing.Size(19, 13)
+        Me.lb_NewGId.TabIndex = 14
+        Me.lb_NewGId.Text = "***"
+        '
+        'lb_maxId
+        '
+        Me.lb_maxId.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.lb_maxId.AutoSize = True
+        Me.lb_maxId.Location = New System.Drawing.Point(79, 399)
+        Me.lb_maxId.Name = "lb_maxId"
+        Me.lb_maxId.Size = New System.Drawing.Size(19, 13)
+        Me.lb_maxId.TabIndex = 9
+        Me.lb_maxId.Text = "***"
+        '
+        'Label2
+        '
+        Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(485, 382)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(19, 13)
+        Me.Label2.TabIndex = 17
+        Me.Label2.Text = "Id:"
+        '
+        'Label5
+        '
+        Me.Label5.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(54, 381)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(19, 13)
+        Me.Label5.TabIndex = 11
+        Me.Label5.Text = "Id:"
+        Me.Label5.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'lb_cfgId
+        '
+        Me.lb_cfgId.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.lb_cfgId.AutoSize = True
+        Me.lb_cfgId.Location = New System.Drawing.Point(79, 382)
+        Me.lb_cfgId.Name = "lb_cfgId"
+        Me.lb_cfgId.Size = New System.Drawing.Size(19, 13)
+        Me.lb_cfgId.TabIndex = 8
+        Me.lb_cfgId.Text = "***"
+        '
+        'Label6
+        '
+        Me.Label6.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(41, 416)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(32, 13)
+        Me.Label6.TabIndex = 10
+        Me.Label6.Text = "Path:"
+        Me.Label6.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'lb_cfgPath
+        '
+        Me.lb_cfgPath.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.lb_cfgPath.AutoSize = True
+        Me.lb_cfgPath.Location = New System.Drawing.Point(79, 418)
+        Me.lb_cfgPath.Name = "lb_cfgPath"
+        Me.lb_cfgPath.Size = New System.Drawing.Size(19, 13)
+        Me.lb_cfgPath.TabIndex = 7
+        Me.lb_cfgPath.Text = "***"
+        '
+        'lb_mainChekedNode
+        '
+        Me.lb_mainChekedNode.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.lb_mainChekedNode.AutoSize = True
+        Me.lb_mainChekedNode.Location = New System.Drawing.Point(79, 436)
+        Me.lb_mainChekedNode.Name = "lb_mainChekedNode"
+        Me.lb_mainChekedNode.Size = New System.Drawing.Size(19, 13)
+        Me.lb_mainChekedNode.TabIndex = 37
+        Me.lb_mainChekedNode.Text = "***"
         '
         'lb_peret2
         '
@@ -288,75 +444,6 @@ Partial Class MainForm
         Me.bt_saveAllCfg.Text = "Сохранить конфигурацию"
         Me.bt_saveAllCfg.UseVisualStyleBackColor = True
         '
-        'GroupBox2
-        '
-        Me.GroupBox2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.GroupBox2.Controls.Add(Me.Label6)
-        Me.GroupBox2.Controls.Add(Me.lb_cfgPath)
-        Me.GroupBox2.Controls.Add(Me.Label5)
-        Me.GroupBox2.Controls.Add(Me.lb_cfgId)
-        Me.GroupBox2.Controls.Add(Me.Label4)
-        Me.GroupBox2.Controls.Add(Me.lb_maxId)
-        Me.GroupBox2.Location = New System.Drawing.Point(3, 378)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(450, 76)
-        Me.GroupBox2.TabIndex = 32
-        Me.GroupBox2.TabStop = False
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(6, 15)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(32, 13)
-        Me.Label6.TabIndex = 10
-        Me.Label6.Text = "Path:"
-        '
-        'lb_cfgPath
-        '
-        Me.lb_cfgPath.AutoSize = True
-        Me.lb_cfgPath.Location = New System.Drawing.Point(54, 13)
-        Me.lb_cfgPath.Name = "lb_cfgPath"
-        Me.lb_cfgPath.Size = New System.Drawing.Size(19, 13)
-        Me.lb_cfgPath.TabIndex = 7
-        Me.lb_cfgPath.Text = "***"
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(6, 35)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(19, 13)
-        Me.Label5.TabIndex = 11
-        Me.Label5.Text = "Id:"
-        '
-        'lb_cfgId
-        '
-        Me.lb_cfgId.AutoSize = True
-        Me.lb_cfgId.Location = New System.Drawing.Point(54, 33)
-        Me.lb_cfgId.Name = "lb_cfgId"
-        Me.lb_cfgId.Size = New System.Drawing.Size(19, 13)
-        Me.lb_cfgId.TabIndex = 8
-        Me.lb_cfgId.Text = "***"
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(6, 52)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(42, 13)
-        Me.Label4.TabIndex = 12
-        Me.Label4.Text = "Max Id:"
-        '
-        'lb_maxId
-        '
-        Me.lb_maxId.AutoSize = True
-        Me.lb_maxId.Location = New System.Drawing.Point(54, 50)
-        Me.lb_maxId.Name = "lb_maxId"
-        Me.lb_maxId.Size = New System.Drawing.Size(19, 13)
-        Me.lb_maxId.TabIndex = 9
-        Me.lb_maxId.Text = "***"
-        '
         'bt_compare
         '
         Me.bt_compare.Anchor = System.Windows.Forms.AnchorStyles.Top
@@ -368,70 +455,22 @@ Partial Class MainForm
         Me.bt_compare.Text = "Раздать ID"
         Me.bt_compare.UseVisualStyleBackColor = True
         '
-        'GroupBox5
+        'bt_replaceNewGen
         '
-        Me.GroupBox5.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.GroupBox5.Controls.Add(Me.Label3)
-        Me.GroupBox5.Controls.Add(Me.lb_NewGPath)
-        Me.GroupBox5.Controls.Add(Me.lb_NewGId)
-        Me.GroupBox5.Controls.Add(Me.Label2)
-        Me.GroupBox5.Location = New System.Drawing.Point(470, 378)
-        Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(450, 76)
-        Me.GroupBox5.TabIndex = 33
-        Me.GroupBox5.TabStop = False
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(6, 16)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(32, 13)
-        Me.Label3.TabIndex = 16
-        Me.Label3.Text = "Path:"
-        '
-        'lb_NewGPath
-        '
-        Me.lb_NewGPath.AutoSize = True
-        Me.lb_NewGPath.Location = New System.Drawing.Point(49, 16)
-        Me.lb_NewGPath.Name = "lb_NewGPath"
-        Me.lb_NewGPath.Size = New System.Drawing.Size(19, 13)
-        Me.lb_NewGPath.TabIndex = 13
-        Me.lb_NewGPath.Text = "***"
-        '
-        'lb_NewGId
-        '
-        Me.lb_NewGId.AutoSize = True
-        Me.lb_NewGId.Location = New System.Drawing.Point(49, 37)
-        Me.lb_NewGId.Name = "lb_NewGId"
-        Me.lb_NewGId.Size = New System.Drawing.Size(19, 13)
-        Me.lb_NewGId.TabIndex = 14
-        Me.lb_NewGId.Text = "***"
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(6, 37)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(19, 13)
-        Me.Label2.TabIndex = 17
-        Me.Label2.Text = "Id:"
-        '
-        'bt_addNewGen
-        '
-        Me.bt_addNewGen.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.bt_addNewGen.Enabled = False
-        Me.bt_addNewGen.Location = New System.Drawing.Point(409, 6)
-        Me.bt_addNewGen.Name = "bt_addNewGen"
-        Me.bt_addNewGen.Size = New System.Drawing.Size(46, 36)
-        Me.bt_addNewGen.TabIndex = 34
-        Me.bt_addNewGen.Text = "<"
-        Me.bt_addNewGen.UseVisualStyleBackColor = True
+        Me.bt_replaceNewGen.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.bt_replaceNewGen.Enabled = False
+        Me.bt_replaceNewGen.Location = New System.Drawing.Point(400, 6)
+        Me.bt_replaceNewGen.Name = "bt_replaceNewGen"
+        Me.bt_replaceNewGen.Size = New System.Drawing.Size(55, 36)
+        Me.bt_replaceNewGen.TabIndex = 34
+        Me.bt_replaceNewGen.Text = "< Замена"
+        Me.bt_replaceNewGen.UseVisualStyleBackColor = True
         '
         'TreeView2
         '
         Me.TreeView2.AllowDrop = True
         Me.TreeView2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom), System.Windows.Forms.AnchorStyles)
+        Me.TreeView2.HideSelection = False
         Me.TreeView2.Location = New System.Drawing.Point(470, 48)
         Me.TreeView2.Name = "TreeView2"
         Me.TreeView2.Size = New System.Drawing.Size(450, 328)
@@ -442,6 +481,7 @@ Partial Class MainForm
         Me.TreeView1.AllowDrop = True
         Me.TreeView1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.TreeView1.HideSelection = False
         Me.TreeView1.Location = New System.Drawing.Point(3, 48)
         Me.TreeView1.Name = "TreeView1"
         Me.TreeView1.Size = New System.Drawing.Size(450, 328)
@@ -646,10 +686,6 @@ Partial Class MainForm
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage2.ResumeLayout(False)
         Me.TabPage2.PerformLayout()
-        Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout()
-        Me.GroupBox5.ResumeLayout(False)
-        Me.GroupBox5.PerformLayout()
         Me.TabPage1.ResumeLayout(False)
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox4.PerformLayout()
@@ -678,20 +714,12 @@ Partial Class MainForm
     Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents bt_saveID As Button
     Friend WithEvents bt_saveAllCfg As Button
-    Friend WithEvents GroupBox2 As GroupBox
-    Friend WithEvents Label6 As Label
-    Friend WithEvents lb_cfgPath As Label
-    Friend WithEvents Label5 As Label
-    Friend WithEvents lb_cfgId As Label
-    Friend WithEvents Label4 As Label
-    Friend WithEvents lb_maxId As Label
     Friend WithEvents bt_compare As Button
-    Friend WithEvents GroupBox5 As GroupBox
     Friend WithEvents Label3 As Label
     Friend WithEvents lb_NewGPath As Label
     Friend WithEvents lb_NewGId As Label
     Friend WithEvents Label2 As Label
-    Friend WithEvents bt_addNewGen As Button
+    Friend WithEvents bt_replaceNewGen As Button
     Friend WithEvents TreeView2 As TreeView
     Friend WithEvents TreeView1 As TreeView
     Friend WithEvents bt_LoadNewGen As Button
@@ -714,4 +742,14 @@ Partial Class MainForm
     Public WithEvents TextBox2 As TextBox
     Friend WithEvents LogTextBox As RichTextBox
     Friend WithEvents Button5 As Button
+    Friend WithEvents lb_mainChekedNode As Label
+    Friend WithEvents Label6 As Label
+    Friend WithEvents lb_cfgPath As Label
+    Friend WithEvents Label5 As Label
+    Friend WithEvents lb_cfgId As Label
+    Friend WithEvents Label4 As Label
+    Friend WithEvents lb_maxId As Label
+    Friend WithEvents Label1 As Label
+    Friend WithEvents bt_pasteNewGen As Button
+    Friend WithEvents bt_setManualMainChekedNode As Button
 End Class

@@ -1,9 +1,10 @@
-﻿Imports System.Xml
+﻿Imports System.ComponentModel
+Imports System.Xml
 
 Public Class MainForm
     Dim formWidth As Integer 'Переменная для изменения расположения элементов
     Dim bool_FormLoaded As Boolean
-    Public version As String = "1.2.0 beta"
+    Public version As String = "1.3.0 beta"
     Dim treeViewNormalSize As Size
     Dim testInt As Integer
 
@@ -220,7 +221,7 @@ err1:
 
 
 
-    '=================================Изменение расзмера окна и элементов========================================
+    '=================================Изменение размера окна и элементов========================================
     ' хз как по-нормальному сделать. Будет так:
     Private Sub AlphaCfgForm_ResizeBegin(sender As Object, e As EventArgs) Handles Me.ResizeBegin
         formWidth = Size.Width
@@ -244,7 +245,7 @@ err1:
             '    TreeView2.Size = treeViewNormalSize
         End If
     End Sub
-    '=================================Конец изменения расзмера окна и элементов========================================
+    '=================================Конец изменения размера окна и элементов========================================
 
 
 
@@ -300,6 +301,7 @@ err1:
         addToTree(rootNewGen, TreeView2)
         parentNode = Nothing
         TreeView2.Nodes(0).Expand()
+        TreeView2.Select()
         bt_compare.Enabled = False
         bt_saveID.Enabled = True
         WriteLog("ID розданы для " & newGen)
@@ -314,13 +316,33 @@ err1:
         MsgBox("Файл сохранён!")
     End Sub
 
-    Private Sub bt_addNewGen_Click(sender As Object, e As EventArgs) Handles bt_addNewGen.Click
+    Private Sub bt_replaceNewGen_Click(sender As Object, e As EventArgs) Handles bt_replaceNewGen.Click
         Dim selectedNodeInCfg As XmlNode
         Dim selectedNode As XmlNode
         Dim newNode As XmlNode
 
-        selectedNodeInCfg = getNodeByTreePath(TreeView2.SelectedNode.FullPath, mainChekedNode)
-        selectedNode = getNodeByTreePath(TreeView2.SelectedNode.FullPath, rootNewGen)
+
+        If bool_manualTargetNode = True Then ' если целевой узел был задан вручную
+            selectedNodeInCfg = mainChekedNode
+            If TreeView2.SelectedNode Is Nothing Then ' если ничего не выбрано в правом дереве то заменяем всё дерево
+                selectedNode = rootNewGen
+            Else
+                selectedNode = getNodeByTreePath(TreeView2.SelectedNode.FullPath, rootNewGen)
+            End If
+        Else 'если целевой узел был выбран автоматически
+
+            'If TreeView2.SelectedNode Is Nothing Then ' если ничего не выбрано в правом дереве то заменяем всё дерево
+            'selectedNodeInCfg = mainChekedNode
+            'selectedNode = rootNewGen
+            ' Else
+
+            'End If
+            selectedNodeInCfg = getNodeByTreePath(TreeView2.SelectedNode.FullPath, mainChekedNode)
+            selectedNode = getNodeByTreePath(TreeView2.SelectedNode.FullPath, rootNewGen)
+        End If
+
+
+
         newNode = docConfig.ImportNode(selectedNode, True)
 
         selectedNodeInCfg.ParentNode.ReplaceChild(newNode, selectedNodeInCfg)
@@ -356,6 +378,7 @@ err1:
             lb_cfgId.Text = "ОТСУТСТВУЕТ"
         End If
 
+
     End Sub
 
     Private Sub TreeView2_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles TreeView2.AfterSelect ' что происходит после выбора узла во втором дереве
@@ -387,7 +410,35 @@ err1:
         saveFilePath = SaveFileDialog1.FileName
     End Sub
 
+    Private Sub bt_pasteNewGen_Click(sender As Object, e As EventArgs) Handles bt_pasteNewGen.Click
+        Dim selectedNodeInCfg As XmlNode
+        Dim selectedNode As XmlNode
+        Dim newNode As XmlNode
 
+        If TreeView1.SelectedNode Is Nothing Then
+            MsgBox("Выбери куда вставлять!", vbOKOnly)
+            Exit Sub
+        End If
+
+        selectedNodeInCfg = getNodeByTreePath(TreeView1.SelectedNode.FullPath, SignalsNode.ParentNode)
+        selectedNode = getNodeByTreePath(TreeView2.SelectedNode.FullPath, rootNewGen)
+        newNode = docConfig.ImportNode(selectedNode, True)
+
+        selectedNodeInCfg.SelectSingleNode("Items").AppendChild(newNode)
+
+        WriteLog("Узел " & selectedNode.Attributes("Name").Value & " добавлен в " & TreeView1.SelectedNode.FullPath)
+
+        reloadCfg()
+
+        TreeView2.Select()
+    End Sub
+
+    Private Sub bt_setManualMainChekedNode_Click(sender As Object, e As EventArgs) Handles bt_setManualMainChekedNode.Click
+        mainChekedNode = getNodeByTreePath(TreeView1.SelectedNode.FullPath, SignalsNode.ParentNode)
+        lb_mainChekedNode.Text = getPathByNode(mainChekedNode)
+        bt_replaceNewGen.Enabled = True
+        bool_manualTargetNode = True
+    End Sub
 
 
 

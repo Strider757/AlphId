@@ -14,7 +14,7 @@ Module AlphIdMod
     Public docNewGen As XmlDocument = New XmlDocument() 'Сгенерёнынй ХМЛ файл из workwithexel
 
     Public rootConfig As XmlNode
-    Dim SignalsNode As XmlNode
+    Public SignalsNode As XmlNode
     Public rootNewGen As XmlNode
 
     Public parentNode As TreeNode
@@ -29,6 +29,7 @@ Module AlphIdMod
     Dim bool_Tree2Loaded As Boolean
     Dim key As Integer = 1
     Dim maxId As Integer
+    Public bool_manualTargetNode As Boolean
 
 
 
@@ -83,7 +84,9 @@ Module AlphIdMod
     End Sub
 
     Sub analiz(xe As XmlNode, y As XmlNode) ' x - узел из сгенеренного файла, y - аналогичный узел из конфиги
+        Dim bool_sEq As Boolean 'успех присываивания ID
         Dim tmpCkNode As XmlNode
+        Dim msRes As MsgBoxResult
         tmpCkNode = y
         For Each x As XmlNode In xe.ChildNodes
             If x.Name = "Item" Then
@@ -96,7 +99,12 @@ Module AlphIdMod
                         'RichTextBox1.AppendText("Атрибуты узла " & x.Attributes("Name").Value & " соотвествуют узлу аналогичному в конфигурации " & vbCrLf)
                     Else
                         'RichTextBox1.AppendText("Атрибуты узла " & x.Attributes("Name").Value & " отличаются от узла аналогичного в конфигурации" & vbCrLf)
-                        makeEquals(tmpCkNode, x)
+                        bool_sEq = makeEquals(tmpCkNode, x)
+                        If bool_sEq = False Then msRes = MsgBox("Одному из элементов не удалось присвоить ID. Продолжить присвоение?", vbYesNo, "Ошибка") 'ПОТОМ ДОДЕЛАЮ НОРМАЛЬНЫЙ ВЫХОД ИЗ РЕКУРСИИ
+                        If msRes = vbNo Then
+                            MsgBox("Лень делать нормальный выход из рекурсивной функции поэтому приложение будет закрыто :)")
+                            End
+                        End If
                     End If
                 End If
             End If
@@ -132,14 +140,29 @@ Module AlphIdMod
     End Function
 
     Function makeEquals(configNode As XmlNode, newGenNode As XmlNode) As Boolean
+        '
         Dim attr_Id As XmlAttribute
         attr_Id = docNewGen.CreateAttribute("Id") ' создаем атрибут ИД для того что бы вставляь его там где его нет
         If AttributesExist(newGenNode, "Id") Then
             newGenNode.Attributes("Id").Value = configNode.Attributes("Id").Value
         Else
+            On Error GoTo err1
             newGenNode.Attributes.Append(attr_Id)
             newGenNode.Attributes("Id").Value = configNode.Attributes("Id").Value
         End If
+        makeEquals = True
+        Exit Function
+err1:
+        If Err.Number = 91 And AttributesExist(configNode, "Id") = False Then
+            makeEquals = False
+            MsgBox("Err.Number: " & Err.Number & ". " & Err.Description & " В конфигурации присутсвуют элементы без Id. Скорее всего Id розданы неверно!", vbCritical, "Ошибка")
+            MainForm.WriteLog("Err.Number: " & Err.Number & ". " & Err.Description & " В конфигурации присутсвуют элементы без Id. Скорее всего Id розданы неверно!")
+        Else
+            makeEquals = False
+            MsgBox("Err.Number: " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
+            MainForm.WriteLog("Err.Number: " & Err.Number & ". " & Err.Description)
+        End If
+
     End Function
 
     Function AttributesExist(x As XmlNode, ByVal str As String) As Boolean ' проверка на наличие атрибута
@@ -199,6 +222,7 @@ err1:
         TreeView1.Nodes(0).Expand() ' раскрываем дерево
         bool_Tree1Loaded = True
         MyMainForm.lb_maxId.Text = maxId
+        setMainChekedNode() 'Находим сравниваемый узел
 
         newIds = maxId + 100 'задаём начало новых ID
         MainForm.WriteLog("Конфигурация перезагружена")
@@ -226,12 +250,15 @@ letsTry:
         TreeView2.Nodes(0).Expand()
         bool_Tree2Loaded = True
 
+        bool_manualTargetNode = False
+
 
         MyMainForm.lb_peret2.Visible = False
 
         setMainChekedNode() 'Находим сравниваемый узел
         MainForm.bt_saveID.Enabled = False
         MainForm.WriteLog("Сгенерённый файл " & newGen & " загружен")
+        TreeView2.Select()
         'TreeView1.Nodes.Item(0).ForeColor = Color.Red
         Exit Sub
 backup:
@@ -259,10 +286,26 @@ err1:
 
     Sub setMainChekedNode() 'если два дерева загружены, то ищем в конфигурации аналагочиный узел, который будем сравнивать с корневым узлом в сгенерённом файле 
         If bool_Tree1Loaded And bool_Tree2Loaded Then
-            MainForm.bt_addNewGen.Enabled = True
-            MyMainForm.bt_compare.Enabled = True 'включаем кнопу
+
             mainChekedNode = SignalsNode.SelectSingleNode("//Item[@Name='" & CStr(rootNewGen.Attributes("Name").Value) & "']") 'Здесь выбираем узел аналогичный сгенеренному  в конфиге
+            If mainChekedNode Is Nothing Then
+                MsgBox("Внимание! Корневой узел сгенеренного файла не найден в файле конфигурации. Замена недоступна.", vbCritical, "Ошибка")
+                MainForm.WriteLog("Внимание! Корневой узел сгенеренного файла не найден в файле конфигурации. Замена недоступна.")
+                MainForm.lb_mainChekedNode.Text = "NOT_FOUND"
+            Else
+                MyMainForm.bt_compare.Enabled = True 'включаем кнопу
+                MainForm.bt_replaceNewGen.Enabled = True
+                MainForm.lb_mainChekedNode.Text = getPathByNode(mainChekedNode)
+                bool_manualTargetNode = False
+            End If
+            MainForm.bt_setManualMainChekedNode.Enabled = True
+            MainForm.bt_pasteNewGen.Enabled = True
+
         End If
+    End Sub
+
+    Sub insertInCfg()
+
     End Sub
 
     Sub setRootManual(str As String) ' задаём корневой узел вручную. Нужен для обработки исключения
@@ -292,10 +335,40 @@ err1:
         q = Split(s, "\")
         tempSearchedNode = mNode
         If InStr(s, "Signals") Then tempSearchedNode = mNode.SelectSingleNode("Signals")
+        If mNode.Name = "Signals" Then tempSearchedNode = mNode
         For k = 1 To q.Length - 1
             tempSearchedNode = tempSearchedNode.SelectSingleNode("Items/Item[@Name='" & q(k) & "']")
         Next
         getNodeByTreePath = tempSearchedNode
         tempSearchedNode = Nothing
     End Function
+
+    Function getPathByNode(mNode As XmlNode) As String ' получем путь узла "FIX\MNS1\AN"
+        Dim tempStr As String
+        Dim tempNode As XmlNode
+        Dim nParent As Integer
+        Dim strPath(0) As String ' Динамический массив строк
+        nParent = 0
+        tempNode = mNode
+
+        strPath(0) = tempNode.Attributes("Name").Value
+
+        Do While tempNode.Name <> "Signals"
+            tempNode = getParentNodeForAlphaConf(tempNode)
+            nParent = nParent + 1
+            If tempNode.Name = "Signals" Then Exit Do
+            ReDim Preserve strPath(nParent)
+            strPath(nParent - 1) = tempNode.Attributes("Name").Value
+        Loop
+        For k = 2 To strPath.Length
+            tempStr = tempStr & strPath(strPath.Length - k) & "\"
+        Next
+        tempStr = tempStr & mNode.Attributes("Name").Value
+        getPathByNode = tempStr
+    End Function
+
+    Function getParentNodeForAlphaConf(xNode As XmlNode) As XmlNode
+        getParentNodeForAlphaConf = xNode.ParentNode.ParentNode
+    End Function
+
 End Module
