@@ -4,7 +4,7 @@ Imports System.Xml
 Public Class MainForm
     Dim formWidth As Integer 'Переменная для изменения расположения элементов
     Dim bool_FormLoaded As Boolean
-    Public version As String = "1.3.0 beta"
+    Public version As String = "1.3.1 beta"
     Dim treeViewNormalSize As Size
     Dim testInt As Integer
 

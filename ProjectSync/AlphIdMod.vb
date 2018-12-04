@@ -268,7 +268,7 @@ backup:
 err1:
         Dim msgb_res As MsgBoxResult
         Dim manualRoot As String
-        If Err.Number = 5 And Err.Description Like "*Существует несколько корневых элементов*" Then 'Обрабатываем исключение, когда у нас несколько корневых узлов.
+        If Err.Number = 5 And (Err.Description Like "*Существует несколько корневых элементов*" Or Err.Description Like "*There are multiple root elements*") Then 'Обрабатываем исключение, когда у нас несколько корневых узлов.
             msgb_res = MsgBox("Err.Number: " & Err.Number & ". " & Err.Description & " Добавить главный корневой эелемент самостоятельно? Внимание! Файл будет пересохранён!", vbCritical + vbYesNo, "Ошибка")
             If msgb_res = 6 Then
                 manualRoot = InputBox("Введите имя корневого элемента: ") ' запрашиваем нового корневого узла
