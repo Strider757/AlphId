@@ -4,7 +4,7 @@ Imports System.Xml
 Public Class MainForm
     Dim formWidth As Integer 'Переменная для изменения расположения элементов
     Dim bool_FormLoaded As Boolean
-    Public version As String = "1.3.1 beta"
+    Public version As String = "1.3.2 beta"
     Dim treeViewNormalSize As Size
     Dim testInt As Integer
 
@@ -345,7 +345,16 @@ err1:
 
         newNode = docConfig.ImportNode(selectedNode, True)
 
-        selectedNodeInCfg.ParentNode.ReplaceChild(newNode, selectedNodeInCfg)
+
+        Try
+            selectedNodeInCfg.ParentNode.ReplaceChild(newNode, selectedNodeInCfg)
+            ' selectedNodeInCfg is nothing
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical + vbOKOnly, "ERROR!")
+            WriteLog("Ошибка! Узел " & selectedNode.Attributes("Name").Value & " не может быть заменен! " & ex.Message)
+            Exit Sub
+        End Try
+
 
         WriteLog("Узел " & selectedNodeInCfg.Attributes("Name").Value & " заменён полностью")
 
@@ -368,7 +377,7 @@ err1:
 
 
     Private Sub TreeView1_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles TreeView1.AfterSelect ' что происходит после выбора узла в первом дереве
-
+        If TreeView1.SelectedNode IsNot Nothing Then bt_setManualMainChekedNode.Enabled = True
         lb_cfgPath.Text = TreeView1.SelectedNode.FullPath
         Dim tmpNdoe As XmlNode = getNodeByTreePath(TreeView1.SelectedNode.FullPath, rootConfig)
 
@@ -420,26 +429,43 @@ err1:
             Exit Sub
         End If
 
-        selectedNodeInCfg = getNodeByTreePath(TreeView1.SelectedNode.FullPath, SignalsNode.ParentNode)
-        selectedNode = getNodeByTreePath(TreeView2.SelectedNode.FullPath, rootNewGen)
-        newNode = docConfig.ImportNode(selectedNode, True)
+        If TreeView2.CheckBoxes = False Then
+            ' TreeView2'
+            'Else
+            selectedNodeInCfg = getNodeByTreePath(TreeView1.SelectedNode.FullPath, SignalsNode.ParentNode)
+            selectedNode = getNodeByTreePath(TreeView2.SelectedNode.FullPath, rootNewGen)
+            newNode = docConfig.ImportNode(selectedNode, True)
 
-        selectedNodeInCfg.SelectSingleNode("Items").AppendChild(newNode)
+            selectedNodeInCfg.SelectSingleNode("Items").AppendChild(newNode)
 
-        WriteLog("Узел " & selectedNode.Attributes("Name").Value & " добавлен в " & TreeView1.SelectedNode.FullPath)
+            WriteLog("Узел " & selectedNode.Attributes("Name").Value & " добавлен в " & TreeView1.SelectedNode.FullPath)
 
-        reloadCfg()
+            reloadCfg()
 
-        TreeView2.Select()
+            TreeView2.Select()
+        End If
     End Sub
 
     Private Sub bt_setManualMainChekedNode_Click(sender As Object, e As EventArgs) Handles bt_setManualMainChekedNode.Click
+        If TreeView1.SelectedNode Is Nothing Then Exit Sub
         mainChekedNode = getNodeByTreePath(TreeView1.SelectedNode.FullPath, SignalsNode.ParentNode)
         lb_mainChekedNode.Text = getPathByNode(mainChekedNode)
         bt_replaceNewGen.Enabled = True
         bool_manualTargetNode = True
     End Sub
 
+    Private Sub bt_showCheckedNodesButton_Click(sender As Object, e As EventArgs) Handles bt_showCheckedNodesButton.Click
+        If TreeView2.CheckBoxes = True Then
+            TreeView2.CheckBoxes = False
+            TreeView2.Nodes(0).Expand()
+        Else
+            TreeView2.CheckBoxes = True
+        End If
+    End Sub
+
+    Private Sub TreeView2_AfterCheck(sender As Object, e As TreeViewEventArgs) Handles TreeView2.AfterCheck
+
+    End Sub
 
 
 

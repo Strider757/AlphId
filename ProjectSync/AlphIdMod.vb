@@ -298,7 +298,7 @@ err1:
                 MainForm.lb_mainChekedNode.Text = getPathByNode(mainChekedNode)
                 bool_manualTargetNode = False
             End If
-            MainForm.bt_setManualMainChekedNode.Enabled = True
+
             MainForm.bt_pasteNewGen.Enabled = True
 
         End If

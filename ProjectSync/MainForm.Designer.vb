@@ -36,6 +36,7 @@ Partial Class MainForm
         Me.But_UnSel = New System.Windows.Forms.Button()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.bt_showCheckedNodesButton = New System.Windows.Forms.Button()
         Me.bt_setManualMainChekedNode = New System.Windows.Forms.Button()
         Me.bt_pasteNewGen = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -222,6 +223,7 @@ Partial Class MainForm
         '
         'TabPage2
         '
+        Me.TabPage2.Controls.Add(Me.bt_showCheckedNodesButton)
         Me.TabPage2.Controls.Add(Me.bt_setManualMainChekedNode)
         Me.TabPage2.Controls.Add(Me.bt_pasteNewGen)
         Me.TabPage2.Controls.Add(Me.Label3)
@@ -254,23 +256,33 @@ Partial Class MainForm
         Me.TabPage2.Text = "ID для Alpha.Server"
         Me.TabPage2.UseVisualStyleBackColor = True
         '
+        'bt_showCheckedNodesButton
+        '
+        Me.bt_showCheckedNodesButton.Location = New System.Drawing.Point(816, 19)
+        Me.bt_showCheckedNodesButton.Name = "bt_showCheckedNodesButton"
+        Me.bt_showCheckedNodesButton.Size = New System.Drawing.Size(75, 23)
+        Me.bt_showCheckedNodesButton.TabIndex = 41
+        Me.bt_showCheckedNodesButton.Text = "Button4"
+        Me.bt_showCheckedNodesButton.UseVisualStyleBackColor = True
+        Me.bt_showCheckedNodesButton.Visible = False
+        '
         'bt_setManualMainChekedNode
         '
         Me.bt_setManualMainChekedNode.Enabled = False
-        Me.bt_setManualMainChekedNode.Location = New System.Drawing.Point(252, 6)
+        Me.bt_setManualMainChekedNode.Location = New System.Drawing.Point(215, 6)
         Me.bt_setManualMainChekedNode.Name = "bt_setManualMainChekedNode"
-        Me.bt_setManualMainChekedNode.Size = New System.Drawing.Size(75, 36)
+        Me.bt_setManualMainChekedNode.Size = New System.Drawing.Size(81, 36)
         Me.bt_setManualMainChekedNode.TabIndex = 40
-        Me.bt_setManualMainChekedNode.Text = "SetTarget Node"
+        Me.bt_setManualMainChekedNode.Text = "Установить на замену"
         Me.bt_setManualMainChekedNode.UseVisualStyleBackColor = True
         '
         'bt_pasteNewGen
         '
         Me.bt_pasteNewGen.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.bt_pasteNewGen.Enabled = False
-        Me.bt_pasteNewGen.Location = New System.Drawing.Point(333, 6)
+        Me.bt_pasteNewGen.Location = New System.Drawing.Point(327, 6)
         Me.bt_pasteNewGen.Name = "bt_pasteNewGen"
-        Me.bt_pasteNewGen.Size = New System.Drawing.Size(61, 36)
+        Me.bt_pasteNewGen.Size = New System.Drawing.Size(67, 36)
         Me.bt_pasteNewGen.TabIndex = 39
         Me.bt_pasteNewGen.Text = "< Вставить"
         Me.bt_pasteNewGen.UseVisualStyleBackColor = True
@@ -281,19 +293,20 @@ Partial Class MainForm
         Me.Label3.AutoSize = True
         Me.Label3.Location = New System.Drawing.Point(472, 402)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(32, 13)
+        Me.Label3.Size = New System.Drawing.Size(34, 13)
         Me.Label3.TabIndex = 16
-        Me.Label3.Text = "Path:"
+        Me.Label3.Text = "Путь:"
         '
         'Label1
         '
         Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(3, 434)
+        Me.Label1.Location = New System.Drawing.Point(11, 433)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(70, 13)
+        Me.Label1.Size = New System.Drawing.Size(64, 13)
         Me.Label1.TabIndex = 38
-        Me.Label1.Text = "Target Node:"
+        Me.Label1.Text = "На замену:"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'lb_NewGPath
         '
@@ -373,9 +386,9 @@ Partial Class MainForm
         Me.Label6.AutoSize = True
         Me.Label6.Location = New System.Drawing.Point(41, 416)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(32, 13)
+        Me.Label6.Size = New System.Drawing.Size(34, 13)
         Me.Label6.TabIndex = 10
-        Me.Label6.Text = "Path:"
+        Me.Label6.Text = "Путь:"
         Me.Label6.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'lb_cfgPath
@@ -428,18 +441,18 @@ Partial Class MainForm
         'bt_saveID
         '
         Me.bt_saveID.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.bt_saveID.Location = New System.Drawing.Point(718, 6)
+        Me.bt_saveID.Location = New System.Drawing.Point(700, 6)
         Me.bt_saveID.Name = "bt_saveID"
-        Me.bt_saveID.Size = New System.Drawing.Size(118, 36)
+        Me.bt_saveID.Size = New System.Drawing.Size(100, 36)
         Me.bt_saveID.TabIndex = 35
         Me.bt_saveID.Text = "Сохранить c ID"
         Me.bt_saveID.UseVisualStyleBackColor = True
         '
         'bt_saveAllCfg
         '
-        Me.bt_saveAllCfg.Location = New System.Drawing.Point(127, 6)
+        Me.bt_saveAllCfg.Location = New System.Drawing.Point(109, 6)
         Me.bt_saveAllCfg.Name = "bt_saveAllCfg"
-        Me.bt_saveAllCfg.Size = New System.Drawing.Size(118, 36)
+        Me.bt_saveAllCfg.Size = New System.Drawing.Size(100, 36)
         Me.bt_saveAllCfg.TabIndex = 36
         Me.bt_saveAllCfg.Text = "Сохранить конфигурацию"
         Me.bt_saveAllCfg.UseVisualStyleBackColor = True
@@ -450,7 +463,7 @@ Partial Class MainForm
         Me.bt_compare.Enabled = False
         Me.bt_compare.Location = New System.Drawing.Point(594, 6)
         Me.bt_compare.Name = "bt_compare"
-        Me.bt_compare.Size = New System.Drawing.Size(118, 36)
+        Me.bt_compare.Size = New System.Drawing.Size(100, 36)
         Me.bt_compare.TabIndex = 31
         Me.bt_compare.Text = "Раздать ID"
         Me.bt_compare.UseVisualStyleBackColor = True
@@ -501,7 +514,7 @@ Partial Class MainForm
         '
         Me.bt_LoadCfg.Location = New System.Drawing.Point(3, 6)
         Me.bt_LoadCfg.Name = "bt_LoadCfg"
-        Me.bt_LoadCfg.Size = New System.Drawing.Size(118, 36)
+        Me.bt_LoadCfg.Size = New System.Drawing.Size(100, 36)
         Me.bt_LoadCfg.TabIndex = 29
         Me.bt_LoadCfg.Text = "Загрузить конфигурацию"
         Me.bt_LoadCfg.UseVisualStyleBackColor = True
@@ -752,4 +765,5 @@ Partial Class MainForm
     Friend WithEvents Label1 As Label
     Friend WithEvents bt_pasteNewGen As Button
     Friend WithEvents bt_setManualMainChekedNode As Button
+    Friend WithEvents bt_showCheckedNodesButton As Button
 End Class
