@@ -25,11 +25,13 @@ Module AlphIdMod
     Dim tempSearchedNode As XmlNode
 
     Public bool_selectCfg As Boolean
-    Dim bool_Tree1Loaded As Boolean
-    Dim bool_Tree2Loaded As Boolean
+    Public bool_Tree1Loaded As Boolean
+    Public bool_Tree2Loaded As Boolean
     Dim key As Integer = 1
     Dim maxId As Integer
     Public bool_manualTargetNode As Boolean
+
+    Public bool_configaInTV2 As Boolean
 
 
 
@@ -54,6 +56,8 @@ Module AlphIdMod
     Dim SaveFileDialog1 As SaveFileDialog = MainForm.SaveFileDialog1
     Dim TreeView1 As TreeView = MainForm.TreeView1
     Dim TreeView2 As TreeView = MainForm.TreeView2
+    Dim TreeImageList As ImageList = MainForm.TreeImageList
+
 
 
     Sub addToTree(xe As XmlNode, Optional tree As TreeView = Nothing, Optional parent As TreeNode = Nothing) 'Рекурсивная процедура добавления xml узла в дерево. xe-добавляемый узел, tree-treeView  в который добавлем, parent - предок узла(если есть)
@@ -62,17 +66,18 @@ Module AlphIdMod
                 If parent Is Nothing Then
                     If tree.Nodes.Count < 1 Then
                         If x.ParentNode.ParentNode.Attributes.Count > 0 Then
-                            mainNode = tree.Nodes.Add(key, x.ParentNode.ParentNode.Attributes("Name").Value)
+                            mainNode = tree.Nodes.Add(key.ToString, x.ParentNode.ParentNode.Attributes("Name").Value)
                         Else
-                            mainNode = tree.Nodes.Add(key, x.ParentNode.ParentNode.Name)
+                            mainNode = tree.Nodes.Add(key.ToString, x.ParentNode.ParentNode.Name)
+
                         End If
                         key = key + 1
                     End If
-                    parentNode = mainNode.Nodes.Add(key, x.Attributes("Name").Value) '                    
+                    parentNode = mainNode.Nodes.Add(key.ToString, x.Attributes("Name").Value, imgNum(x)) '                    
                     key = key + 1
                     If AttributesExist(x, "Id") And tree.Name = "TreeView1" Then If maxId < x.Attributes("Id").Value Then maxId = x.Attributes("Id").Value 'ищем максимальный ID и смотрим что бы он искался только в конфигурации, то есть в левом окошке
                 Else
-                    parentNode = parent.Nodes.Add(key, x.Attributes("Name").Value)
+                    parentNode = parent.Nodes.Add(key.ToString, x.Attributes("Name").Value, imgNum(x))
                     key = key + 1
                     If AttributesExist(x, "Id") And tree.Name = "TreeView1" Then If maxId < x.Attributes("Id").Value Then maxId = x.Attributes("Id").Value
                 End If
@@ -82,6 +87,39 @@ Module AlphIdMod
             End If
         Next
     End Sub
+
+    Function imgNum(x As XmlNode) As Integer
+        Select Case x.Attributes("Type").Value
+            Case "Folder"
+                imgNum = 0
+            Case "Int1"
+                imgNum = 1
+            Case "UInt1"
+                imgNum = 2
+            Case "Int2"
+                imgNum = 3
+            Case "UInt2"
+                imgNum = 4
+            Case "Int4"
+                imgNum = 5
+            Case "UInt4"
+                imgNum = 6
+            Case "Int8"
+                imgNum = 7
+            Case "UInt8"
+                imgNum = 8
+            Case "Float"
+                imgNum = 9
+            Case "Double"
+                imgNum = 10
+            Case "Bool"
+                imgNum = 11
+            Case "String"
+                imgNum = 12
+            Case Else
+                imgNum = 13
+        End Select
+    End Function
 
     Sub analiz(xe As XmlNode, y As XmlNode) ' x - узел из сгенеренного файла, y - аналогичный узел из конфиги
         Dim bool_sEq As Boolean 'успех присываивания ID
@@ -179,21 +217,29 @@ err2:
 
 
 
-    Sub loadCfg() 'тута грузим конфигу альфы
+    Sub loadCfg(ByRef TrVi As TreeView) 'тута грузим конфигу альфы
         On Error GoTo err1
-
+        MainForm.Cursor = Cursors.WaitCursor
         docConfig.Load(confFullName) 'загружаем хмл файл
         rootConfig = docConfig.DocumentElement ' Выбираем главный узел
 
         SignalsNode = rootConfig.SelectSingleNode("//Configuration/Signals/Items") 'в главном узле выбираем только ветку Сигналы
 
-        TreeView1.Nodes.Clear() '
+
+        'TreeImageList.Images.Add()
+
+
+        TrVi.ImageList = TreeImageList
+        TrVi.Nodes.Clear() '
         bool_Tree1Loaded = False ' 
+
         maxId = 0 ' сбрасываем максимальный ID
 
-        addToTree(SignalsNode, TreeView1) 'добавляем в дерево
+        MainForm.WriteLog("Конфигурационный файл загружается...")
+
+        addToTree(SignalsNode, TrVi) 'добавляем в дерево
         parentNode = Nothing 'обнуление родительского узла
-        TreeView1.Nodes(0).Expand() ' раскрываем дерево
+        TrVi.Nodes(0).Expand() ' раскрываем дерево
         bool_Tree1Loaded = True
 
         MainForm.WriteLog("Конфигурационный файл " & confFullName & " загружен.")
@@ -207,40 +253,56 @@ err2:
 err1:
         MsgBox("Err.Number: " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
         MainForm.WriteLog("Err.Number: " & Err.Number & ". " & Err.Description)
+
     End Sub
 
     Sub reloadCfg() 'Перезагружаем дерево конфигурации альфа сервера
-
+        MainForm.Cursor = Cursors.WaitCursor
         TreeView1.Nodes.Clear() '
         bool_Tree1Loaded = False ' 
-        maxId = 0 ' сбрасываем максимальный ID
 
+        maxId = 0 ' сбрасываем максимальный ID
+        MainForm.WriteLog("Перезагружается конфигурация...")
         addToTree(SignalsNode, TreeView1) 'добавляем в дерево
 
         parentNode = Nothing 'обнуление родительского узла
 
         TreeView1.Nodes(0).Expand() ' раскрываем дерево
         bool_Tree1Loaded = True
+
         MyMainForm.lb_maxId.Text = maxId
         setMainChekedNode() 'Находим сравниваемый узел
 
         newIds = maxId + 100 'задаём начало новых ID
         MainForm.WriteLog("Конфигурация перезагружена")
+        MainForm.Cursor = Cursors.Default
     End Sub
 
 
-    Sub loadNewCfg() 'тута грузим сгенерённый файл
+    Sub loadNewCfg() 'тута грузим сгенерённый файл+6
+
         On Error GoTo err1
+        MainForm.Cursor = Cursors.WaitCursor
         Dim backup_strNewGen As String
         Dim backup_docNewGen As XmlDocument
+        Dim backup_bool_configaInTV2 As Boolean
         backup_strNewGen = strNewGen
         backup_docNewGen = docNewGen
+        backup_bool_configaInTV2 = bool_configaInTV2
+
+        bool_configaInTV2 = False
 letsTry:
+        MainForm.WriteLog("Сгенеренный файл загружается...")
         strNewGen = My.Computer.FileSystem.ReadAllText(newGen, Encoding.Default) 'Сразу грузить в XML документ он не может из-за проблем с кодировками, поэтому сначала читаем как текст.
         docNewGen.LoadXml(strNewGen) 'загружаем хмл файл
+
+        If docNewGen.DocumentElement.Name = "Configuration" Then
+            GoTo configaInTV2
+        End If
+letsContinue:
         'docNewGen.Load(newGen) 'загружаем хмл файл
         rootNewGen = docNewGen.DocumentElement ' Выбираем главный узел
-
+        TreeView2.ImageList = TreeImageList
         TreeView2.Nodes.Clear()
         bool_Tree2Loaded = False
 
@@ -249,7 +311,7 @@ letsTry:
 
         TreeView2.Nodes(0).Expand()
         bool_Tree2Loaded = True
-
+        MainForm.bt_replaceNewGen.Enabled = False
         bool_manualTargetNode = False
 
 
@@ -260,10 +322,25 @@ letsTry:
         MainForm.WriteLog("Сгенерённый файл " & newGen & " загружен")
         TreeView2.Select()
         'TreeView1.Nodes.Item(0).ForeColor = Color.Red
+
+        Exit Sub
+configaInTV2:
+        Dim msgb_res1 As MsgBoxResult
+        msgb_res1 = MsgBox("Похоже, что в область для загрузки сгенеренного файла пытается загрузится конфигурация. Продолжить?", vbCritical + vbYesNo, "Ошибка")
+        If msgb_res1 = vbYes Then
+            bool_configaInTV2 = True
+            GoTo letsContinue
+        ElseIf msgb_res1 = vbNo Then
+            GoTo backup
+        End If
+
         Exit Sub
 backup:
         strNewGen = backup_strNewGen
         If strNewGen IsNot Nothing Then docNewGen.LoadXml(strNewGen)
+        bool_configaInTV2 = backup_bool_configaInTV2
+        MainForm.WriteLog("Загрузка отменена")
+
         Exit Sub
 err1:
         Dim msgb_res As MsgBoxResult
@@ -282,9 +359,12 @@ err1:
             MsgBox("Err.Number: " & Err.Number & ". " & Err.Description, vbCritical, "Ошибка")
             MainForm.WriteLog("Err.Number: " & Err.Number & ". " & Err.Description)
         End If
+
     End Sub
 
     Sub setMainChekedNode() 'если два дерева загружены, то ищем в конфигурации аналагочиный узел, который будем сравнивать с корневым узлом в сгенерённом файле 
+        If bool_configaInTV2 Then Exit Sub
+
         If bool_Tree1Loaded And bool_Tree2Loaded Then
 
             mainChekedNode = SignalsNode.SelectSingleNode("//Item[@Name='" & CStr(rootNewGen.Attributes("Name").Value) & "']") 'Здесь выбираем узел аналогичный сгенеренному  в конфиге
@@ -295,11 +375,12 @@ err1:
             Else
                 MyMainForm.bt_compare.Enabled = True 'включаем кнопу
                 MainForm.bt_replaceNewGen.Enabled = True
-                MainForm.lb_mainChekedNode.Text = getPathByNode(mainChekedNode)
+                MainForm.lb_mainChekedNode.Text = getPathByNode(mainChekedNode) & "   - Авто определение"
+                MainForm.lb_mainChekedNode.ForeColor = Color.Green
                 bool_manualTargetNode = False
             End If
 
-            MainForm.bt_pasteNewGen.Enabled = True
+            'MainForm.bt_pasteNewGen.Enabled = True
 
         End If
     End Sub
@@ -330,7 +411,7 @@ err1:
 
 
 
-    Function getNodeByTreePath(ByVal s As String, mNode As XmlNode) As XmlNode ' получем узел по пути в дереве "FIX\MNS1\AN"
+    Public Function getNodeByTreePath(ByVal s As String, mNode As XmlNode) As XmlNode ' получем узел по пути в дереве "FIX\MNS1\AN"
         Dim q()
         q = Split(s, "\")
         tempSearchedNode = mNode

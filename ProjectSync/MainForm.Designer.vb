@@ -23,6 +23,7 @@ Partial Class MainForm
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MainForm))
         Me.Button1 = New System.Windows.Forms.Button()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
@@ -36,31 +37,39 @@ Partial Class MainForm
         Me.But_UnSel = New System.Windows.Forms.Button()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
-        Me.bt_showCheckedNodesButton = New System.Windows.Forms.Button()
+        Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
+        Me.lb_peret1 = New System.Windows.Forms.Label()
+        Me.bt_LoadCfg = New System.Windows.Forms.Button()
         Me.bt_setManualMainChekedNode = New System.Windows.Forms.Button()
-        Me.bt_pasteNewGen = New System.Windows.Forms.Button()
+        Me.bt_saveAllCfg = New System.Windows.Forms.Button()
+        Me.TreeView1 = New System.Windows.Forms.TreeView()
+        Me.TreeViewContextMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.ПереименоватьToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.УдалитьToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TabControl2 = New System.Windows.Forms.TabControl()
+        Me.TabPage5 = New System.Windows.Forms.TabPage()
+        Me.lb_peret2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.lb_NewGPath = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
         Me.lb_NewGId = New System.Windows.Forms.Label()
-        Me.lb_maxId = New System.Windows.Forms.Label()
+        Me.bt_showCheckedNodesButton = New System.Windows.Forms.Button()
+        Me.TreeView2 = New System.Windows.Forms.TreeView()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.bt_pasteNewGen = New System.Windows.Forms.Button()
+        Me.bt_replaceNewGen = New System.Windows.Forms.Button()
+        Me.bt_LoadNewGen = New System.Windows.Forms.Button()
+        Me.bt_compare = New System.Windows.Forms.Button()
+        Me.bt_saveID = New System.Windows.Forms.Button()
+        Me.TabPage6 = New System.Windows.Forms.TabPage()
+        Me.DataGridView3 = New System.Windows.Forms.DataGridView()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.lb_maxId = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.lb_cfgId = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.lb_cfgPath = New System.Windows.Forms.Label()
         Me.lb_mainChekedNode = New System.Windows.Forms.Label()
-        Me.lb_peret2 = New System.Windows.Forms.Label()
-        Me.lb_peret1 = New System.Windows.Forms.Label()
-        Me.bt_saveID = New System.Windows.Forms.Button()
-        Me.bt_saveAllCfg = New System.Windows.Forms.Button()
-        Me.bt_compare = New System.Windows.Forms.Button()
-        Me.bt_replaceNewGen = New System.Windows.Forms.Button()
-        Me.TreeView2 = New System.Windows.Forms.TreeView()
-        Me.TreeView1 = New System.Windows.Forms.TreeView()
-        Me.bt_LoadNewGen = New System.Windows.Forms.Button()
-        Me.bt_LoadCfg = New System.Windows.Forms.Button()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.Button5 = New System.Windows.Forms.Button()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
@@ -78,10 +87,20 @@ Partial Class MainForm
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.LogTextBox = New System.Windows.Forms.RichTextBox()
+        Me.TreeImageList = New System.Windows.Forms.ImageList(Me.components)
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
+        CType(Me.SplitContainer2, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SplitContainer2.Panel1.SuspendLayout()
+        Me.SplitContainer2.Panel2.SuspendLayout()
+        Me.SplitContainer2.SuspendLayout()
+        Me.TreeViewContextMenu.SuspendLayout()
+        Me.TabControl2.SuspendLayout()
+        Me.TabPage5.SuspendLayout()
+        Me.TabPage6.SuspendLayout()
+        CType(Me.DataGridView3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -122,7 +141,7 @@ Partial Class MainForm
         Me.DataGridView1.RowHeadersVisible = False
         Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DataGridView1.ShowEditingIcon = False
-        Me.DataGridView1.Size = New System.Drawing.Size(922, 369)
+        Me.DataGridView1.Size = New System.Drawing.Size(964, 382)
         Me.DataGridView1.TabIndex = 4
         '
         'but_Anal
@@ -218,152 +237,349 @@ Partial Class MainForm
         Me.TabControl1.Location = New System.Drawing.Point(0, 0)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(938, 488)
+        Me.TabControl1.Size = New System.Drawing.Size(984, 512)
         Me.TabControl1.TabIndex = 17
         '
         'TabPage2
         '
-        Me.TabPage2.Controls.Add(Me.bt_showCheckedNodesButton)
-        Me.TabPage2.Controls.Add(Me.bt_setManualMainChekedNode)
-        Me.TabPage2.Controls.Add(Me.bt_pasteNewGen)
-        Me.TabPage2.Controls.Add(Me.Label3)
+        Me.TabPage2.Controls.Add(Me.SplitContainer2)
         Me.TabPage2.Controls.Add(Me.Label1)
-        Me.TabPage2.Controls.Add(Me.lb_NewGPath)
         Me.TabPage2.Controls.Add(Me.Label4)
-        Me.TabPage2.Controls.Add(Me.lb_NewGId)
         Me.TabPage2.Controls.Add(Me.lb_maxId)
-        Me.TabPage2.Controls.Add(Me.Label2)
         Me.TabPage2.Controls.Add(Me.Label5)
         Me.TabPage2.Controls.Add(Me.lb_cfgId)
         Me.TabPage2.Controls.Add(Me.Label6)
         Me.TabPage2.Controls.Add(Me.lb_cfgPath)
         Me.TabPage2.Controls.Add(Me.lb_mainChekedNode)
-        Me.TabPage2.Controls.Add(Me.lb_peret2)
-        Me.TabPage2.Controls.Add(Me.lb_peret1)
-        Me.TabPage2.Controls.Add(Me.bt_saveID)
-        Me.TabPage2.Controls.Add(Me.bt_saveAllCfg)
-        Me.TabPage2.Controls.Add(Me.bt_compare)
-        Me.TabPage2.Controls.Add(Me.bt_replaceNewGen)
-        Me.TabPage2.Controls.Add(Me.TreeView2)
-        Me.TabPage2.Controls.Add(Me.TreeView1)
-        Me.TabPage2.Controls.Add(Me.bt_LoadNewGen)
-        Me.TabPage2.Controls.Add(Me.bt_LoadCfg)
         Me.TabPage2.Location = New System.Drawing.Point(4, 22)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(930, 462)
+        Me.TabPage2.Size = New System.Drawing.Size(976, 486)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "ID для Alpha.Server"
         Me.TabPage2.UseVisualStyleBackColor = True
         '
-        'bt_showCheckedNodesButton
+        'SplitContainer2
         '
-        Me.bt_showCheckedNodesButton.Location = New System.Drawing.Point(816, 19)
-        Me.bt_showCheckedNodesButton.Name = "bt_showCheckedNodesButton"
-        Me.bt_showCheckedNodesButton.Size = New System.Drawing.Size(75, 23)
-        Me.bt_showCheckedNodesButton.TabIndex = 41
-        Me.bt_showCheckedNodesButton.Text = "Button4"
-        Me.bt_showCheckedNodesButton.UseVisualStyleBackColor = True
-        Me.bt_showCheckedNodesButton.Visible = False
+        Me.SplitContainer2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.SplitContainer2.Location = New System.Drawing.Point(3, 0)
+        Me.SplitContainer2.Name = "SplitContainer2"
+        '
+        'SplitContainer2.Panel1
+        '
+        Me.SplitContainer2.Panel1.Controls.Add(Me.lb_peret1)
+        Me.SplitContainer2.Panel1.Controls.Add(Me.bt_LoadCfg)
+        Me.SplitContainer2.Panel1.Controls.Add(Me.bt_setManualMainChekedNode)
+        Me.SplitContainer2.Panel1.Controls.Add(Me.bt_saveAllCfg)
+        Me.SplitContainer2.Panel1.Controls.Add(Me.TreeView1)
+        '
+        'SplitContainer2.Panel2
+        '
+        Me.SplitContainer2.Panel2.Controls.Add(Me.TabControl2)
+        Me.SplitContainer2.Size = New System.Drawing.Size(973, 402)
+        Me.SplitContainer2.SplitterDistance = 458
+        Me.SplitContainer2.TabIndex = 43
+        '
+        'lb_peret1
+        '
+        Me.lb_peret1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lb_peret1.AutoSize = True
+        Me.lb_peret1.BackColor = System.Drawing.Color.White
+        Me.lb_peret1.ForeColor = System.Drawing.Color.DarkGray
+        Me.lb_peret1.Location = New System.Drawing.Point(186, 210)
+        Me.lb_peret1.Name = "lb_peret1"
+        Me.lb_peret1.Size = New System.Drawing.Size(97, 13)
+        Me.lb_peret1.TabIndex = 25
+        Me.lb_peret1.Text = "+ Перетащи сюда"
+        Me.lb_peret1.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        '
+        'bt_LoadCfg
+        '
+        Me.bt_LoadCfg.Location = New System.Drawing.Point(5, 3)
+        Me.bt_LoadCfg.Name = "bt_LoadCfg"
+        Me.bt_LoadCfg.Size = New System.Drawing.Size(100, 36)
+        Me.bt_LoadCfg.TabIndex = 29
+        Me.bt_LoadCfg.Text = "Загрузить конфигурацию"
+        Me.bt_LoadCfg.UseVisualStyleBackColor = True
         '
         'bt_setManualMainChekedNode
         '
         Me.bt_setManualMainChekedNode.Enabled = False
-        Me.bt_setManualMainChekedNode.Location = New System.Drawing.Point(215, 6)
+        Me.bt_setManualMainChekedNode.Location = New System.Drawing.Point(215, 3)
         Me.bt_setManualMainChekedNode.Name = "bt_setManualMainChekedNode"
         Me.bt_setManualMainChekedNode.Size = New System.Drawing.Size(81, 36)
         Me.bt_setManualMainChekedNode.TabIndex = 40
         Me.bt_setManualMainChekedNode.Text = "Установить на замену"
         Me.bt_setManualMainChekedNode.UseVisualStyleBackColor = True
         '
+        'bt_saveAllCfg
+        '
+        Me.bt_saveAllCfg.Location = New System.Drawing.Point(109, 3)
+        Me.bt_saveAllCfg.Name = "bt_saveAllCfg"
+        Me.bt_saveAllCfg.Size = New System.Drawing.Size(100, 36)
+        Me.bt_saveAllCfg.TabIndex = 36
+        Me.bt_saveAllCfg.Text = "Сохранить конфигурацию"
+        Me.bt_saveAllCfg.UseVisualStyleBackColor = True
+        '
+        'TreeView1
+        '
+        Me.TreeView1.AllowDrop = True
+        Me.TreeView1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TreeView1.ContextMenuStrip = Me.TreeViewContextMenu
+        Me.TreeView1.HideSelection = False
+        Me.TreeView1.Location = New System.Drawing.Point(3, 45)
+        Me.TreeView1.Name = "TreeView1"
+        Me.TreeView1.Size = New System.Drawing.Size(452, 353)
+        Me.TreeView1.TabIndex = 27
+        '
+        'TreeViewContextMenu
+        '
+        Me.TreeViewContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ПереименоватьToolStripMenuItem, Me.УдалитьToolStripMenuItem})
+        Me.TreeViewContextMenu.Name = "TreeViewContextMenu"
+        Me.TreeViewContextMenu.Size = New System.Drawing.Size(162, 48)
+        '
+        'ПереименоватьToolStripMenuItem
+        '
+        Me.ПереименоватьToolStripMenuItem.Enabled = False
+        Me.ПереименоватьToolStripMenuItem.Name = "ПереименоватьToolStripMenuItem"
+        Me.ПереименоватьToolStripMenuItem.Size = New System.Drawing.Size(161, 22)
+        Me.ПереименоватьToolStripMenuItem.Text = "Переименовать"
+        '
+        'УдалитьToolStripMenuItem
+        '
+        Me.УдалитьToolStripMenuItem.Enabled = False
+        Me.УдалитьToolStripMenuItem.Name = "УдалитьToolStripMenuItem"
+        Me.УдалитьToolStripMenuItem.Size = New System.Drawing.Size(161, 22)
+        Me.УдалитьToolStripMenuItem.Text = "Удалить"
+        '
+        'TabControl2
+        '
+        Me.TabControl2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TabControl2.Controls.Add(Me.TabPage5)
+        Me.TabControl2.Controls.Add(Me.TabPage6)
+        Me.TabControl2.Location = New System.Drawing.Point(3, 3)
+        Me.TabControl2.Name = "TabControl2"
+        Me.TabControl2.SelectedIndex = 0
+        Me.TabControl2.Size = New System.Drawing.Size(505, 396)
+        Me.TabControl2.TabIndex = 42
+        '
+        'TabPage5
+        '
+        Me.TabPage5.Controls.Add(Me.lb_peret2)
+        Me.TabPage5.Controls.Add(Me.Label3)
+        Me.TabPage5.Controls.Add(Me.lb_NewGPath)
+        Me.TabPage5.Controls.Add(Me.lb_NewGId)
+        Me.TabPage5.Controls.Add(Me.bt_showCheckedNodesButton)
+        Me.TabPage5.Controls.Add(Me.TreeView2)
+        Me.TabPage5.Controls.Add(Me.Label2)
+        Me.TabPage5.Controls.Add(Me.bt_pasteNewGen)
+        Me.TabPage5.Controls.Add(Me.bt_replaceNewGen)
+        Me.TabPage5.Controls.Add(Me.bt_LoadNewGen)
+        Me.TabPage5.Controls.Add(Me.bt_compare)
+        Me.TabPage5.Controls.Add(Me.bt_saveID)
+        Me.TabPage5.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage5.Name = "TabPage5"
+        Me.TabPage5.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage5.Size = New System.Drawing.Size(497, 370)
+        Me.TabPage5.TabIndex = 0
+        Me.TabPage5.Text = "Импорт"
+        Me.TabPage5.UseVisualStyleBackColor = True
+        '
+        'lb_peret2
+        '
+        Me.lb_peret2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lb_peret2.AutoSize = True
+        Me.lb_peret2.BackColor = System.Drawing.Color.White
+        Me.lb_peret2.ForeColor = System.Drawing.Color.DarkGray
+        Me.lb_peret2.Location = New System.Drawing.Point(210, 185)
+        Me.lb_peret2.Name = "lb_peret2"
+        Me.lb_peret2.Size = New System.Drawing.Size(97, 13)
+        Me.lb_peret2.TabIndex = 24
+        Me.lb_peret2.Text = "+ Перетащи сюда"
+        Me.lb_peret2.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        '
+        'Label3
+        '
+        Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(7, 353)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(34, 13)
+        Me.Label3.TabIndex = 16
+        Me.Label3.Text = "Путь:"
+        '
+        'lb_NewGPath
+        '
+        Me.lb_NewGPath.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.lb_NewGPath.AutoSize = True
+        Me.lb_NewGPath.Location = New System.Drawing.Point(45, 352)
+        Me.lb_NewGPath.Name = "lb_NewGPath"
+        Me.lb_NewGPath.Size = New System.Drawing.Size(28, 13)
+        Me.lb_NewGPath.TabIndex = 13
+        Me.lb_NewGPath.Text = "###"
+        '
+        'lb_NewGId
+        '
+        Me.lb_NewGId.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.lb_NewGId.AutoSize = True
+        Me.lb_NewGId.Location = New System.Drawing.Point(45, 334)
+        Me.lb_NewGId.Name = "lb_NewGId"
+        Me.lb_NewGId.Size = New System.Drawing.Size(28, 13)
+        Me.lb_NewGId.TabIndex = 14
+        Me.lb_NewGId.Text = "###"
+        '
+        'bt_showCheckedNodesButton
+        '
+        Me.bt_showCheckedNodesButton.Enabled = False
+        Me.bt_showCheckedNodesButton.Location = New System.Drawing.Point(417, 6)
+        Me.bt_showCheckedNodesButton.Name = "bt_showCheckedNodesButton"
+        Me.bt_showCheckedNodesButton.Size = New System.Drawing.Size(75, 36)
+        Me.bt_showCheckedNodesButton.TabIndex = 41
+        Me.bt_showCheckedNodesButton.Text = "Отметить несколько"
+        Me.bt_showCheckedNodesButton.UseVisualStyleBackColor = True
+        '
+        'TreeView2
+        '
+        Me.TreeView2.AllowDrop = True
+        Me.TreeView2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TreeView2.HideSelection = False
+        Me.TreeView2.Location = New System.Drawing.Point(6, 45)
+        Me.TreeView2.Name = "TreeView2"
+        Me.TreeView2.Size = New System.Drawing.Size(485, 286)
+        Me.TreeView2.TabIndex = 28
+        '
+        'Label2
+        '
+        Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(7, 334)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(19, 13)
+        Me.Label2.TabIndex = 17
+        Me.Label2.Text = "Id:"
+        '
         'bt_pasteNewGen
         '
-        Me.bt_pasteNewGen.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.bt_pasteNewGen.Enabled = False
-        Me.bt_pasteNewGen.Location = New System.Drawing.Point(327, 6)
+        Me.bt_pasteNewGen.Location = New System.Drawing.Point(6, 6)
         Me.bt_pasteNewGen.Name = "bt_pasteNewGen"
         Me.bt_pasteNewGen.Size = New System.Drawing.Size(67, 36)
         Me.bt_pasteNewGen.TabIndex = 39
         Me.bt_pasteNewGen.Text = "< Вставить"
         Me.bt_pasteNewGen.UseVisualStyleBackColor = True
         '
-        'Label3
+        'bt_replaceNewGen
         '
-        Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(472, 402)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(34, 13)
-        Me.Label3.TabIndex = 16
-        Me.Label3.Text = "Путь:"
+        Me.bt_replaceNewGen.Enabled = False
+        Me.bt_replaceNewGen.Location = New System.Drawing.Point(80, 6)
+        Me.bt_replaceNewGen.Name = "bt_replaceNewGen"
+        Me.bt_replaceNewGen.Size = New System.Drawing.Size(55, 36)
+        Me.bt_replaceNewGen.TabIndex = 34
+        Me.bt_replaceNewGen.Text = "< Замена"
+        Me.bt_replaceNewGen.UseVisualStyleBackColor = True
+        '
+        'bt_LoadNewGen
+        '
+        Me.bt_LoadNewGen.Location = New System.Drawing.Point(141, 6)
+        Me.bt_LoadNewGen.Name = "bt_LoadNewGen"
+        Me.bt_LoadNewGen.Size = New System.Drawing.Size(118, 36)
+        Me.bt_LoadNewGen.TabIndex = 30
+        Me.bt_LoadNewGen.Text = "Загрузить сгенеренный файл"
+        Me.bt_LoadNewGen.UseVisualStyleBackColor = True
+        '
+        'bt_compare
+        '
+        Me.bt_compare.Enabled = False
+        Me.bt_compare.Location = New System.Drawing.Point(265, 6)
+        Me.bt_compare.Name = "bt_compare"
+        Me.bt_compare.Size = New System.Drawing.Size(70, 36)
+        Me.bt_compare.TabIndex = 31
+        Me.bt_compare.Text = "Раздать ID"
+        Me.bt_compare.UseVisualStyleBackColor = True
+        '
+        'bt_saveID
+        '
+        Me.bt_saveID.Location = New System.Drawing.Point(341, 6)
+        Me.bt_saveID.Name = "bt_saveID"
+        Me.bt_saveID.Size = New System.Drawing.Size(70, 36)
+        Me.bt_saveID.TabIndex = 35
+        Me.bt_saveID.Text = "Сохранить c ID"
+        Me.bt_saveID.UseVisualStyleBackColor = True
+        '
+        'TabPage6
+        '
+        Me.TabPage6.Controls.Add(Me.DataGridView3)
+        Me.TabPage6.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage6.Name = "TabPage6"
+        Me.TabPage6.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage6.Size = New System.Drawing.Size(497, 370)
+        Me.TabPage6.TabIndex = 1
+        Me.TabPage6.Text = "Свойства"
+        Me.TabPage6.UseVisualStyleBackColor = True
+        '
+        'DataGridView3
+        '
+        Me.DataGridView3.AllowUserToAddRows = False
+        Me.DataGridView3.AllowUserToDeleteRows = False
+        Me.DataGridView3.AllowUserToResizeRows = False
+        Me.DataGridView3.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.DataGridView3.BackgroundColor = System.Drawing.SystemColors.Window
+        Me.DataGridView3.Location = New System.Drawing.Point(6, 20)
+        Me.DataGridView3.MultiSelect = False
+        Me.DataGridView3.Name = "DataGridView3"
+        Me.DataGridView3.RowHeadersVisible = False
+        Me.DataGridView3.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.DataGridView3.ShowEditingIcon = False
+        Me.DataGridView3.Size = New System.Drawing.Size(485, 344)
+        Me.DataGridView3.TabIndex = 6
         '
         'Label1
         '
         Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(11, 433)
+        Me.Label1.Location = New System.Drawing.Point(11, 457)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(64, 13)
         Me.Label1.TabIndex = 38
         Me.Label1.Text = "На замену:"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'lb_NewGPath
-        '
-        Me.lb_NewGPath.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.lb_NewGPath.AutoSize = True
-        Me.lb_NewGPath.Location = New System.Drawing.Point(515, 402)
-        Me.lb_NewGPath.Name = "lb_NewGPath"
-        Me.lb_NewGPath.Size = New System.Drawing.Size(19, 13)
-        Me.lb_NewGPath.TabIndex = 13
-        Me.lb_NewGPath.Text = "***"
-        '
         'Label4
         '
         Me.Label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(31, 398)
+        Me.Label4.Location = New System.Drawing.Point(31, 422)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(42, 13)
         Me.Label4.TabIndex = 12
         Me.Label4.Text = "Max Id:"
         Me.Label4.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
-        'lb_NewGId
-        '
-        Me.lb_NewGId.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.lb_NewGId.AutoSize = True
-        Me.lb_NewGId.Location = New System.Drawing.Point(515, 382)
-        Me.lb_NewGId.Name = "lb_NewGId"
-        Me.lb_NewGId.Size = New System.Drawing.Size(19, 13)
-        Me.lb_NewGId.TabIndex = 14
-        Me.lb_NewGId.Text = "***"
-        '
         'lb_maxId
         '
         Me.lb_maxId.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lb_maxId.AutoSize = True
-        Me.lb_maxId.Location = New System.Drawing.Point(79, 399)
+        Me.lb_maxId.Location = New System.Drawing.Point(79, 422)
         Me.lb_maxId.Name = "lb_maxId"
-        Me.lb_maxId.Size = New System.Drawing.Size(19, 13)
+        Me.lb_maxId.Size = New System.Drawing.Size(28, 13)
         Me.lb_maxId.TabIndex = 9
-        Me.lb_maxId.Text = "***"
-        '
-        'Label2
-        '
-        Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(485, 382)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(19, 13)
-        Me.Label2.TabIndex = 17
-        Me.Label2.Text = "Id:"
+        Me.lb_maxId.Text = "###"
         '
         'Label5
         '
         Me.Label5.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(54, 381)
+        Me.Label5.Location = New System.Drawing.Point(54, 405)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(19, 13)
         Me.Label5.TabIndex = 11
@@ -374,17 +590,17 @@ Partial Class MainForm
         '
         Me.lb_cfgId.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lb_cfgId.AutoSize = True
-        Me.lb_cfgId.Location = New System.Drawing.Point(79, 382)
+        Me.lb_cfgId.Location = New System.Drawing.Point(79, 405)
         Me.lb_cfgId.Name = "lb_cfgId"
-        Me.lb_cfgId.Size = New System.Drawing.Size(19, 13)
+        Me.lb_cfgId.Size = New System.Drawing.Size(28, 13)
         Me.lb_cfgId.TabIndex = 8
-        Me.lb_cfgId.Text = "***"
+        Me.lb_cfgId.Text = "###"
         '
         'Label6
         '
         Me.Label6.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(41, 416)
+        Me.Label6.Location = New System.Drawing.Point(41, 440)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(34, 13)
         Me.Label6.TabIndex = 10
@@ -395,129 +611,21 @@ Partial Class MainForm
         '
         Me.lb_cfgPath.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lb_cfgPath.AutoSize = True
-        Me.lb_cfgPath.Location = New System.Drawing.Point(79, 418)
+        Me.lb_cfgPath.Location = New System.Drawing.Point(79, 440)
         Me.lb_cfgPath.Name = "lb_cfgPath"
-        Me.lb_cfgPath.Size = New System.Drawing.Size(19, 13)
+        Me.lb_cfgPath.Size = New System.Drawing.Size(28, 13)
         Me.lb_cfgPath.TabIndex = 7
-        Me.lb_cfgPath.Text = "***"
+        Me.lb_cfgPath.Text = "###"
         '
         'lb_mainChekedNode
         '
         Me.lb_mainChekedNode.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lb_mainChekedNode.AutoSize = True
-        Me.lb_mainChekedNode.Location = New System.Drawing.Point(79, 436)
+        Me.lb_mainChekedNode.Location = New System.Drawing.Point(79, 459)
         Me.lb_mainChekedNode.Name = "lb_mainChekedNode"
-        Me.lb_mainChekedNode.Size = New System.Drawing.Size(19, 13)
+        Me.lb_mainChekedNode.Size = New System.Drawing.Size(28, 13)
         Me.lb_mainChekedNode.TabIndex = 37
-        Me.lb_mainChekedNode.Text = "***"
-        '
-        'lb_peret2
-        '
-        Me.lb_peret2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom), System.Windows.Forms.AnchorStyles)
-        Me.lb_peret2.AutoSize = True
-        Me.lb_peret2.BackColor = System.Drawing.Color.White
-        Me.lb_peret2.ForeColor = System.Drawing.Color.DarkGray
-        Me.lb_peret2.Location = New System.Drawing.Point(644, 203)
-        Me.lb_peret2.Name = "lb_peret2"
-        Me.lb_peret2.Size = New System.Drawing.Size(97, 13)
-        Me.lb_peret2.TabIndex = 24
-        Me.lb_peret2.Text = "+ Перетащи сюда"
-        Me.lb_peret2.TextAlign = System.Drawing.ContentAlignment.TopCenter
-        '
-        'lb_peret1
-        '
-        Me.lb_peret1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.lb_peret1.AutoSize = True
-        Me.lb_peret1.BackColor = System.Drawing.Color.White
-        Me.lb_peret1.ForeColor = System.Drawing.Color.DarkGray
-        Me.lb_peret1.Location = New System.Drawing.Point(183, 203)
-        Me.lb_peret1.Name = "lb_peret1"
-        Me.lb_peret1.Size = New System.Drawing.Size(97, 13)
-        Me.lb_peret1.TabIndex = 25
-        Me.lb_peret1.Text = "+ Перетащи сюда"
-        Me.lb_peret1.TextAlign = System.Drawing.ContentAlignment.TopCenter
-        '
-        'bt_saveID
-        '
-        Me.bt_saveID.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.bt_saveID.Location = New System.Drawing.Point(700, 6)
-        Me.bt_saveID.Name = "bt_saveID"
-        Me.bt_saveID.Size = New System.Drawing.Size(100, 36)
-        Me.bt_saveID.TabIndex = 35
-        Me.bt_saveID.Text = "Сохранить c ID"
-        Me.bt_saveID.UseVisualStyleBackColor = True
-        '
-        'bt_saveAllCfg
-        '
-        Me.bt_saveAllCfg.Location = New System.Drawing.Point(109, 6)
-        Me.bt_saveAllCfg.Name = "bt_saveAllCfg"
-        Me.bt_saveAllCfg.Size = New System.Drawing.Size(100, 36)
-        Me.bt_saveAllCfg.TabIndex = 36
-        Me.bt_saveAllCfg.Text = "Сохранить конфигурацию"
-        Me.bt_saveAllCfg.UseVisualStyleBackColor = True
-        '
-        'bt_compare
-        '
-        Me.bt_compare.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.bt_compare.Enabled = False
-        Me.bt_compare.Location = New System.Drawing.Point(594, 6)
-        Me.bt_compare.Name = "bt_compare"
-        Me.bt_compare.Size = New System.Drawing.Size(100, 36)
-        Me.bt_compare.TabIndex = 31
-        Me.bt_compare.Text = "Раздать ID"
-        Me.bt_compare.UseVisualStyleBackColor = True
-        '
-        'bt_replaceNewGen
-        '
-        Me.bt_replaceNewGen.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.bt_replaceNewGen.Enabled = False
-        Me.bt_replaceNewGen.Location = New System.Drawing.Point(400, 6)
-        Me.bt_replaceNewGen.Name = "bt_replaceNewGen"
-        Me.bt_replaceNewGen.Size = New System.Drawing.Size(55, 36)
-        Me.bt_replaceNewGen.TabIndex = 34
-        Me.bt_replaceNewGen.Text = "< Замена"
-        Me.bt_replaceNewGen.UseVisualStyleBackColor = True
-        '
-        'TreeView2
-        '
-        Me.TreeView2.AllowDrop = True
-        Me.TreeView2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom), System.Windows.Forms.AnchorStyles)
-        Me.TreeView2.HideSelection = False
-        Me.TreeView2.Location = New System.Drawing.Point(470, 48)
-        Me.TreeView2.Name = "TreeView2"
-        Me.TreeView2.Size = New System.Drawing.Size(450, 328)
-        Me.TreeView2.TabIndex = 28
-        '
-        'TreeView1
-        '
-        Me.TreeView1.AllowDrop = True
-        Me.TreeView1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.TreeView1.HideSelection = False
-        Me.TreeView1.Location = New System.Drawing.Point(3, 48)
-        Me.TreeView1.Name = "TreeView1"
-        Me.TreeView1.Size = New System.Drawing.Size(450, 328)
-        Me.TreeView1.TabIndex = 27
-        '
-        'bt_LoadNewGen
-        '
-        Me.bt_LoadNewGen.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.bt_LoadNewGen.Location = New System.Drawing.Point(470, 6)
-        Me.bt_LoadNewGen.Name = "bt_LoadNewGen"
-        Me.bt_LoadNewGen.Size = New System.Drawing.Size(118, 36)
-        Me.bt_LoadNewGen.TabIndex = 30
-        Me.bt_LoadNewGen.Text = "Загрузить сгенеренный файл"
-        Me.bt_LoadNewGen.UseVisualStyleBackColor = True
-        '
-        'bt_LoadCfg
-        '
-        Me.bt_LoadCfg.Location = New System.Drawing.Point(3, 6)
-        Me.bt_LoadCfg.Name = "bt_LoadCfg"
-        Me.bt_LoadCfg.Size = New System.Drawing.Size(100, 36)
-        Me.bt_LoadCfg.TabIndex = 29
-        Me.bt_LoadCfg.Text = "Загрузить конфигурацию"
-        Me.bt_LoadCfg.UseVisualStyleBackColor = True
+        Me.lb_mainChekedNode.Text = "###"
         '
         'TabPage1
         '
@@ -535,7 +643,7 @@ Partial Class MainForm
         Me.TabPage1.Location = New System.Drawing.Point(4, 22)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(930, 462)
+        Me.TabPage1.Size = New System.Drawing.Size(976, 486)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Синхронизация файлов ВУ"
         Me.TabPage1.UseVisualStyleBackColor = True
@@ -595,7 +703,7 @@ Partial Class MainForm
         Me.TabPage3.Controls.Add(Me.DataGridView2)
         Me.TabPage3.Location = New System.Drawing.Point(4, 22)
         Me.TabPage3.Name = "TabPage3"
-        Me.TabPage3.Size = New System.Drawing.Size(930, 462)
+        Me.TabPage3.Size = New System.Drawing.Size(976, 486)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "Backup"
         Me.TabPage3.UseVisualStyleBackColor = True
@@ -658,7 +766,7 @@ Partial Class MainForm
         Me.DataGridView2.RowHeadersVisible = False
         Me.DataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DataGridView2.ShowEditingIcon = False
-        Me.DataGridView2.Size = New System.Drawing.Size(922, 351)
+        Me.DataGridView2.Size = New System.Drawing.Size(558, 178)
         Me.DataGridView2.TabIndex = 5
         '
         'OpenFileDialog1
@@ -677,18 +785,37 @@ Partial Class MainForm
         Me.LogTextBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.LogTextBox.BackColor = System.Drawing.SystemColors.Window
-        Me.LogTextBox.Location = New System.Drawing.Point(0, 490)
+        Me.LogTextBox.Location = New System.Drawing.Point(0, 514)
         Me.LogTextBox.Name = "LogTextBox"
         Me.LogTextBox.ReadOnly = True
-        Me.LogTextBox.Size = New System.Drawing.Size(938, 44)
+        Me.LogTextBox.Size = New System.Drawing.Size(984, 44)
         Me.LogTextBox.TabIndex = 18
         Me.LogTextBox.Text = ""
+        '
+        'TreeImageList
+        '
+        Me.TreeImageList.ImageStream = CType(resources.GetObject("TreeImageList.ImageStream"), System.Windows.Forms.ImageListStreamer)
+        Me.TreeImageList.TransparentColor = System.Drawing.Color.Transparent
+        Me.TreeImageList.Images.SetKeyName(0, "folder.png")
+        Me.TreeImageList.Images.SetKeyName(1, "1.png")
+        Me.TreeImageList.Images.SetKeyName(2, "2.png")
+        Me.TreeImageList.Images.SetKeyName(3, "3.png")
+        Me.TreeImageList.Images.SetKeyName(4, "4.png")
+        Me.TreeImageList.Images.SetKeyName(5, "5.png")
+        Me.TreeImageList.Images.SetKeyName(6, "6.png")
+        Me.TreeImageList.Images.SetKeyName(7, "7.png")
+        Me.TreeImageList.Images.SetKeyName(8, "8.png")
+        Me.TreeImageList.Images.SetKeyName(9, "9.png")
+        Me.TreeImageList.Images.SetKeyName(10, "10.png")
+        Me.TreeImageList.Images.SetKeyName(11, "11.png")
+        Me.TreeImageList.Images.SetKeyName(12, "12.png")
+        Me.TreeImageList.Images.SetKeyName(13, "13.png")
         '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(938, 537)
+        Me.ClientSize = New System.Drawing.Size(984, 561)
         Me.Controls.Add(Me.LogTextBox)
         Me.Controls.Add(Me.TabControl1)
         Me.Name = "MainForm"
@@ -699,6 +826,17 @@ Partial Class MainForm
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage2.ResumeLayout(False)
         Me.TabPage2.PerformLayout()
+        Me.SplitContainer2.Panel1.ResumeLayout(False)
+        Me.SplitContainer2.Panel1.PerformLayout()
+        Me.SplitContainer2.Panel2.ResumeLayout(False)
+        CType(Me.SplitContainer2, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitContainer2.ResumeLayout(False)
+        Me.TreeViewContextMenu.ResumeLayout(False)
+        Me.TabControl2.ResumeLayout(False)
+        Me.TabPage5.ResumeLayout(False)
+        Me.TabPage5.PerformLayout()
+        Me.TabPage6.ResumeLayout(False)
+        CType(Me.DataGridView3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage1.ResumeLayout(False)
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox4.PerformLayout()
@@ -766,4 +904,13 @@ Partial Class MainForm
     Friend WithEvents bt_pasteNewGen As Button
     Friend WithEvents bt_setManualMainChekedNode As Button
     Friend WithEvents bt_showCheckedNodesButton As Button
+    Friend WithEvents TreeViewContextMenu As ContextMenuStrip
+    Friend WithEvents ПереименоватьToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents УдалитьToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents TreeImageList As ImageList
+    Friend WithEvents TabControl2 As TabControl
+    Friend WithEvents TabPage5 As TabPage
+    Friend WithEvents TabPage6 As TabPage
+    Friend WithEvents SplitContainer2 As SplitContainer
+    Friend WithEvents DataGridView3 As DataGridView
 End Class
